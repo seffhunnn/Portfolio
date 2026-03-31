@@ -101,7 +101,7 @@ export default function Projects() {
     <AnimatedSection id="projects" className="py-32 relative z-10">
       <div className="section-container">
         <AnimatedItem>
-          <p className="text-xs font-mono text-gray-600 uppercase tracking-widest mb-3">04 / projects</p>
+          <p className="text-xs font-mono text-gray-400 uppercase tracking-widest mb-3">04 / projects</p>
           <h2 className="text-3xl sm:text-4xl font-bold text-white mb-2 tracking-tight">Showcase</h2>
           <div className="section-divider mb-12" />
         </AnimatedItem>

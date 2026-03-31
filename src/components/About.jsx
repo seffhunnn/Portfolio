@@ -8,7 +8,7 @@ export default function About() {
       <div className="section-container">
         {/* Section label */}
         <AnimatedItem>
-          <p className="text-xs font-mono text-gray-600 uppercase tracking-widest mb-3">01 / about</p>
+          <p className="text-xs font-mono text-gray-400 uppercase tracking-widest mb-3">01 / about</p>
           <h2 className="text-3xl sm:text-4xl font-bold text-white mb-2">About Me</h2>
           <div className="section-divider" />
         </AnimatedItem>

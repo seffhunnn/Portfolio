@@ -72,7 +72,7 @@ export default function Skills() {
       <div className="section-container">
         {/* Heading */}
         <AnimatedItem>
-          <p className="text-xs font-mono text-gray-600 uppercase tracking-widest mb-3">
+          <p className="text-xs font-mono text-gray-400 uppercase tracking-widest mb-3">
             03 / skills
           </p>
           <h2 className="text-3xl sm:text-4xl font-bold text-white mb-2">Tech Stack</h2>

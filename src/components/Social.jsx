@@ -52,7 +52,7 @@ export default function Social() {
     <AnimatedSection id="social" className="py-32 relative z-10">
       <div className="section-container">
         <AnimatedItem>
-          <p className="text-xs font-mono text-gray-600 uppercase tracking-widest mb-3">05 / contact</p>
+          <p className="text-xs font-mono text-gray-400 uppercase tracking-widest mb-3">05 / contact</p>
           <h2 className="text-3xl sm:text-4xl font-bold text-white mb-2">Connect</h2>
           <div className="section-divider mb-12" />
         </AnimatedItem>
@@ -93,7 +93,7 @@ export default function Social() {
         {/* Huge Email Signature */}
         <AnimatedItem>
           <div className="mt-24 text-center">
-            <p className="text-xs font-mono text-gray-600 uppercase tracking-widest mb-4">ready to build something?</p>
+            <p className="text-xs font-mono text-gray-400 uppercase tracking-widest mb-4">ready to build something?</p>
             <a
               href={`mailto:${personal.email}`}
               className="group relative inline-block text-2xl sm:text-4xl font-black text-white transition-all hover:tracking-tight"

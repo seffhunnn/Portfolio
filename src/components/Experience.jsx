@@ -24,7 +24,7 @@ export default function Experience() {
     <AnimatedSection id="experience" className="py-32 relative z-10">
       <div className="section-container">
         <AnimatedItem>
-          <p className="text-xs font-mono text-gray-600 uppercase tracking-widest mb-3">02 / experience</p>
+          <p className="text-xs font-mono text-gray-400 uppercase tracking-widest mb-3">02 / experience</p>
           <h2 className="text-3xl sm:text-4xl font-bold text-white mb-2">Experience</h2>
           <div className="section-divider" />
         </AnimatedItem>
