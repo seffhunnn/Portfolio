@@ -65,10 +65,7 @@ export const experiences = [
 ]
 
 export const techStack = [
-  'TensorFlow', 'PyTorch', 'Scikit-learn', 'CNN', 'NumPy', 'Pandas','Matplotlib', 'Hugging Face', 'LangChain','JavaScript', 'TypeScript', 'Python', 'Java', 'SQL', 'HTML5', 'XML',
-  'React.js', 'Node.js', 'Express.js', 'Next.js', 'TailwindCSS',
-  'Framer Motion', 'Redux', 'Bootstrap','Android', 'Firebase',
-  'MongoDB', 'Supabase', 'Cloudinary'
+  'React.js','RAG','TensorFlow', 'PyTorch','Firebase', 'Scikit-learn', 'Convolutional Neural Network(CNN)', 'Semantic Search','NumPy', 'Pandas','Matplotlib', 'Hugging Face', 'LangChain','JavaScript', 'TypeScript', 'Python', 'Java', 'SQL', 'HTML5', 'XML','TinyLlama','Vector Database','Embeddings','Node.js', 'Express.js', 'Next.js', 'TailwindCSS','Framer Motion', 'Redux', 'Bootstrap','Android', 'MongoDB', 'Supabase', 'Cloudinary'
 ]
 
 export const toolsAndPlatforms = [
@@ -79,7 +76,7 @@ export const projects = [
   {
     title: 'FragVerse Wallpaper App',
     description: 'A wallpaper platform to discover vibe based collections, curated drops, and exclusive FragVerse uploads.',
-    tags: ['React', 'Unsplash API', 'Cloudinary', 'Firebase Auth','React Router','Responsive UI','Supabase','Exclusive Uploads','Tailwind CSS'],
+    tags: ['React','Vite', 'Unsplash API', 'Cloudinary', 'Firebase Auth','React Router','Responsive User Interface','Supabase','Exclusive Uploads','Tailwind CSS'],
     github: 'https://github.com/seffhunnn/frag-verse-wallpaper-app',
     live: 'https://fragverse.vercel.app/',
     image: '/projects/fragverse.png',

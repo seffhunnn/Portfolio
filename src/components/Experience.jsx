@@ -24,7 +24,7 @@ export default function Experience() {
     <AnimatedSection id="experience" className="py-32 relative z-10">
       <div className="section-container">
         <AnimatedItem>
-          <p className="text-xs font-mono text-gray-400 uppercase tracking-widest mb-3">02 / experience</p>
+          <p className="text-xs font-mono text-gray-500 uppercase tracking-widest mb-3">02 / experience</p>
           <h2 className="text-3xl sm:text-4xl font-bold text-white mb-2">Experience</h2>
           <div className="section-divider" />
         </AnimatedItem>
@@ -45,26 +45,26 @@ export default function Experience() {
                     {/* Dot on timeline */}
                     <div className="absolute -left-1.5 top-5 w-3 h-3 rounded-full border border-white/20 bg-black hidden sm:block" />
 
-                    <div className="glass-card rounded-2xl p-6">
-                      <div className="flex flex-wrap items-start justify-between gap-3 mb-4">
-                        <div className="flex items-center gap-3">
-                          <span className={`inline-flex items-center gap-1.5 text-[11px] font-mono px-2.5 py-1 rounded-full border ${colorClass}`}>
-                            <Icon size={11} />
+                    <div className="glass-card rounded-2xl p-7">
+                      <div className="flex flex-wrap items-start justify-between gap-4 mb-4">
+                        <div className="flex items-center gap-4">
+                          <span className={`inline-flex items-center gap-1.5 text-xs font-mono px-2.5 py-1 rounded-full border ${colorClass}`}>
+                            <Icon size={12} />
                             {exp.type}
                           </span>
-                          <h3 className="text-white font-semibold text-sm">{exp.role}</h3>
+                          <h3 className="text-white font-bold text-lg tracking-tight">{exp.role}</h3>
                         </div>
-                        <span className="text-xs font-mono text-gray-600 shrink-0">{exp.period}</span>
+                        <span className="text-sm font-mono text-gray-500 shrink-0">{exp.period}</span>
                       </div>
 
-                      <p className="text-gray-500 text-sm mb-1 font-medium">{exp.company}</p>
-                      <p className="text-gray-400 text-sm leading-6 mb-4">{exp.description}</p>
+                      <p className="text-gray-400 text-base mb-2 font-semibold">{exp.company}</p>
+                      <p className="text-gray-400 text-[15px] leading-relaxed mb-6">{exp.description}</p>
 
                       <div className="flex flex-wrap gap-2">
                         {exp.tags.map((tag) => (
                           <span 
                             key={tag} 
-                            className={`font-mono text-[10px] px-2 py-0.5 rounded-full border transition-all duration-300 ${getTagColor(tag)}`}
+                            className={`font-mono text-[12px] px-3 py-1 rounded-full border transition-all duration-300 ${getTagColor(tag)}`}
                           >
                             {tag}
                           </span>

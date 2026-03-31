@@ -20,7 +20,7 @@ const tagVariants = {
 function SkillCard({ title, items }) {
   return (
     <div className="mb-10 last:mb-0">
-      <h3 className="text-[11px] font-mono text-gray-600 uppercase tracking-[0.25em] mb-6 ml-2">
+      <h3 className="text-[11px] font-mono text-gray-400 uppercase tracking-[0.25em] mb-6 ml-2">
         {title}
       </h3>
       <div
@@ -55,7 +55,7 @@ function SkillCard({ title, items }) {
                 transition: { duration: 0.2, ease: 'easeOut' },
               }}
               viewport={{ once: true }}
-              className={`font-mono text-[11px] px-4 py-2 rounded-full border cursor-default select-none transition-all duration-300 ${getTagColor(skill)}`}
+              className={`font-mono text-[12px] px-5 py-2.5 rounded-full border cursor-default select-none transition-all duration-300 ${getTagColor(skill)}`}
             >
               {skill}
             </motion.span>
@@ -72,7 +72,7 @@ export default function Skills() {
       <div className="section-container">
         {/* Heading */}
         <AnimatedItem>
-          <p className="text-xs font-mono text-gray-400 uppercase tracking-widest mb-3">
+          <p className="text-xs font-mono text-gray-500 uppercase tracking-widest mb-3">
             03 / skills
           </p>
           <h2 className="text-3xl sm:text-4xl font-bold text-white mb-2">Tech Stack</h2>
@@ -80,7 +80,7 @@ export default function Skills() {
         </AnimatedItem>
 
         <AnimatedItem>
-          <p className="text-gray-500 text-sm mb-12 max-w-lg leading-relaxed">
+          <p className="text-gray-500 text-[15px] mb-12 max-w-lg leading-relaxed">
             The tools and technologies I enjoy working with across development, AI, and deployment workflows.
           </p>
         </AnimatedItem>

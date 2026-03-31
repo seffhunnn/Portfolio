@@ -72,11 +72,11 @@ function ProjectCard({ project }) {
 
       {/* Content Area */}
       <div className="p-6 flex flex-col flex-grow">
-        <h3 className="text-white font-bold text-lg mb-3 tracking-tight group-hover:text-white transition-colors">
+        <h3 className="text-white font-bold text-[18px] mb-3 tracking-tight group-hover:text-white transition-colors">
           {project.title}
         </h3>
         
-        <p className="text-gray-500 text-sm leading-relaxed mb-6 flex-grow line-clamp-3 group-hover:text-gray-400 transition-colors">
+        <p className="text-gray-500 text-[15px] leading-relaxed mb-6 flex-grow line-clamp-3 group-hover:text-gray-400 transition-colors">
           {project.description}
         </p>
 
@@ -85,7 +85,7 @@ function ProjectCard({ project }) {
           {project.tags.map((tag, tagIndex) => (
             <span 
               key={`${tag}-${tagIndex}`} 
-              className={`font-mono text-[10px] px-2.5 py-1 rounded-full border transition-all duration-300 ${getTagColor(tag)}`}
+              className={`font-mono text-[13px] px-3 py-1 rounded-full border transition-all duration-300 ${getTagColor(tag)}`}
             >
               {tag}
             </span>
@@ -101,7 +101,7 @@ export default function Projects() {
     <AnimatedSection id="projects" className="py-32 relative z-10">
       <div className="section-container">
         <AnimatedItem>
-          <p className="text-xs font-mono text-gray-400 uppercase tracking-widest mb-3">04 / projects</p>
+          <p className="text-xs font-mono text-gray-500 uppercase tracking-widest mb-3">04 / projects</p>
           <h2 className="text-3xl sm:text-4xl font-bold text-white mb-2 tracking-tight">Showcase</h2>
           <div className="section-divider mb-12" />
         </AnimatedItem>
