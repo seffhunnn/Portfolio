@@ -13,7 +13,7 @@ const typeIcon = {
 
 const typeColor = {
   Internship: 'text-blue-400 border-blue-400/20 bg-blue-400/5',
-  'Open Source': 'text-green-400 border-green-400/20 bg-green-400/5',
+  'Open Source': 'text-cyan-400 border-cyan-400/20 bg-cyan-400/5',
   Hackathon: 'text-yellow-400 border-yellow-400/20 bg-yellow-400/5',
   Ambassador: 'text-purple-400 border-purple-400/20 bg-purple-400/5',
   'Part-time': 'text-emerald-400 border-emerald-400/20 bg-emerald-400/5',

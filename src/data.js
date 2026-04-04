@@ -12,7 +12,7 @@ export const personal = {
 }
 
 export const about = {
-  intro: `I’m a Computer Science Engineering undergraduate (Class of 2027) building software and testing applications with a focus on reliability, clean code, and performance. My experience includes working as a Software Tester at Nothing(R) and previously as an ML Intern at Infosys Springboard, where I worked with machine learning concepts and real-world implementations. Alongside development and testing, I continuously strengthen my problem-solving skills through Data Structures & Algorithms and apply AI-driven approaches to create smarter software solutions.`,
+  intro: `I’m a Computer Science Engineering undergraduate (Class of 2027) building software and testing applications with a focus on reliability, clean code, and performance. My experience includes working as a Software Tester at Nothing(R), contributing to open-source projects, and previously as an ML Intern at Infosys Springboard, where I worked with machine learning concepts and real-world implementations. Alongside development and testing, I continuously strengthen my problem-solving skills through Data Structures & Algorithms and apply AI-driven approaches to create smarter software solutions.`,
   education: [
     {
       degree: 'B.Tech — Computer Science & Engineering',
@@ -33,10 +33,18 @@ export const about = {
       grade: '83%',
     },
   ],
-  interests: ['Software Development', 'Software Testing', 'AI-Powered Solutions', 'Machine Learning','Deployment','Video Editing'],
+  interests: ['Software Development','Open Source','Software Testing', 'AI-Powered Solutions', 'Machine Learning','Video Editing'],
 }
 
 export const experiences = [
+  {
+    type: 'Open Source',
+    role: 'Open Source Contributor',
+    company: 'anomalyco/models.dev',
+    period: null,
+    description: 'Contributed to `anomalyco/models.dev` by fixing model metadata issues and improving accuracy of model details across the repository.',
+    tags: ['Open Source', 'GitHub', 'Pull Requests', 'Issue Tracking', 'Metadata', 'Collaboration'],
+  },
   {
     type: 'Part-time',
     role: 'Software Tester',
