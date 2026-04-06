@@ -8,7 +8,7 @@ export const personal = {
   linkedin: 'https://www.linkedin.com/in/seffhunnn/',
   leetcode: 'https://leetcode.com/u/seffhunnn/',
   codechef: 'https://www.codechef.com/users/seffhunnn',
-  resumeUrl: 'https://drive.google.com/uc?export=download&id=1jtcVnIAWxxHRuDGxHEN-ESl0USbsdgt9',
+  resumeUrl: 'https://drive.google.com/uc?export=download&id=1Zw7Z3Qvrq-hT4Y4pMX9EjwrtgVu9RgO5',
 }
 
 export const about = {
