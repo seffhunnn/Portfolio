@@ -1,7 +1,7 @@
 <div align="center">
 
 # Hi, I'm Saif 👋
-### Software Developer & Software Tester
+### Software Developer
 
 [![](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/seffhunnn/)
 [![](https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/seffhunnn)
@@ -16,11 +16,13 @@
 
 ## 📖 About Me
 
-I’m a **Computer Science Engineering undergraduate** (Class of 2027) with a deep passion for building reliable, performant, and clean software. My journey spans across software development, AI/ML research, and professional software testing.
+I’m a Computer Science Engineering undergraduate (Class of 2027) who genuinely enjoys building clean, reliable, and efficient software. Over time, I’ve explored different areas of tech, including software development, AI/ML, open-source, and software testing, which has helped me grow into a more well-rounded engineer.
 
-Currently, I serve as a **Software Tester at Nothing Technology Limited**, where I focus on User Acceptance Testing (UAT) and ensuring product stability. My technical background includes a Machine Learning internship at **Infosys Springboard**, where I developed AI-driven agricultural solutions, and a Web Development internship at **IBM SkillsBuild**.
+Currently, I work as a Software Tester at Nothing Technology Limited, where I focus on User Acceptance Testing (UAT) and making sure products feel stable and polished before they reach users. I’ve also had the opportunity to work as a Machine Learning Intern at Infosys Springboard, where I built AI-based solutions for agriculture, and as a Web Development Intern at IBM SkillsBuild.
 
-I’m constantly refining my problem-solving skills through **DSA** and exploring the intersection of **AI-driven development** and **human-centric design**.
+Outside of internships, I enjoy contributing to open-source projects, solving real issues, learning from other developers, and improving tools that people actually use. It has been one of the best ways for me to improve my debugging skills, understand production-level code, and collaborate in real engineering workflows.
+
+I’m always working on improving my problem-solving skills through DSA, while continuing to explore how AI-driven development and thoughtful user-focused design can come together to create better software.
 
 ---
 
@@ -90,16 +92,7 @@ A RAG-based AI system for querying PDF documents with semantic context.
 *   **Software Tester** @ Nothing Technology Limited (Oct 2024 – Present)
 *   **Machine Learning Intern** @ Infosys Springboard (Nov 2025 – Jan 2026)
 *   **Web Development Intern** @ IBM SkillsBuild (July 2025 – Aug 2025)
-*   **Open Source Contributor** @ anomalyco/models.dev
-
----
-
-## 📊 My GitHub Stats
-
-<div align="center">
-  <img src="https://github-readme-stats.vercel.app/api?username=seffhunnn&show_icons=true&theme=omni&count_private=true" alt="Saif's GitHub Stats" height="150" />
-  <img src="https://github-readme-streak-stats.herokuapp.com/?user=seffhunnn&theme=omni" alt="GitHub Streak" height="150" />
-</div>
+*   **Open Source Contributor**  actively contributing to opensource projects
 
 ---
 
