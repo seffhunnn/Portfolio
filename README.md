@@ -10,7 +10,7 @@
 
 ---
 
-*"I enjoy creating software, trying new ideas, and polishing them into meaningful solutions that feel simple, reliable, and useful."*
+
 
 </div>
 
