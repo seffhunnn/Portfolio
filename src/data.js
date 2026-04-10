@@ -40,9 +40,9 @@ export const experiences = [
   {
     type: 'Open Source',
     role: 'Open Source Contributor',
-    company: 'anomalyco/models.dev',
+    company: 'Open Source Ecosystem',
     period: null,
-    description: 'Contributed to `anomalyco/models.dev` by fixing model metadata and keeping AI model details accurate and up to date.',
+    description: 'Contributed to real world open source projects by fixing production issues, improving data accuracy, and tracing bugs to their upstream source. My recent work includes improving AI model metadata in anomalyco/models.dev and contributing a core nested overlay bug fix to the Chakra UI ecosystem through zag.Focused on writing minimal, reliable fixes that solve the actual root cause while keeping changes clean and maintainable.',
     tags: ['Open Source', 'GitHub', 'AI Models', 'Metadata', 'Model Accuracy', 'OSS Collaboration','Repository Maintenance'],
   },
   {
