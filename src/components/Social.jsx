@@ -64,15 +64,20 @@ export default function Social() {
                 href={href}
                 target={href.startsWith('mailto') ? undefined : '_blank'}
                 rel="noreferrer"
-                className="group relative block overflow-hidden rounded-[2rem] border border-white/5 bg-white/[0.02] p-8 transition-all hover:border-white/10 hover:bg-white/[0.04]"
+                className="group relative block overflow-hidden rounded-[2rem] border border-transparent bg-white/[0.04] backdrop-blur-sm p-8 transition-all duration-500 hover:border-yellow-500/40 hover:bg-white/[0.07]"
               >
+                {/* Yellow bottom-center bar expanding upward */}
+                <div className="absolute bottom-0 left-1/2 -translate-x-1/2 h-[3px] w-8 bg-yellow-500/20 rounded-full group-hover:w-3/4 group-hover:bg-yellow-500 transition-all duration-500 z-10" />
+                {/* Yellow ambient glow */}
+                <div className="absolute -right-8 -top-8 h-40 w-40 rounded-full bg-yellow-500/[0.06] blur-3xl opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
+
                 <div className="relative z-10 flex items-center justify-between">
                   <div className="flex items-center gap-6">
-                    <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-white/5 text-gray-400 border border-white/5 transition-all group-hover:bg-white/10 group-hover:text-white group-hover:scale-110">
+                    <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-white/5 text-gray-400 border border-white/5 transition-all group-hover:bg-yellow-500/10 group-hover:text-yellow-500 group-hover:border-yellow-500/20 group-hover:scale-110">
                       <Icon size={28} />
                     </div>
                     <div>
-                      <h3 className="text-xl font-bold text-white tracking-tight group-hover:translate-x-1 transition-transform">
+                      <h3 className="text-xl font-bold text-white tracking-tight group-hover:text-yellow-500 group-hover:translate-x-1 transition-all duration-300">
                         {label}
                       </h3>
                       <p className="text-sm font-mono text-gray-500 mt-1 uppercase tracking-wider">
@@ -80,11 +85,8 @@ export default function Social() {
                       </p>
                     </div>
                   </div>
-                  <ArrowUpRight className="text-gray-700 transition-all group-hover:text-white group-hover:translate-x-1 group-hover:-translate-y-1" size={24} />
+                  <ArrowUpRight className="text-gray-700 transition-all group-hover:text-yellow-500 group-hover:translate-x-1 group-hover:-translate-y-1" size={24} />
                 </div>
-                
-                {/* Subtle Background Glow */}
-                <div className="absolute -right-8 -top-8 h-32 w-32 rounded-full bg-white/5 blur-3xl opacity-0 transition-opacity group-hover:opacity-100" />
               </a>
             </AnimatedItem>
           ))}

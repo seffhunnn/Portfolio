@@ -46,16 +46,6 @@ export default function Hero() {
 
   return (
     <section id="hero" className="relative min-h-screen flex items-center overflow-hidden">
-      {/* Background grid */}
-      <div
-        className="absolute inset-0 opacity-[0.03]"
-        style={{
-          backgroundImage: `linear-gradient(rgba(255,255,255,0.5) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(255,255,255,0.5) 1px, transparent 1px)`,
-          backgroundSize: '80px 80px',
-        }}
-      />
-
       <div className="section-container relative z-10 pt-24 pb-20">
         <motion.div
           variants={containerVariants}
@@ -74,17 +64,20 @@ export default function Hero() {
           {/* Name */}
           <motion.h1
             variants={itemVariants}
-            className="text-6xl sm:text-7xl md:text-8xl font-black tracking-tight text-white leading-[1.08] mb-4"
+            className="text-6xl sm:text-7xl md:text-8xl font-black tracking-tight text-white leading-[1.08] mb-4 relative"
           >
+            {/* Soft Ambient Glow behind name */}
+            <div className="absolute -top-20 -left-20 w-64 h-64 bg-yellow-500/5 blur-[120px] pointer-events-none" />
+            
             Hi, I'm{' '}
             <span className="gradient-text" style={{ paddingBottom: '0.1em', display: 'inline-block' }}>{personal.name}</span>
-            <span className="text-gray-600">.</span>
+            <span className="text-yellow-500">.</span>
           </motion.h1>
 
           {/* Title */}
           <motion.p
             variants={itemVariants}
-            className="text-lg sm:text-xl text-gray-400 font-mono font-light mb-6 tracking-wide"
+            className="text-lg sm:text-lg text-gray-400 font-mono font-medium mb-6 tracking-widest uppercase opacity-80"
           >
             {personal.title}
           </motion.p>
@@ -92,7 +85,7 @@ export default function Hero() {
           {/* Tagline */}
           <motion.p
             variants={itemVariants}
-            className="text-base sm:text-lg text-gray-500 leading-relaxed max-w-xl mb-10"
+            className="text-base sm:text-lg text-gray-400 leading-relaxed max-w-xl mb-10"
           >
             {personal.tagline}
           </motion.p>

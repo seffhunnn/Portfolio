@@ -13,13 +13,15 @@ export const tagColors = [
 /**
  * Simple hash function to get a consistent color from string
  * @param {string} text - The tag text
+ * @param {number} index - Optional index to ensure variety
  * @returns {string} - TailWind CSS classes for consistent coloring
  */
-export const getTagColor = (text) => {
+export const getTagColor = (text, index = 0) => {
   if (!text) return tagColors[0]
   let hash = 0
   for (let i = 0; i < text.length; i++) {
     hash = text.charCodeAt(i) + ((hash << 5) - hash)
   }
-  return tagColors[Math.abs(hash) % tagColors.length]
+  // Mix in the index to push color selection further
+  return tagColors[Math.abs(hash + index) % tagColors.length]
 }

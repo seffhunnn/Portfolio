@@ -41,18 +41,22 @@ export default function Experience() {
 
               return (
                 <AnimatedItem key={i}>
-                  <div className="sm:pl-10 relative">
-                    {/* Dot on timeline */}
-                    <div className="absolute -left-1.5 top-5 w-3 h-3 rounded-full border border-white/20 bg-black hidden sm:block" />
+                  <div className="sm:pl-10 relative group">
+                    {/* Yellow Timeline Milestone Dot */}
+                    <div className="absolute -left-1.5 top-6 w-3 h-3 rounded-full border-2 border-yellow-500/40 bg-black group-hover:bg-yellow-500 group-hover:scale-125 transition-all duration-500 hidden sm:block z-20" />
+                    <div className="absolute -left-1.5 top-6 w-3 h-3 rounded-full bg-yellow-500/20 blur-sm opacity-0 group-hover:opacity-100 transition-opacity hidden sm:block z-10" />
 
-                    <div className="glass-card rounded-2xl p-7">
-                      <div className="flex flex-wrap items-start justify-between gap-4 mb-4">
+                    <div className="glass-card rounded-[1.25rem] p-7 border-l-2 border-yellow-500/10 hover:border-yellow-500/40 transition-all duration-500 hover:translate-x-1 hover:bg-white/[0.03] relative overflow-hidden">
+                      {/* Ambient corner glow */}
+                      <div className="absolute top-0 right-0 w-32 h-32 bg-yellow-500/[0.03] blur-3xl opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none" />
+                      
+                      <div className="flex flex-wrap items-start justify-between gap-4 mb-4 relative z-10">
                         <div className="flex items-center gap-4">
                           <span className={`inline-flex items-center gap-1.5 text-xs font-mono px-2.5 py-1 rounded-full border ${colorClass}`}>
                             <Icon size={12} />
                             {exp.type}
                           </span>
-                          <h3 className="text-white font-bold text-lg tracking-tight">{exp.role}</h3>
+                          <h3 className="text-white font-bold text-lg tracking-tight group-hover:text-yellow-500/90 transition-colors">{exp.role}</h3>
                         </div>
                         <span className="text-sm font-mono text-gray-500 shrink-0">{exp.period}</span>
                       </div>

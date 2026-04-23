@@ -24,19 +24,21 @@ function SkillCard({ title, items }) {
         {title}
       </h3>
       <div
-        className="relative rounded-[2.5rem] p-10 sm:p-12 overflow-hidden"
+        className="group relative rounded-[2.25rem] p-10 sm:p-12 overflow-hidden border-l-2 border-yellow-500/10 hover:border-yellow-500/40 transition-all duration-500 hover:bg-white/[0.02]"
         style={{
           background: 'rgba(255,255,255,0.015)',
-          border: '1px solid rgba(255,255,255,0.05)',
           backdropFilter: 'blur(30px)',
           WebkitBackdropFilter: 'blur(30px)',
           boxShadow: '0 40px 100px -20px rgba(0,0,0,0.6)',
         }}
       >
+        {/* Yellow bottom-center bar expanding outward */}
+        <div className="absolute bottom-0 left-1/2 -translate-x-1/2 h-[3px] w-8 bg-yellow-500/20 rounded-full group-hover:w-3/4 group-hover:bg-yellow-500 transition-all duration-500 z-10" />
+
         <div
-          className="absolute -top-24 -right-24 w-64 h-64 rounded-full pointer-events-none opacity-20"
+          className="absolute -top-24 -right-24 w-64 h-64 rounded-full pointer-events-none opacity-0 group-hover:opacity-20 transition-opacity duration-700"
           style={{
-            background: 'radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%)',
+            background: 'radial-gradient(circle, rgba(255,221,0,0.3) 0%, transparent 70%)',
             filter: 'blur(40px)',
           }}
         />

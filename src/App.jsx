@@ -11,6 +11,16 @@ export default function App() {
   useSmoothScroll()
   return (
     <div className="relative bg-black min-h-screen">
+      {/* Global Background Grid */}
+      <div 
+        className="fixed inset-0 pointer-events-none z-0 opacity-[0.04]"
+        style={{
+          backgroundImage: `linear-gradient(rgba(255,255,255,1) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(255,255,255,1) 1px, transparent 1px)`,
+          backgroundSize: '80px 80px',
+        }}
+      />
+      
       {/* Ambient orbs */}
       <div className="orb orb-1" />
       <div className="orb orb-2" />

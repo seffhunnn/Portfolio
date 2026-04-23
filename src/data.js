@@ -1,8 +1,8 @@
 // Portfolio Data — edit this file to personalise everything
 export const personal = {
   name: 'Saif',
-  title: 'Software Developer',
-  tagline: 'I enjoy creating software, trying new ideas, and polishing them into meaningful solutions that feel simple, reliable, and useful.',
+  title: 'Software Developer | Open Source Contributor',
+  tagline: 'I enjoy creating software, turning ideas into meaningful products, and contributing to the open source community.',
   email: 'mohdsaifansari8888@gmail.com',
   github: 'https://github.com/seffhunnn',
   linkedin: 'https://www.linkedin.com/in/seffhunnn/',
@@ -12,7 +12,11 @@ export const personal = {
 }
 
 export const about = {
-  intro: `I’m a Computer Science Engineering undergraduate (Class of 2027) building software and testing applications with a focus on reliability, clean code, and performance. My experience includes working as a Software Tester at Nothing(R), contributing to open-source projects, and previously as an ML Intern at Infosys Springboard, where I worked with machine learning concepts and real-world implementations. Alongside development and testing, I continuously strengthen my problem-solving skills through Data Structures & Algorithms and apply AI-driven approaches to create smarter software solutions.`,
+  intro: `I'm a CSE Undergrad ’27 who enjoys building software that's reliable minimal & clean. I contribute to open source fixing bugs, improving features, and doing my bit to keep the code healthy because I like leaving something useful behind.
+
+  At Nothing, I worked on User Acceptance Testing across various products and software, getting a real sense of how things behave under pressure and what it actually takes to keep them stable. During my ML internship at Infosys Springboard, I worked on CNN-based application from collecting and preprocessing data to training and deploying the model.
+
+  Outside of projects, I keep coming back to Data Structures & Algorithms and there's always something that humbles you.`,
   education: [
     {
       degree: 'B.Tech — Computer Science & Engineering',
@@ -42,7 +46,7 @@ export const experiences = [
     role: 'Open Source Contributor',
     company: 'Open Source Ecosystem',
     period: null,
-    description: 'Contributed to real world open source projects by fixing production issues, improving data accuracy, and tracing bugs to their upstream source. My recent work includes improving AI model metadata in anomalyco/models.dev and contributing a core nested overlay bug fix to the Chakra UI ecosystem through zag. Focused on writing minimal, reliable fixes that solve the actual root cause while keeping changes clean and maintainable.',
+    description: 'I actively contribute to real-world open source projects, focusing on the kind of work that actually matters. This has included tracing and correcting model ID mismatches in provider configurations that were silently causing API failures, resolving nested overlay bugs that were affecting stability in layered UI components, and ensuring consistency across configuration files where small misalignments were causing real problems.',
     tags: ['Open Source', 'GitHub', 'AI Models', 'Metadata', 'Model Accuracy', 'OSS Collaboration','Repository Maintenance'],
   },
   {

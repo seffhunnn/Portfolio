@@ -16,8 +16,13 @@ function ProjectCard({ project }) {
     <motion.div
       whileHover={{ y: -8 }}
       transition={{ duration: 0.4, ease: [0.25, 0.1, 0.25, 1] }}
-      className="group glass-card rounded-[1rem] flex flex-col h-full overflow-hidden border border-white/[0.05] hover:border-white/[0.12] transition-all duration-500 hover:shadow-2xl hover:shadow-white/[0.02]"
+      className="group glass-card rounded-[1rem] flex flex-col h-full overflow-hidden border border-white/[0.05] hover:border-yellow-500/40 transition-all duration-500 hover:shadow-2xl hover:shadow-yellow-500/[0.05] relative"
     >
+      {/* Yellow top-center bar expanding outward */}
+      <div className="absolute bottom-0 left-1/2 -translate-x-1/2 h-[3px] w-8 bg-yellow-500/20 rounded-full group-hover:w-3/4 group-hover:bg-yellow-500 transition-all duration-500 z-10" />
+      {/* Yellow ambient glow */}
+      <div className="absolute top-0 right-0 w-48 h-48 bg-yellow-500/[0.04] blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none z-0" />
+
       {/* Thumbnail Area */}
       <div className="relative w-full aspect-video overflow-hidden bg-black">
         {project.image ? (
@@ -72,7 +77,7 @@ function ProjectCard({ project }) {
 
       {/* Content Area */}
       <div className="p-6 flex flex-col flex-grow">
-        <h3 className="text-white font-bold text-[18px] mb-3 tracking-tight group-hover:text-white transition-colors">
+        <h3 className="text-white font-bold text-[18px] mb-3 tracking-tight group-hover:text-yellow-500 transition-colors duration-300">
           {project.title}
         </h3>
         

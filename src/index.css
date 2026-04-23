@@ -62,15 +62,15 @@ body {
 
 /* Glow button */
 .btn-primary {
-  background: #ffffff;
+  background: #ffdd00;
   color: #000000;
   font-weight: 600;
-  padding: 0.75rem 2rem;
+  padding: 0.75rem 1.75rem;
   border-radius: 9999px;
-  font-size: 0.875rem;
-  letter-spacing: 0.02em;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  border: 1px solid transparent;
+  font-size: 0.9rem;
+  letter-spacing: 0.01em;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  border: 1.5px solid #ffdd00;
   cursor: pointer;
   display: inline-flex;
   align-items: center;
@@ -78,32 +78,35 @@ body {
 }
 
 .btn-primary:hover {
-  background: #e5e5e5;
-  box-shadow: 0 0 30px rgba(255, 255, 255, 0.25), 0 8px 25px rgba(0, 0, 0, 0.4);
-  transform: translateY(-2px);
+  background: #ffdd00;
+  box-shadow: 0 0 40px rgba(255, 221, 0, 0.3), 0 8px 30px rgba(0, 0, 0, 0.5);
+  transform: translateY(-2px) scale(1.02);
+  border-color: #ffffff;
 }
 
 .btn-secondary {
-  background: transparent;
+  background: rgba(255, 255, 255, 0.04);
   color: #ffffff;
   font-weight: 500;
-  padding: 0.75rem 2rem;
+  padding: 0.75rem 1.75rem;
   border-radius: 9999px;
-  font-size: 0.875rem;
-  letter-spacing: 0.02em;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  font-size: 0.9rem;
+  letter-spacing: 0.01em;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  border: 1.5px solid rgba(255, 255, 255, 0.15);
   cursor: pointer;
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
+  backdrop-filter: blur(10px);
 }
 
 .btn-secondary:hover {
-  border-color: rgba(255, 255, 255, 0.5);
-  background: rgba(255, 255, 255, 0.05);
-  box-shadow: 0 0 20px rgba(255, 255, 255, 0.08);
-  transform: translateY(-2px);
+  border-color: #ffdd00;
+  color: #ffdd00;
+  background: rgba(255, 221, 0, 0.05);
+  box-shadow: 0 0 30px rgba(255, 221, 0, 0.15);
+  transform: translateY(-2px) scale(1.02);
 }
 
 /* Section styles */
