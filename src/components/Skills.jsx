@@ -33,7 +33,7 @@ function SkillCard({ title, items }) {
         }}
       >
         {/* Yellow bottom-center bar expanding outward */}
-        <div className="absolute bottom-0 left-1/2 -translate-x-1/2 h-[3px] w-8 bg-yellow-500/20 rounded-full group-hover:w-3/4 group-hover:bg-yellow-500 transition-all duration-500 z-10" />
+        <div className="absolute bottom-0 left-1/2 -translate-x-1/2 h-[3px] w-8 bg-yellow-500/20 rounded-full group-hover:w-2/5 group-hover:bg-yellow-500 transition-all duration-500 z-10" />
 
         <div
           className="absolute -top-24 -right-24 w-64 h-64 rounded-full pointer-events-none opacity-0 group-hover:opacity-20 transition-opacity duration-700"
