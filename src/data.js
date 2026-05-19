@@ -77,7 +77,7 @@ export const experiences = [
 ]
 
 export const techStack = [
-  'React.js','Retrieval-Augmented Generation (RAG)','TensorFlow', 'PyTorch','Firebase', 'Scikit-learn', 'Convolutional Neural Network(CNN)', 'Semantic Search','NumPy', 'Pandas','Matplotlib', 'Hugging Face', 'LangChain','JavaScript', 'TypeScript', 'Python', 'Java', 'SQL', 'HTML5', 'XML','TinyLlama','Vector Database','Embeddings','Node.js', 'Express.js', 'Next.js', 'TailwindCSS','Framer Motion', 'Redux', 'Bootstrap','Android', 'MongoDB', 'Supabase', 'Cloudinary'
+  'React.js','Retrieval-Augmented Generation (RAG)','TensorFlow','Firebase', 'Convolutional Neural Network(CNN)', 'Semantic Search', 'Hugging Face', 'LangChain','JavaScript', 'TypeScript', 'Python', 'Java', 'SQL', 'HTML5','Node.js', 'Express.js', 'Next.js', 'TailwindCSS','Framer Motion', 'Redux', 'Bootstrap','Android', 'MongoDB', 'Supabase', 'Cloudinary'
 ]
 
 export const toolsAndPlatforms = [
