@@ -12,11 +12,11 @@ export const personal = {
 }
 
 export const about = {
-  intro: `I'm a CSE Undergrad ’27 who enjoys building software that's reliable minimal & clean. I contribute to open source fixing bugs, improving features, and doing my bit to keep the code healthy because I like leaving something useful behind.
+  intro: `I'm a CSE Undergrad ’27 who enjoys building software that’s reliable, minimal, and clean. I actively contribute to open-source projects, working on performance, accessibility, stability, and overall user experience improvements. My contributions have included fixing silent API issues caused by model configuration mismatches, resolving complex UI bugs, improving theme consistency and loading behavior, and building scalable features that enhance usability across desktop and mobile experiences.
 
-  At Nothing, I worked on User Acceptance Testing across various products and software, getting a real sense of how things behave under pressure and what it actually takes to keep them stable. During my ML internship at Infosys Springboard, I worked on CNN-based application from collecting and preprocessing data to training and deploying the model.
+At Nothing, I worked on User Acceptance Testing across various products and software, gaining hands-on experience with system stability and real-world edge cases. During my ML internship at Infosys Springboard, I worked on a CNN-based application from data preprocessing to model training and deployment.
 
-  Outside of projects, I keep coming back to Data Structures & Algorithms and there's always something that humbles you.`,
+Outside of projects, I keep coming back to Data Structures & Algorithms — there’s always something there that humbles you.`,
   education: [
     {
       degree: 'B.Tech — Computer Science & Engineering',
@@ -37,7 +37,7 @@ export const about = {
       grade: '83%',
     },
   ],
-  interests: ['Software Development','Open Source','Software Testing', 'AI-Powered Solutions', 'Machine Learning','Video Editing'],
+  interests: ['Software Development', 'Open Source', 'Software Testing', 'AI-Powered Solutions', 'Machine Learning', 'Video Editing'],
 }
 
 export const experiences = [
@@ -46,8 +46,8 @@ export const experiences = [
     role: 'Open Source Contributor',
     company: 'Open Source Ecosystem',
     period: null,
-    description: 'I actively contribute to real-world open source projects, focusing on the kind of work that actually matters. This has included tracing and correcting model ID mismatches in provider configurations that were silently causing API failures, resolving nested overlay bugs that were affecting stability in layered UI components, and ensuring consistency across configuration files where small misalignments were causing real problems.',
-    tags: ['Open Source', 'GitHub', 'AI Models', 'Metadata', 'Model Accuracy', 'OSS Collaboration','Repository Maintenance'],
+    description: 'I actively contribute to real-world open-source projects, working on performance improvements, accessibility enhancements, responsive user experiences, state persistence, animation optimization, and overall application stability. My contributions have included tracing and correcting model ID mismatches in provider configurations that were silently causing API failures, resolving complex UI and overlay-related issues, improving loading behavior and theme consistency, refining keyboard navigation and focus states, resolving configuration inconsistencies, and building scalable, maintainable features that enhance usability across desktop and mobile experiences.',
+    tags: ['Open Source', 'GitHub', 'Performance', 'Accessibility', 'State Persistence', 'UI/UX Refinements', 'Stability & Debugging'],
   },
   {
     type: 'Part-time',
@@ -63,7 +63,7 @@ export const experiences = [
     company: 'Infosys Springboard',
     period: 'November 2025 – January 2026',
     description: 'Developed an AI-based crop disease identification platform for rice and pulses. Collected and curated datasets, and implemented a CNN (Convolutional Neural Network) model for image-based disease detection. Gained hands-on experience in data preprocessing, model training, evaluation, and integrating the model with a user-friendly interface, along with presenting the project workflow and outcomes.',
-    tags: ['Machine Learning', 'Python','Pytorch', 'TensorFlow', 'CNN', 'Data Preprocessing', 'Model Training', 'Model Evaluation', 'Model Integration', 'Project Presentation'],
+    tags: ['Machine Learning', 'Python', 'Pytorch', 'TensorFlow', 'CNN', 'Data Preprocessing', 'Model Training', 'Model Evaluation', 'Model Integration', 'Project Presentation'],
   },
   {
     type: 'Internship',
@@ -77,18 +77,44 @@ export const experiences = [
 ]
 
 export const techStack = [
-  'React.js','Retrieval-Augmented Generation (RAG)','TensorFlow', 'PyTorch','Firebase', 'Scikit-learn', 'Convolutional Neural Network(CNN)', 'Semantic Search','NumPy', 'Pandas','Matplotlib', 'Hugging Face', 'LangChain','JavaScript', 'TypeScript', 'Python', 'Java', 'SQL', 'HTML5', 'XML','TinyLlama','Vector Database','Embeddings','Node.js', 'Express.js', 'Next.js', 'TailwindCSS','Framer Motion', 'Redux', 'Bootstrap','Android', 'MongoDB', 'Supabase', 'Cloudinary'
-]
-
-export const toolsAndPlatforms = [
-  'Git', 'GitHub','Vercel', 'Netlify','VS Code','Antigravity','Kiro','Figma','Adobe Premiere Pro','Adobe Photoshop','Adobe After Effects','Android Studio','Canva',
+  {
+    category: 'Core & Open Source',
+    skills: ['Open Source', 'GitHub', 'Git', 'GitHub Copilot', 'OpenCode'],
+  },
+  {
+    category: 'Frontend',
+    skills: [
+      'Next.js',
+      'React',
+      'React Router',
+      'React Hook Form',
+      'TypeScript',
+      'JavaScript',
+      'HTML5',
+      'CSS3',
+      'Tailwind CSS',
+      'Vite',
+    ],
+  },
+  {
+    category: 'Backend & Database',
+    skills: ['Node.js', 'Express.js', 'MongoDB', 'MySQL', 'Firebase', 'Supabase'],
+  },
+  {
+    category: 'Languages',
+    skills: ['Python', 'Java'],
+  },
+  {
+    category: 'Tools & Deployment',
+    skills: ['Postman', 'Vercel'],
+  },
 ]
 
 export const projects = [
   {
     title: 'FragVerse Wallpaper App',
     description: 'A wallpaper platform to discover vibe based collections, curated drops, and exclusive FragVerse uploads.',
-    tags: ['React','Vite', 'Unsplash API', 'Cloudinary', 'Firebase Auth','React Router','Responsive User Interface','Supabase','Exclusive Uploads','Tailwind CSS'],
+    tags: ['React', 'Vite', 'Unsplash API', 'Cloudinary', 'Firebase Auth', 'React Router', 'Responsive User Interface', 'Supabase', 'Exclusive Uploads', 'Tailwind CSS'],
     github: 'https://github.com/seffhunnn/frag-verse-wallpaper-app',
     live: 'https://fragverse.vercel.app/',
     image: '/projects/fragverse.png',
@@ -97,7 +123,7 @@ export const projects = [
   {
     title: 'AI Crop Disease Detection',
     description: 'An AI-powered web app for detecting rice and pulse crop diseases through image analysis.',
-    tags: ['CNN','PyTorch','Data Preprocessing','Model Training','Model Evaluation','Model Integration','Project Presentation','Streamlit','Python','User Interface'],
+    tags: ['CNN', 'PyTorch', 'Data Preprocessing', 'Model Training', 'Model Evaluation', 'Model Integration', 'Project Presentation', 'Streamlit', 'Python', 'User Interface'],
     github: 'https://github.com/Springboard-Internship-2025/AI-Driven-Web-Application-for-Automated-Disease-Detection-in-Rice-and-Pulse-Crops_Nov_Batch-6_2025/tree/Mohd-Saif-Ansari',
     image: '/projects/cropdisease.png',
     featured: true,
@@ -105,7 +131,7 @@ export const projects = [
   {
     title: 'Queryo Docs-AI PDF Assistant',
     description: 'A RAG-based AI system for querying PDF documents with semantic search and context-aware answers.',
-    tags: ['RAG','Vector Database','TinyLlama','LangChain','Semantic Search','Context-Aware Answers','PDF Processing','Embeddings'],
+    tags: ['RAG', 'Vector Database', 'TinyLlama', 'LangChain', 'Semantic Search', 'Context-Aware Answers', 'PDF Processing', 'Embeddings'],
     github: 'https://github.com/seffhunnn/rag-pdf-chatbot',
     live: null,
     image: '/projects/queryodocs.png',
@@ -114,7 +140,7 @@ export const projects = [
   {
     title: 'Skill-Bee (Front-end)',
     description: 'A responsive tool-rental platform that helps students and creators access equipment affordably.',
-    tags: ['HTML5','CSS3','JavaScript','CSS Grid','Rental Platform','Responsive Design','Modern UI','Search','Category Filter','Pricing Cards'],
+    tags: ['HTML5', 'CSS3', 'JavaScript', 'CSS Grid', 'Rental Platform', 'Responsive Design', 'Modern UI', 'Search', 'Category Filter', 'Pricing Cards'],
     github: 'https://github.com/seffhunnn/Skill-Bee',
     live: 'https://skillrentbee.netlify.app/',
     image: '/projects/skillbee.png',
