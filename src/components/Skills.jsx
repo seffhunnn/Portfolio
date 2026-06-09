@@ -1,7 +1,8 @@
 import { motion } from 'framer-motion'
 import AnimatedSection, { AnimatedItem } from './AnimatedSection'
-import { techStack, toolsAndPlatforms } from '../data'
+import { techStack } from '../data'
 import { getTagColor } from '../utils/colors'
+import { GitBranch, Layout, Database, Code2, Terminal } from 'lucide-react'
 
 const tagVariants = {
   hidden: { opacity: 0, y: 12, scale: 0.95 },
@@ -17,14 +18,19 @@ const tagVariants = {
   }),
 }
 
-function SkillCard({ title, items }) {
+const categoryIcons = {
+  'Core & Open Source': GitBranch,
+  'Frontend': Layout,
+  'Backend & Database': Database,
+  'Languages': Code2,
+  'Tools & Deployment': Terminal,
+}
+
+function SkillCard({ title, items, icon: Icon, className = '' }) {
   return (
-    <div className="mb-10 last:mb-0">
-      <h3 className="text-[11px] font-mono text-gray-400 uppercase tracking-[0.25em] mb-6 ml-2">
-        {title}
-      </h3>
+    <div className={`w-full ${className} flex flex-col`}>
       <div
-        className="group relative rounded-[2.25rem] p-10 sm:p-12 overflow-hidden border-l-2 border-yellow-500/10 hover:border-yellow-500/40 transition-all duration-500 hover:bg-white/[0.02]"
+        className="group relative rounded-[2.25rem] p-8 sm:p-10 overflow-hidden border-l-2 border-yellow-500/10 hover:border-yellow-500/40 transition-all duration-500 hover:bg-white/[0.02] flex-1 flex flex-col"
         style={{
           background: 'rgba(255,255,255,0.015)',
           backdropFilter: 'blur(30px)',
@@ -43,25 +49,39 @@ function SkillCard({ title, items }) {
           }}
         />
 
-        <div className="relative z-10 flex flex-wrap gap-2.5">
-          {items.map((skill, i) => (
-            <motion.span
-              key={skill}
-              custom={i}
-              variants={tagVariants}
-              initial="hidden"
-              whileInView="visible"
-              whileHover={{
-                y: -2,
-                scale: 1.05,
-                transition: { duration: 0.2, ease: 'easeOut' },
-              }}
-              viewport={{ once: true }}
-              className={`font-mono text-[12px] px-5 py-2.5 rounded-full border cursor-default select-none transition-all duration-300 ${getTagColor(skill)}`}
-            >
-              {skill}
-            </motion.span>
-          ))}
+        <div className="relative z-10 flex flex-col h-full">
+          <div className="flex items-center gap-3 mb-6">
+            {Icon && (
+              <Icon
+                className="text-yellow-500/60 group-hover:text-yellow-500 transition-colors duration-300"
+                size={18}
+              />
+            )}
+            <h3 className="text-[11px] font-mono text-gray-400 uppercase tracking-[0.25em] group-hover:text-white transition-colors duration-300">
+              {title}
+            </h3>
+          </div>
+
+          <div className="flex flex-wrap gap-2.5">
+            {items.map((skill, i) => (
+              <motion.span
+                key={skill}
+                custom={i}
+                variants={tagVariants}
+                initial="hidden"
+                whileInView="visible"
+                whileHover={{
+                  y: -2,
+                  scale: 1.05,
+                  transition: { duration: 0.2, ease: 'easeOut' },
+                }}
+                viewport={{ once: true }}
+                className={`font-mono text-[12px] px-5 py-2.5 rounded-full border cursor-default select-none transition-all duration-300 ${getTagColor(skill)}`}
+              >
+                {skill}
+              </motion.span>
+            ))}
+          </div>
         </div>
       </div>
     </div>
@@ -87,10 +107,55 @@ export default function Skills() {
           </p>
         </AnimatedItem>
 
-        <AnimatedItem>
-          <SkillCard title="Technologies" items={techStack} />
-          <SkillCard title="Tools & Platforms" items={toolsAndPlatforms} />
-        </AnimatedItem>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 items-stretch">
+          {/* Column 1: Frontend */}
+          <div className="flex flex-col h-full">
+            <AnimatedItem className="w-full h-full flex flex-col flex-1">
+              <SkillCard
+                title={techStack[1].category}
+                items={techStack[1].skills}
+                icon={categoryIcons[techStack[1].category]}
+                className="h-full flex-1"
+              />
+            </AnimatedItem>
+          </div>
+
+          {/* Column 2: Backend & Database + Languages */}
+          <div className="flex flex-col justify-between h-full gap-6 lg:gap-8">
+            <AnimatedItem className="w-full">
+              <SkillCard
+                title={techStack[2].category}
+                items={techStack[2].skills}
+                icon={categoryIcons[techStack[2].category]}
+              />
+            </AnimatedItem>
+            <AnimatedItem className="w-full">
+              <SkillCard
+                title={techStack[3].category}
+                items={techStack[3].skills}
+                icon={categoryIcons[techStack[3].category]}
+              />
+            </AnimatedItem>
+          </div>
+
+          {/* Column 3: Core & Open Source + Tools & Deployment */}
+          <div className="flex flex-col md:flex-row lg:flex-col justify-between h-full gap-6 lg:gap-8 md:col-span-2 lg:col-span-1">
+            <AnimatedItem className="w-full md:flex-1 lg:flex-initial">
+              <SkillCard
+                title={techStack[0].category}
+                items={techStack[0].skills}
+                icon={categoryIcons[techStack[0].category]}
+              />
+            </AnimatedItem>
+            <AnimatedItem className="w-full md:flex-1 lg:flex-initial">
+              <SkillCard
+                title={techStack[4].category}
+                items={techStack[4].skills}
+                icon={categoryIcons[techStack[4].category]}
+              />
+            </AnimatedItem>
+          </div>
+        </div>
       </div>
     </AnimatedSection>
   )
