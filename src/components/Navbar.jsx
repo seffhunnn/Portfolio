@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Menu, X, ArrowUp } from 'lucide-react'
+import { Menu, X, ArrowUp, Heart } from 'lucide-react'
 
 const navLinks = [
   { label: 'About', href: '#about' },
@@ -61,13 +61,24 @@ export default function Navbar() {
         }}
       >
         <div className="section-container relative flex items-center justify-between h-16">
-          <a
-            href="#hero"
-            onClick={(e) => { e.preventDefault(); scrollToTop(e) }}
-            className="font-mono text-white/90 font-bold text-xs tracking-widest uppercase hover:text-white transition-colors duration-200"
-          >
-            Saif <span className="text-gray-600 mx-1">|</span> Portfolio
-          </a>
+          <div className="flex items-center gap-3">
+            <a
+              href="#hero"
+              onClick={(e) => { e.preventDefault(); scrollToTop(e) }}
+              className="font-mono text-white/90 font-bold text-xs tracking-widest uppercase hover:text-white transition-colors duration-200"
+            >
+              Saif <span className="text-gray-600 mx-1">|</span> Portfolio
+            </a>
+            <a
+              href="https://github.com/sponsors/seffhunnn"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group flex items-center justify-center p-2 rounded-full border border-pink-500/20 bg-pink-500/5 text-pink-500 hover:border-pink-500/50 hover:bg-pink-500/10 hover:shadow-[0_0_10px_rgba(236,72,153,0.3)] transition-all duration-200"
+              title="Sponsor Saif on GitHub"
+            >
+              <Heart size={15} className="fill-none group-hover:fill-pink-500 transition-all duration-200" />
+            </a>
+          </div>
 
           <div className="absolute left-1/2 -translate-x-1/2 h-full flex items-center pointer-events-none">
             <AnimatePresence>
