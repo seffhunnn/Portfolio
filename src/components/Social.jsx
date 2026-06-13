@@ -1,6 +1,6 @@
 import AnimatedSection, { AnimatedItem } from './AnimatedSection'
 import { personal } from '../data'
-import { Mail, ArrowUpRight } from 'lucide-react'
+import { Mail, ArrowUpRight, Heart } from 'lucide-react'
 
 const GithubIcon = ({ size = 24 }) => (
   <svg viewBox="0 0 24 24" width={size} height={size} fill="currentColor">
@@ -98,11 +98,37 @@ export default function Social() {
             <p className="text-xs font-mono text-gray-500 uppercase tracking-widest mb-4">ready to build something?</p>
             <a
               href={`mailto:${personal.email}`}
-              className="group relative inline-block text-2xl sm:text-4xl font-black text-white transition-all hover:tracking-tight"
+              className="group relative inline-block text-2xl sm:text-4xl font-black text-white transition-all hover:tracking-tight mb-8"
             >
               <span className="relative z-10">{personal.email}</span>
               <div className="absolute -bottom-2 left-0 h-1 w-0 bg-gradient-to-r from-white/20 to-transparent transition-all group-hover:w-full" />
             </a>
+
+            {/* Sponsor CTA with Arrow */}
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-6 mt-4">
+              <a
+                href="https://github.com/sponsors/seffhunnn"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-sponsor group scale-105 sm:scale-110 origin-center transition-all duration-300"
+                style={{ textDecoration: 'none', padding: '0.85rem 2.25rem', fontSize: '1rem' }}
+              >
+                <Heart size={18} className="text-pink-500 fill-none group-hover:fill-pink-500 transition-all duration-200" />
+                Sponsor
+              </a>
+              
+              <div className="flex items-center gap-3">
+                {/* Curved Arrow pointing to the left */}
+                <svg className="w-12 h-10 text-yellow-500/70 select-none shrink-0" viewBox="0 0 50 30" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M40 24 C30 10 22 6 8 10" />
+                  <path d="M14 4 L6 10 L13 18" />
+                </svg>
+                <div className="text-left text-gray-400 font-mono text-xs sm:text-sm italic leading-relaxed select-none">
+                  <div>Support my work &</div>
+                  <div>fuel my energy 💛</div>
+                </div>
+              </div>
+            </div>
           </div>
         </AnimatedItem>
       </div>
