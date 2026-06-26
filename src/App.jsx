@@ -7,10 +7,12 @@ import Skills from './components/Skills'
 import Projects from './components/Projects'
 import Social from './components/Social'
 import Footer from './components/Footer'
+import BackgroundParticles from './components/BackgroundParticles'
 export default function App() {
   useSmoothScroll()
   return (
     <div className="relative bg-black min-h-screen">
+      <BackgroundParticles />
       {/* Global Background Grid */}
       <div 
         className="fixed inset-0 pointer-events-none z-0 opacity-[0.04]"

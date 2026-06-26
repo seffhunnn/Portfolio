@@ -1,6 +1,6 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Menu, X, ArrowUp, Heart } from 'lucide-react'
+import { Menu, X, ArrowUp } from 'lucide-react'
 
 const navLinks = [
   { label: 'About', href: '#about' },
@@ -15,13 +15,79 @@ export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false)
   const [showScrollToTop, setShowScrollToTop] = useState(false)
 
+  const progressRef = useRef(null)
+  const textRef = useRef(null)
+  const textLayoutRef = useRef({ leftPct: 0, rightPct: 0 })
+  const docHeightRef = useRef(0)
+
   useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 40)
-      setShowScrollToTop(window.scrollY > 500)
+    const updateLayout = () => {
+      if (textRef.current) {
+        const rect = textRef.current.getBoundingClientRect()
+        const w = window.innerWidth
+        if (w > 0) {
+          textLayoutRef.current = {
+            leftPct: rect.left / w,
+            rightPct: rect.right / w
+          }
+        }
+      }
+      // Cache scrollable document height (scrollHeight - innerHeight) to prevent layout reflow during scroll ticks
+      docHeightRef.current = Math.max(0, document.documentElement.scrollHeight - window.innerHeight)
     }
+
+    const handleScroll = () => {
+      const scrollY = window.scrollY
+      setScrolled(scrollY > 40)
+      setShowScrollToTop(scrollY > 500)
+
+      const docHeight = docHeightRef.current
+      const progress = docHeight > 0 ? scrollY / docHeight : 0
+
+      if (progressRef.current) {
+        progressRef.current.style.transform = `scaleX(${progress})`
+      }
+
+      // Update logo text
+      const { leftPct, rightPct } = textLayoutRef.current
+      if (rightPct > leftPct) {
+        let textProgress = 0
+        if (progress > leftPct) {
+          if (progress >= rightPct) {
+            textProgress = 1
+          } else {
+            textProgress = (progress - leftPct) / (rightPct - leftPct)
+          }
+        }
+        if (textRef.current) {
+          textRef.current.style.setProperty('--text-progress', `${textProgress * 100}%`)
+        }
+      }
+    }
+
     window.addEventListener('scroll', handleScroll, { passive: true })
-    return () => window.removeEventListener('scroll', handleScroll)
+    
+    const handleResize = () => {
+      updateLayout()
+      handleScroll()
+    }
+    window.addEventListener('resize', handleResize, { passive: true })
+    
+    // Initial call to set layout and correct position
+    updateLayout()
+    handleScroll()
+
+    // Wait a tiny bit for layout/fonts to settle to ensure accurate position caching
+    const timer = setTimeout(() => {
+      updateLayout()
+      handleScroll()
+    }, 150)
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll)
+      window.removeEventListener('resize', handleResize)
+      clearTimeout(timer)
+    }
   }, [])
 
   const handleNavClick = (href) => {
@@ -56,27 +122,25 @@ export default function Navbar() {
           backdropFilter: scrolled ? 'blur(24px) saturate(180%)' : 'none',
           WebkitBackdropFilter: scrolled ? 'blur(24px) saturate(180%)' : 'none',
           boxShadow: scrolled
-            ? '0 1px 0 0 rgba(255,255,255,0.05), 0 4px 20px 0 rgba(0,0,0,0.5)'
-            : 'none',
+             ? '0 1px 0 0 rgba(255,255,255,0.05), 0 4px 20px 0 rgba(0,0,0,0.5)'
+             : 'none',
         }}
       >
         <div className="section-container relative flex items-center justify-between h-16">
           <div className="flex items-center gap-3">
             <a
+              ref={textRef}
               href="#hero"
               onClick={(e) => { e.preventDefault(); scrollToTop(e) }}
-              className="font-mono text-white/90 font-bold text-xs tracking-widest uppercase hover:text-white transition-colors duration-200"
+              className="font-mono font-bold text-xs tracking-widest uppercase transition-opacity duration-200 opacity-90 hover:opacity-100"
+              style={{
+                background: 'linear-gradient(to right, #ffdd00 var(--text-progress, 0%), rgba(255, 255, 255, 0.9) var(--text-progress, 0%))',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+                display: 'inline-block',
+              }}
             >
-              Saif <span className="text-gray-600 mx-1">|</span> Portfolio
-            </a>
-            <a
-              href="https://github.com/sponsors/seffhunnn"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group flex items-center justify-center p-2 rounded-full border border-pink-500/20 bg-pink-500/5 text-pink-500 hover:border-pink-500/50 hover:bg-pink-500/10 hover:shadow-[0_0_10px_rgba(236,72,153,0.3)] transition-all duration-200"
-              title="Sponsor Saif on GitHub"
-            >
-              <Heart size={15} className="fill-none group-hover:fill-pink-500 transition-all duration-200" />
+              Saif | Portfolio
             </a>
           </div>
 
@@ -125,6 +189,13 @@ export default function Navbar() {
             </button>
           </div>
         </div>
+
+        {/* Real-time Scroll Progress Indicator */}
+        <div
+          ref={progressRef}
+          className="absolute bottom-0 left-0 right-0 h-[2px] bg-yellow-500/50 origin-left will-change-transform"
+          style={{ transform: 'scaleX(0)' }}
+        />
       </motion.nav>
 
       {/* Mobile drawer code removed for brevity but same as before */}

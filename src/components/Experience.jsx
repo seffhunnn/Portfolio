@@ -46,7 +46,7 @@ export default function Experience() {
                     <div className="absolute -left-1.5 top-6 w-3 h-3 rounded-full border-2 border-yellow-500/40 bg-black group-hover:bg-yellow-500 group-hover:scale-125 transition-all duration-500 hidden sm:block z-20" />
                     <div className="absolute -left-1.5 top-6 w-3 h-3 rounded-full bg-yellow-500/20 blur-sm opacity-0 group-hover:opacity-100 transition-opacity hidden sm:block z-10" />
 
-                    <div className="glass-card rounded-[1.25rem] p-7 border-l-2 border-yellow-500/10 hover:border-yellow-500/40 transition-all duration-500 hover:translate-x-1 hover:bg-white/[0.03] relative overflow-hidden">
+                    <div className="glass-card rounded-[1.25rem] p-7 border-l-2 border-yellow-500/10 hover:border-yellow-500/40 hover:bg-white/[0.03] relative overflow-hidden transition-[transform,border-color,background-color] duration-500 hover:translate-x-1 will-change-transform">
                       {/* Yellow left milestone bar — same as education cards */}
                       <div className="absolute top-6 -left-[3px] w-2 h-3 bg-yellow-500/30 rounded-full group-hover:h-10 group-hover:bg-yellow-500 transition-all duration-500" />
                       {/* Ambient corner glow */}

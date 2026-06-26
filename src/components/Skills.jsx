@@ -30,12 +30,13 @@ function SkillCard({ title, items, icon: Icon, className = '' }) {
   return (
     <div className={`w-full ${className} flex flex-col`}>
       <div
-        className="group relative rounded-[2.25rem] p-8 sm:p-10 overflow-hidden border-l-2 border-yellow-500/10 hover:border-yellow-500/40 transition-all duration-500 hover:bg-white/[0.02] flex-1 flex flex-col"
+        className="group relative rounded-[2.25rem] p-8 sm:p-10 overflow-hidden border-l-2 border-yellow-500/10 hover:border-yellow-500/40 hover:bg-white/[0.02] flex-1 flex flex-col transition-[border-color,background-color] duration-500 will-change-transform"
         style={{
           background: 'rgba(255,255,255,0.015)',
-          backdropFilter: 'blur(30px)',
-          WebkitBackdropFilter: 'blur(30px)',
+          backdropFilter: 'blur(8px)',
+          WebkitBackdropFilter: 'blur(8px)',
           boxShadow: '0 40px 100px -20px rgba(0,0,0,0.6)',
+          transform: 'translate3d(0,0,0)',
         }}
       >
         {/* Yellow bottom-center bar expanding outward */}
