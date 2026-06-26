@@ -13,10 +13,9 @@ const GithubIcon = () => (
 
 function ProjectCard({ project }) {
   return (
-    <motion.div
-      whileHover={{ y: -8 }}
-      transition={{ duration: 0.4, ease: [0.25, 0.1, 0.25, 1] }}
-      className="group glass-card rounded-[1rem] flex flex-col h-full overflow-hidden border border-white/[0.05] hover:border-yellow-500/40 transition-all duration-500 hover:shadow-2xl hover:shadow-yellow-500/[0.05] relative"
+    <div
+      className="group glass-card rounded-[1rem] flex flex-col h-full overflow-hidden border border-white/[0.05] hover:border-yellow-500/40 hover:shadow-2xl hover:shadow-yellow-500/[0.05] relative transition-[transform,border-color,box-shadow] duration-500 hover:-translate-y-2 will-change-transform"
+      style={{ transform: 'translate3d(0,0,0)' }}
     >
       {/* Yellow top-center bar expanding outward */}
       <div className="absolute bottom-0 left-1/2 -translate-x-1/2 h-[3px] w-8 bg-yellow-500/20 rounded-full group-hover:w-3/4 group-hover:bg-yellow-500 transition-all duration-500 z-10" />
@@ -97,7 +96,7 @@ function ProjectCard({ project }) {
           ))}
         </div>
       </div>
-    </motion.div>
+    </div>
   )
 }
 

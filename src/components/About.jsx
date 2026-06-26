@@ -26,7 +26,7 @@ export default function About() {
 
             <AnimatedItem>
               <div
-                className="group relative glass-card rounded-[1.25rem] p-6 border-l-2 border-yellow-500/10 hover:border-yellow-500/40 transition-all duration-500 hover:translate-x-1 hover:bg-white/[0.03] mb-6"
+                className="group relative glass-card rounded-[1.25rem] p-6 border-l-2 border-yellow-500/10 hover:border-yellow-500/40 hover:bg-white/[0.03] mb-6 transition-[transform,border-color,background-color] duration-500 hover:translate-x-1 will-change-transform"
               >
                 {/* Minimal Yellow Milestone Glow */}
                 <div className="absolute top-6 -left-[3px] w-1 h-3 bg-yellow-500/30 rounded-full group-hover:h-6 group-hover:bg-yellow-500 transition-all duration-500" />
@@ -71,7 +71,7 @@ export default function About() {
             <div className="space-y-4">
               {about.education.map((edu, i) => (
                 <AnimatedItem key={i}>
-                  <div className="group relative glass-card rounded-[1.25rem] p-6 border-l-2 border-yellow-500/10 hover:border-yellow-500/40 transition-all duration-500 hover:translate-x-1 hover:bg-white/[0.03]">
+                  <div className="group relative glass-card rounded-[1.25rem] p-6 border-l-2 border-yellow-500/10 hover:border-yellow-500/40 hover:bg-white/[0.03] transition-[transform,border-color,background-color] duration-500 hover:translate-x-1 will-change-transform">
                     {/* Minimal Yellow Milestone Glow */}
                     <div className="absolute top-6 -left-[3px] w-1 h-3 bg-yellow-500/30 rounded-full group-hover:h-6 group-hover:bg-yellow-500 transition-all duration-500" />
                     

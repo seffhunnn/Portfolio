@@ -151,18 +151,15 @@ export default function Hero() {
                 <Mail size={20} strokeWidth={2} />
                 <div className="absolute inset-0 rounded-2xl bg-white/5 opacity-0 group-hover:opacity-100 blur-xl transition-opacity" />
               </a>
-
-              <div className="w-[1px] h-8 bg-white/10 self-center mx-1" />
-
               <a
                 href="https://github.com/sponsors/seffhunnn"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="btn-sponsor group"
-                style={{ textDecoration: 'none' }}
+                className="group relative flex items-center justify-center w-12 h-12 rounded-2xl border border-white/10 bg-white/[0.03] text-gray-500 transition-all duration-300 hover:border-white/30 hover:text-white hover:bg-white/10 hover:scale-110 hover:-rotate-3"
+                title="Sponsor"
               >
-                <Heart size={16} className="text-pink-500 fill-none group-hover:fill-pink-500 transition-all duration-200" />
-                Sponsor
+                <Heart size={20} className="text-pink-500 fill-none group-hover:fill-pink-500 transition-all duration-200" />
+                <div className="absolute inset-0 rounded-2xl bg-white/5 opacity-0 group-hover:opacity-100 blur-xl transition-opacity" />
               </a>
             </div>
           </motion.div>

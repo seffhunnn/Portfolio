@@ -41,3 +41,8 @@ Thumbs.db
 # Logs
 logs
 *.log
+
+# Knowcode
+.knowcode
+.agent
+knowcode.md
