@@ -224,7 +224,8 @@ export default function Hero() {
                   style={{ filter: imageFilter }}
                   src={profileImage} 
                   alt={personal.name}
-                  className="w-full h-auto max-w-xs object-cover transition-transform duration-700 group-hover:scale-105"
+                  data-visualsearch="false"
+                  className="w-full h-auto max-w-xs object-cover transition-transform duration-700 group-hover:scale-105 pointer-events-none"
                 />
                 
                 {/* Subtle overlay glare */}
