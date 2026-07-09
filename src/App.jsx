@@ -1,5 +1,6 @@
 import useSmoothScroll from './hooks/useSmoothScroll'
 import Navbar from './components/Navbar'
+import ScrollSpy from './components/ScrollSpy'
 import Hero from './components/Hero'
 import About from './components/About'
 import Experience from './components/Experience'
@@ -8,6 +9,9 @@ import Projects from './components/Projects'
 import Social from './components/Social'
 import Footer from './components/Footer'
 import BackgroundParticles from './components/BackgroundParticles'
+import ScrollRevealWrapper from './components/ScrollRevealWrapper'
+import RunningLabel from './components/RunningLabel'
+
 export default function App() {
   useSmoothScroll()
   return (
@@ -28,15 +32,30 @@ export default function App() {
       <div className="orb orb-2" />
 
       <Navbar />
-      <main>
-        <Hero />
-        <About />
-        <Experience />
-        <Skills />
+      <ScrollSpy />
+      <main className="relative z-10">
+        <ScrollRevealWrapper>
+          <Hero />
+        </ScrollRevealWrapper>
+        
+        <RunningLabel />
+
+        <ScrollRevealWrapper>
+          <About />
+        </ScrollRevealWrapper>
+        <ScrollRevealWrapper>
+          <Experience />
+        </ScrollRevealWrapper>
+        <ScrollRevealWrapper>
+          <Skills />
+        </ScrollRevealWrapper>
         <Projects />
-        <Social />
+        <ScrollRevealWrapper>
+          <Social />
+        </ScrollRevealWrapper>
       </main>
       <Footer />
     </div>
   )
 }
+

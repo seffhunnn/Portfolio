@@ -15,69 +15,50 @@ export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false)
   const [showScrollToTop, setShowScrollToTop] = useState(false)
 
-  const progressRef = useRef(null)
-  const textRef = useRef(null)
-  const textLayoutRef = useRef({ leftPct: 0, rightPct: 0 })
   const docHeightRef = useRef(0)
 
   useEffect(() => {
     const updateLayout = () => {
-      if (textRef.current) {
-        const rect = textRef.current.getBoundingClientRect()
-        const w = window.innerWidth
-        if (w > 0) {
-          textLayoutRef.current = {
-            leftPct: rect.left / w,
-            rightPct: rect.right / w
-          }
-        }
-      }
-      // Cache scrollable document height (scrollHeight - innerHeight) to prevent layout reflow during scroll ticks
       docHeightRef.current = Math.max(0, document.documentElement.scrollHeight - window.innerHeight)
     }
 
+    let scheduled = false
+    let lastScrolled = false
+    let lastShowTop = false
+
     const handleScroll = () => {
-      const scrollY = window.scrollY
-      setScrolled(scrollY > 40)
-      setShowScrollToTop(scrollY > 500)
+      if (scheduled) return
+      scheduled = true
 
-      const docHeight = docHeightRef.current
-      const progress = docHeight > 0 ? scrollY / docHeight : 0
+      window.requestAnimationFrame(() => {
+        scheduled = false
 
-      if (progressRef.current) {
-        progressRef.current.style.transform = `scaleX(${progress})`
-      }
+        const scrollY = window.scrollY
+        const nextScrolled = scrollY > 100
+        const nextShowTop = scrollY > 500
 
-      // Update logo text
-      const { leftPct, rightPct } = textLayoutRef.current
-      if (rightPct > leftPct) {
-        let textProgress = 0
-        if (progress > leftPct) {
-          if (progress >= rightPct) {
-            textProgress = 1
-          } else {
-            textProgress = (progress - leftPct) / (rightPct - leftPct)
-          }
+        if (nextScrolled !== lastScrolled) {
+          lastScrolled = nextScrolled
+          setScrolled(nextScrolled)
         }
-        if (textRef.current) {
-          textRef.current.style.setProperty('--text-progress', `${textProgress * 100}%`)
+        if (nextShowTop !== lastShowTop) {
+          lastShowTop = nextShowTop
+          setShowScrollToTop(nextShowTop)
         }
-      }
+      })
     }
 
     window.addEventListener('scroll', handleScroll, { passive: true })
-    
+
     const handleResize = () => {
       updateLayout()
       handleScroll()
     }
     window.addEventListener('resize', handleResize, { passive: true })
-    
-    // Initial call to set layout and correct position
+
     updateLayout()
     handleScroll()
 
-    // Wait a tiny bit for layout/fonts to settle to ensure accurate position caching
     const timer = setTimeout(() => {
       updateLayout()
       handleScroll()
@@ -112,35 +93,26 @@ export default function Navbar() {
 
   return (
     <>
-      <motion.nav
-        initial={{ y: -60, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.7, ease: [0.25, 0.1, 0.25, 1.0], delay: 0.2 }}
-        className="fixed top-0 left-0 right-0 z-50 transition-all duration-500"
+      <nav
+        className="fixed top-0 left-0 right-0 z-50"
         style={{
-          background: scrolled ? 'rgba(0,0,0,0.85)' : 'transparent',
+          pointerEvents: scrolled ? 'auto' : 'none',
+          background: scrolled ? '#000000' : 'transparent',
           backdropFilter: scrolled ? 'blur(24px) saturate(180%)' : 'none',
           WebkitBackdropFilter: scrolled ? 'blur(24px) saturate(180%)' : 'none',
-          boxShadow: scrolled
-             ? '0 1px 0 0 rgba(255,255,255,0.05), 0 4px 20px 0 rgba(0,0,0,0.5)'
-             : 'none',
+          transform: `translateY(${scrolled ? '0px' : '-100px'})`,
+          opacity: scrolled ? 1 : 0,
+          transition: 'transform 0.3s cubic-bezier(0.25, 0.1, 0.25, 1.0), opacity 0.3s cubic-bezier(0.25, 0.1, 0.25, 1.0)',
         }}
       >
-        <div className="section-container relative flex items-center justify-between h-16">
+        <div className="section-container relative flex items-center justify-between h-16 z-10">
           <div className="flex items-center gap-3">
             <a
-              ref={textRef}
               href="#hero"
               onClick={(e) => { e.preventDefault(); scrollToTop(e) }}
-              className="font-mono font-bold text-xs tracking-widest uppercase transition-opacity duration-200 opacity-90 hover:opacity-100"
-              style={{
-                background: 'linear-gradient(to right, #ffdd00 var(--text-progress, 0%), rgba(255, 255, 255, 0.9) var(--text-progress, 0%))',
-                WebkitBackgroundClip: 'text',
-                WebkitTextFillColor: 'transparent',
-                display: 'inline-block',
-              }}
+              className="font-mono font-bold text-xs tracking-widest uppercase transition-opacity duration-200 opacity-90 hover:opacity-100 text-white/90"
             >
-              Saif | Portfolio
+              Portfolio
             </a>
           </div>
 
@@ -163,9 +135,7 @@ export default function Navbar() {
             </AnimatePresence>
           </div>
 
-          {/* Nav links (justified right) */}
           <div className="flex-grow flex items-center justify-end">
-            {/* Desktop nav */}
             <div className="hidden md:flex items-center gap-8">
               {navLinks.map((link) => (
                 <a
@@ -179,7 +149,6 @@ export default function Navbar() {
               ))}
             </div>
 
-            {/* Mobile hamburger */}
             <button
               className="md:hidden text-gray-400 hover:text-white transition-colors p-1"
               onClick={() => setMobileOpen(!mobileOpen)}
@@ -189,16 +158,8 @@ export default function Navbar() {
             </button>
           </div>
         </div>
+      </nav>
 
-        {/* Real-time Scroll Progress Indicator */}
-        <div
-          ref={progressRef}
-          className="absolute bottom-0 left-0 right-0 h-[2px] bg-yellow-500/50 origin-left will-change-transform"
-          style={{ transform: 'scaleX(0)' }}
-        />
-      </motion.nav>
-
-      {/* Mobile drawer code removed for brevity but same as before */}
       <AnimatePresence>
         {mobileOpen && (
           <motion.div

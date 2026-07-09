@@ -1,4 +1,5 @@
-import { motion } from 'framer-motion'
+import { useRef } from 'react'
+import { motion, useScroll, useTransform, useSpring, useMotionTemplate } from 'framer-motion'
 import AnimatedSection, { AnimatedItem } from './AnimatedSection'
 import { techStack } from '../data'
 import { getTagColor } from '../utils/colors'
@@ -27,16 +28,49 @@ const categoryIcons = {
 }
 
 function SkillCard({ title, items, icon: Icon, className = '' }) {
+  const cardRef = useRef(null)
+
+  const { scrollYProgress } = useScroll({
+    target: cardRef,
+    offset: ['start end', 'end start'],
+  })
+
+  const smoothProgress = useSpring(scrollYProgress, {
+    stiffness: 520,
+    damping: 45,
+    mass: 0.65,
+    restDelta: 0.001,
+  })
+
+  const opacity = useTransform(smoothProgress, [0.08, 0.22, 0.78, 0.92], [0, 1, 1, 0], { clamp: true })
+  const y = useTransform(smoothProgress, [0.08, 0.22, 0.78, 0.92], [20, 0, 0, -10], { clamp: true })
+  const scale = useTransform(smoothProgress, [0.08, 0.22, 0.78, 0.92], [0.98, 1, 1, 0.98], { clamp: true })
+  const blurVal = useTransform(smoothProgress, [0.08, 0.22, 0.78, 0.92], [4, 0, 0, 4], { clamp: true })
+  const filter = useMotionTemplate`blur(${blurVal}px)`
+
   return (
-    <div className={`w-full ${className} flex flex-col`}>
+    <motion.div
+      ref={cardRef}
+      style={{ opacity, y, scale, filter }}
+      className={`w-full ${className} flex flex-col relative`}
+    >
       <div
-        className="group relative rounded-[2.25rem] p-8 sm:p-10 overflow-hidden border-l-2 border-yellow-500/10 hover:border-yellow-500/40 hover:bg-white/[0.02] flex-1 flex flex-col transition-[border-color,background-color] duration-500 will-change-transform"
+        className="group relative rounded-[2.25rem] p-8 sm:p-10 overflow-hidden glass-card border-l-2 border-yellow-500/10 hover:border-yellow-500/40 flex-1 flex flex-col transition-[border-color] duration-500 will-change-transform"
         style={{
-          background: 'rgba(255,255,255,0.015)',
-          backdropFilter: 'blur(8px)',
-          WebkitBackdropFilter: 'blur(8px)',
-          boxShadow: '0 40px 100px -20px rgba(0,0,0,0.6)',
-          transform: 'translate3d(0,0,0)',
+          background: 'rgba(10, 10, 10, 0.45)',
+          backdropFilter: 'blur(16px)',
+          WebkitBackdropFilter: 'blur(16px)',
+          transition: 'background 0.4s ease, border-color 0.5s ease, transform 0.45s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.45s ease, backdrop-filter 0.4s ease',
+        }}
+        onMouseEnter={e => {
+          e.currentTarget.style.background = 'rgba(10, 10, 10, 0.25)'
+          e.currentTarget.style.backdropFilter = 'blur(32px)'
+          e.currentTarget.style.WebkitBackdropFilter = 'blur(32px)'
+        }}
+        onMouseLeave={e => {
+          e.currentTarget.style.background = 'rgba(10, 10, 10, 0.45)'
+          e.currentTarget.style.backdropFilter = 'blur(16px)'
+          e.currentTarget.style.WebkitBackdropFilter = 'blur(16px)'
         }}
       >
         {/* Yellow bottom-center bar expanding outward */}
@@ -85,7 +119,7 @@ function SkillCard({ title, items, icon: Icon, className = '' }) {
           </div>
         </div>
       </div>
-    </div>
+    </motion.div>
   )
 }
 
@@ -111,50 +145,40 @@ export default function Skills() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 items-stretch">
           {/* Column 1: Frontend */}
           <div className="flex flex-col h-full">
-            <AnimatedItem className="w-full h-full flex flex-col flex-1">
-              <SkillCard
-                title={techStack[1].category}
-                items={techStack[1].skills}
-                icon={categoryIcons[techStack[1].category]}
-                className="h-full flex-1"
-              />
-            </AnimatedItem>
+            <SkillCard
+              title={techStack[1].category}
+              items={techStack[1].skills}
+              icon={categoryIcons[techStack[1].category]}
+              className="h-full flex-1"
+            />
           </div>
 
           {/* Column 2: Backend & Database + Languages */}
           <div className="flex flex-col justify-between h-full gap-6 lg:gap-8">
-            <AnimatedItem className="w-full">
-              <SkillCard
-                title={techStack[2].category}
-                items={techStack[2].skills}
-                icon={categoryIcons[techStack[2].category]}
-              />
-            </AnimatedItem>
-            <AnimatedItem className="w-full">
-              <SkillCard
-                title={techStack[3].category}
-                items={techStack[3].skills}
-                icon={categoryIcons[techStack[3].category]}
-              />
-            </AnimatedItem>
+            <SkillCard
+              title={techStack[2].category}
+              items={techStack[2].skills}
+              icon={categoryIcons[techStack[2].category]}
+            />
+            <SkillCard
+              title={techStack[3].category}
+              items={techStack[3].skills}
+              icon={categoryIcons[techStack[3].category]}
+            />
           </div>
 
           {/* Column 3: Core & Open Source + Tools & Deployment */}
           <div className="flex flex-col md:flex-row lg:flex-col justify-between h-full gap-6 lg:gap-8 md:col-span-2 lg:col-span-1">
-            <AnimatedItem className="w-full md:flex-1 lg:flex-initial">
-              <SkillCard
-                title={techStack[0].category}
-                items={techStack[0].skills}
-                icon={categoryIcons[techStack[0].category]}
-              />
-            </AnimatedItem>
-            <AnimatedItem className="w-full md:flex-1 lg:flex-initial">
-              <SkillCard
-                title={techStack[4].category}
-                items={techStack[4].skills}
-                icon={categoryIcons[techStack[4].category]}
-              />
-            </AnimatedItem>
+            <SkillCard
+              title={techStack[0].category}
+              items={techStack[0].skills}
+              icon={categoryIcons[techStack[0].category]}
+            />
+            <SkillCard
+              title={techStack[4].category}
+              items={techStack[4].skills}
+              icon={categoryIcons[techStack[4].category]}
+            />
           </div>
         </div>
       </div>
