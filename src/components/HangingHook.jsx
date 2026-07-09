@@ -1,10 +1,13 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { motion, useMotionValue, useTransform, animate } from 'framer-motion'
 
 export default function HangingHook() {
   const [hovered, setHovered] = useState(false)
   const [isDragging, setIsDragging] = useState(false)
   const y = useMotionValue(-150)
+  
+  // Tracks if the user has triggered the redirection by pulling the rope fully down
+  const isPulledOutRef = useRef(false)
 
   // Calculate dynamic heights for the cord based on ring position
   const cordHeight = useTransform(y, (latestY) => latestY + 40)
@@ -20,28 +23,44 @@ export default function HangingHook() {
     })
   }, [])
 
+  // Handle focus return state machine
+  useEffect(() => {
+    const handleFocus = () => {
+      // If the user is returning to the tab after triggering the guns.lol portal:
+      if (isPulledOutRef.current) {
+        isPulledOutRef.current = false
+        // Play a smooth, relaxed spring return animation back to the resting position (40px)
+        animate(y, 40, {
+          type: 'spring',
+          stiffness: 110,
+          damping: 20,
+          mass: 1.0,
+        })
+      } else {
+        // Otherwise, simply make sure the coordinates are cleanly reset
+        y.set(40)
+      }
+    }
+    window.addEventListener('focus', handleFocus)
+    return () => window.removeEventListener('focus', handleFocus)
+  }, [])
+
   const handleDragEnd = (event, info) => {
     setIsDragging(false)
     // If absolute pulled cable length is past 130px, trigger redirection
     if (y.get() > 130) {
-      // 1. Release snap animation (bounces high like a rubber band back to rest position 40)
-      animate(y, 170, { duration: 0.06 }).then(() => {
-        animate(y, 40, {
-          type: 'spring',
-          stiffness: 700,
-          damping: 12,
-          mass: 0.5,
-        })
-      })
+      // Mark as fully pulled down and lock it at the bottom position (150px)
+      isPulledOutRef.current = true
+      y.set(150)
 
-      // 2. Open the guns.lol profile in a new tab
+      // Open the guns.lol profile in a new tab immediately
       window.open('https://guns.lol/seffhunnn', '_blank')
     } else {
-      // If let go early, snap back to rest position 40
+      // If let go early, snap back to rest position 40 smoothly
       animate(y, 40, {
         type: 'spring',
-        stiffness: 400,
-        damping: 20,
+        stiffness: 140,
+        damping: 18,
       })
     }
   }
@@ -65,8 +84,8 @@ export default function HangingHook() {
           y1={0}
           x2={16}
           y2={y}
-          stroke="#e4e4e7"
-          strokeWidth={2.5}
+          stroke="#71717a"
+          strokeWidth={3.5}
           className="opacity-50"
         />
         {/* Helical wire pattern simulation */}
@@ -75,10 +94,10 @@ export default function HangingHook() {
           y1={0}
           x2={16}
           y2={y}
-          stroke="#71717a"
-          strokeWidth={1.5}
-          strokeDasharray="3 3"
-          className="opacity-70"
+          stroke="#3f3f46"
+          strokeWidth={2.5}
+          strokeDasharray="4 4"
+          className="opacity-75"
         />
       </svg>
 
@@ -93,32 +112,42 @@ export default function HangingHook() {
         onDragEnd={handleDragEnd}
         className="absolute top-0 left-0 w-8 h-16 flex items-start justify-center cursor-grab active:cursor-grabbing pointer-events-auto overflow-visible"
       >
-        <svg viewBox="0 0 32 64" className="w-8 h-16 overflow-visible drop-shadow-[0_4px_10px_rgba(0,0,0,0.6)]">
-          {/* Blue swaged sleeve / ferrule */}
-          <rect x="12" y="0" width="8" height="12" rx="1.5" fill="#2563eb" stroke="#1d4ed8" strokeWidth="1" />
+        <svg viewBox="0 0 32 64" className="w-8 h-16 overflow-visible drop-shadow-[0_4px_10px_rgba(0,0,0,0.7)]">
+          <defs>
+            <linearGradient id="silver-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stopColor="#ffffff" />
+              <stop offset="35%" stopColor="#d4d4d8" />
+              <stop offset="70%" stopColor="#88888b" />
+              <stop offset="100%" stopColor="#3f3f46" />
+            </linearGradient>
+          </defs>
+
+          {/* Top Eyelet Ring - Thinner */}
+          <circle cx="16" cy="6" r="4.2" fill="none" stroke="url(#silver-grad)" strokeWidth="2" />
           
-          {/* Loop wire outline */}
+          {/* Curved Silver J-Hook body (thin, sleek, and wide-sweeping curve) */}
           <path
-            d="M 16,12 C 8,12 5,26 5,36 C 5,46 16,50 16,50 C 16,50 27,46 27,36 C 27,26 24,12 16,12 Z"
-            fill="none"
-            stroke="#e4e4e7"
-            strokeWidth="2.5"
+            d="M 18,10 C 18,20 24,26 24,34 C 24,48 4,48 4,34 L 4,18 L 7,23 L 6,25 C 6.5,28 6.5,34 6.5,34 C 6.5,45.5 21.5,45.5 21.5,34 C 21.5,26 15.5,20 15.5,10 Z"
+            fill="url(#silver-grad)"
+            stroke="#3f3f46"
+            strokeWidth="0.6"
             strokeLinecap="round"
+            strokeLinejoin="round"
           />
-          {/* Helical wire rope texture overlay */}
+          
+          {/* Inner 3D specular highlight */}
           <path
-            d="M 16,12 C 8,12 5,26 5,36 C 5,46 16,50 16,50 C 16,50 27,46 27,36 C 27,26 24,12 16,12 Z"
+            d="M 16.75,11 C 16.75,20.5 22.75,27 22.75,34 C 22.75,46.75 5.25,46.75 5.25,34 L 5.25,20"
             fill="none"
-            stroke="#71717a"
-            strokeWidth="1.5"
-            strokeDasharray="3 3"
+            stroke="#ffffff"
+            strokeWidth="0.6"
+            className="opacity-75"
             strokeLinecap="round"
-            className="opacity-80"
           />
         </svg>
 
         {/* Pulse Ring Indicator */}
-        <div className="absolute top-8 left-1/2 -translate-x-1/2 w-6 h-6 rounded-full border border-white/20 animate-ping pointer-events-none opacity-20" />
+        <div className="absolute top-8 left-1/2 -translate-x-1/2 w-6 h-6 rounded-full border border-white/20 animate-ping pointer-events-none opacity-30" />
 
         {/* Tooltip */}
         <motion.div
@@ -129,7 +158,7 @@ export default function HangingHook() {
             y: hovered ? 0 : -10,
           }}
           transition={{ duration: 0.2 }}
-          className="absolute top-16 left-1/2 -translate-x-1/2 px-2.5 py-1 rounded bg-white text-black font-mono text-[9px] font-black tracking-widest uppercase pointer-events-none whitespace-nowrap shadow-lg border border-white/10"
+          className="absolute top-16 left-1/2 -translate-x-1/2 px-2.5 py-1 rounded bg-[#0a0a0a]/95 text-white font-mono text-[9px] font-black tracking-widest uppercase pointer-events-none whitespace-nowrap shadow-[0_4px_12px_rgba(0,0,0,0.8)] border border-white/20"
         >
           PULL ME
         </motion.div>
