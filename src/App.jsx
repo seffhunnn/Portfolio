@@ -11,6 +11,7 @@ import Footer from './components/Footer'
 import BackgroundParticles from './components/BackgroundParticles'
 import ScrollRevealWrapper from './components/ScrollRevealWrapper'
 import RunningLabel from './components/RunningLabel'
+import HangingHook from './components/HangingHook'
 
 export default function App() {
   useSmoothScroll()
@@ -33,6 +34,7 @@ export default function App() {
 
       <Navbar />
       <ScrollSpy />
+      <HangingHook />
       <main className="relative z-10">
         <ScrollRevealWrapper>
           <Hero />
