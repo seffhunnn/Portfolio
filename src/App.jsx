@@ -36,9 +36,7 @@ export default function App() {
       <ScrollSpy />
       <HangingHook />
       <main className="relative z-10">
-        <ScrollRevealWrapper>
-          <Hero />
-        </ScrollRevealWrapper>
+        <Hero />
         
         <RunningLabel />
 
