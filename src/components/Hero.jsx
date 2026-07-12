@@ -1,4 +1,4 @@
-import { useRef } from 'react'
+import { useRef, useState, useEffect } from 'react'
 import { motion, useScroll, useTransform, useMotionTemplate, useSpring } from 'framer-motion'
 import { ArrowDown, Mail, FileDown, Heart } from 'lucide-react'
 import { personal } from '../data'
@@ -12,7 +12,7 @@ const GithubIcon = ({ size = 20 }) => (
 
 const LinkedinIcon = ({ size = 20 }) => (
   <svg viewBox="0 0 24 24" width={size} height={size} fill="currentColor">
-    <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
+    <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.225 0h.003z" />
   </svg>
 )
 
@@ -36,6 +36,16 @@ const itemVariants = {
 
 export default function Hero() {
   const heroRef = useRef(null)
+  const [isMobile, setIsMobile] = useState(false)
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768)
+    }
+    handleResize()
+    window.addEventListener('resize', handleResize)
+    return () => window.removeEventListener('resize', handleResize)
+  }, [])
 
   // Track the scroll progress of the hero section relative to the viewport
   const { scrollYProgress } = useScroll({
@@ -55,6 +65,11 @@ export default function Hero() {
   const scale = useTransform(smoothProgress, [0, 0.75], [1, 0.92])
   const y = useTransform(smoothProgress, [0, 0.75], [0, -100])
   
+  // Disable exit transformations on mobile to avoid layouts shifting up and cutting off the top
+  const exitOpacity = isMobile ? 1 : opacity
+  const exitScale = isMobile ? 1 : scale
+  const exitY = isMobile ? 0 : y
+
   // Image transformations
   const grayscaleValue = useTransform(smoothProgress, [0, 0.35], [0, 100])
   const imageFilter = useMotionTemplate`grayscale(${grayscaleValue}%)`
@@ -79,11 +94,11 @@ export default function Hero() {
   const scrollToContact = () => scrollTo('#social')
 
   return (
-    <section ref={heroRef} id="hero" className="relative min-h-screen flex items-center overflow-hidden">
-      <div className="section-container relative z-10 pt-24 pb-20">
+    <section ref={heroRef} id="hero" className="relative min-h-screen flex items-start lg:items-center overflow-x-hidden">
+      <div className="section-container relative z-10 pt-32 pb-16 lg:pt-24 lg:pb-20">
         <motion.div 
           className="flex flex-col lg:flex-row items-center justify-center gap-8 lg:gap-0 w-full"
-          style={{ opacity, scale, y }}
+          style={{ opacity: exitOpacity, scale: exitScale, y: exitY }}
           variants={containerVariants}
           initial="hidden"
           animate="visible"
@@ -205,7 +220,7 @@ export default function Hero() {
           {/* Right side - Image */}
           <motion.div
             variants={itemVariants}
-            className="relative hidden lg:flex justify-center items-center flex-shrink-0"
+            className="relative flex justify-center items-center flex-shrink-0 mt-12 lg:mt-0"
           >
             <div className="relative group">
               {/* Premium layered glassmorphic frames with scroll parallax */}

@@ -143,7 +143,7 @@ function ProgressText({ projectsProgress }) {
   return <>{value}%</>
 }
 
-function SphereCardWrapper({ project, index, smoothProgress, radius }) {
+function SphereCardWrapper({ project, index, smoothProgress, radius, isMobile }) {
 
   const ANGLE_STEP = 55 // Degrees of separation between cards
 
@@ -158,7 +158,12 @@ function SphereCardWrapper({ project, index, smoothProgress, radius }) {
   const x = useTransform(rotateY, angleSamples, xSamples.map(val => val * radius))
   const z = useTransform(rotateY, angleSamples, zSamples.map(val => val * radius))
   const scale = useTransform(rotateY, angleSamples, scaleSamples)
-  const opacity = useTransform(rotateY, angleSamples, opacitySamples)
+  
+  // Responsive opacity configuration to prevent overlapping cards on narrow screens
+  const desktopOpacity = useTransform(rotateY, angleSamples, opacitySamples)
+  const mobileOpacity = useTransform(rotateY, [-40, -20, 0, 20, 40], [0, 0, 1, 0, 0])
+  const opacity = isMobile ? mobileOpacity : desktopOpacity
+
   const zIndex = useTransform(rotateY, angleSamples, zIndexSamples)
   const pointerEvents = useTransform(rotateY, angleSamples, pointerEventsSamples)
 
@@ -227,10 +232,12 @@ export default function Projects() {
 
   // Responsive radius calculation
   const [radius, setRadius] = useState(500)
+  const [isMobile, setIsMobile] = useState(false)
 
   useEffect(() => {
     const handleResize = () => {
       const w = window.innerWidth
+      setIsMobile(w < 768)
       if (w < 640) {
         setRadius(w * 0.45)
       } else if (w < 1024) {
@@ -285,6 +292,7 @@ export default function Projects() {
               index={index}
               smoothProgress={smoothProgress}
               radius={radius}
+              isMobile={isMobile}
             />
           ))}
         </div>
