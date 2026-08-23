@@ -3,41 +3,26 @@ import Lenis from 'lenis'
 
 export default function useSmoothScroll() {
   useEffect(() => {
+    // Light lerp-based smooth scroll — relaxed feel, stops quickly, no overshoot
     const lenis = new Lenis({
-      duration: 1.4,
-      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), // expo ease-out
-      smoothTouch: false,
-      touchMultiplier: 1.5,
-      normalizeWheel: true,
-      wheelMultiplier: 0.9,
+      lerp: 0.1,          // 0 = instant, 1 = never moves. 0.1 = relaxed but responsive
+      smoothTouch: false, // keep touch native
+      syncTouch: false,
     })
 
     window.__lenis = lenis
 
-    let running = true
+    let rafId
     function raf(time) {
-      if (!running) return
       lenis.raf(time)
-      requestAnimationFrame(raf)
+      rafId = requestAnimationFrame(raf)
     }
-    requestAnimationFrame(raf)
-
-    // All anchor clicks routed through Lenis
-    const handleAnchorClick = (e) => {
-      const anchor = e.target.closest('a[href^="#"]')
-      if (!anchor) return
-      e.preventDefault()
-      const target = document.querySelector(anchor.getAttribute('href'))
-      if (target) lenis.scrollTo(target, { duration: 1.6, offset: -64 })
-    }
-    document.addEventListener('click', handleAnchorClick)
+    rafId = requestAnimationFrame(raf)
 
     return () => {
-      running = false
-      document.removeEventListener('click', handleAnchorClick)
+      cancelAnimationFrame(rafId)
       lenis.destroy()
       window.__lenis = null
     }
   }, [])
 }
-

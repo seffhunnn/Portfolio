@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Menu, X, ArrowUp } from 'lucide-react'
 
@@ -7,23 +7,14 @@ const navLinks = [
   { label: 'Experience', href: '#experience' },
   { label: 'Skills', href: '#skills' },
   { label: 'Projects', href: '#projects' },
-  { label: 'Contact', href: '#social' },
 ]
 
 export default function Navbar() {
-  const [scrolled, setScrolled] = useState(false)
   const [mobileOpen, setMobileOpen] = useState(false)
   const [showScrollToTop, setShowScrollToTop] = useState(false)
 
-  const docHeightRef = useRef(0)
-
   useEffect(() => {
-    const updateLayout = () => {
-      docHeightRef.current = Math.max(0, document.documentElement.scrollHeight - window.innerHeight)
-    }
-
     let scheduled = false
-    let lastScrolled = false
     let lastShowTop = false
 
     const handleScroll = () => {
@@ -32,15 +23,9 @@ export default function Navbar() {
 
       window.requestAnimationFrame(() => {
         scheduled = false
-
         const scrollY = window.scrollY
-        const nextScrolled = scrollY > 100
         const nextShowTop = scrollY > 500
 
-        if (nextScrolled !== lastScrolled) {
-          lastScrolled = nextScrolled
-          setScrolled(nextScrolled)
-        }
         if (nextShowTop !== lastShowTop) {
           lastShowTop = nextShowTop
           setShowScrollToTop(nextShowTop)
@@ -49,108 +34,122 @@ export default function Navbar() {
     }
 
     window.addEventListener('scroll', handleScroll, { passive: true })
-
-    const handleResize = () => {
-      updateLayout()
-      handleScroll()
-    }
-    window.addEventListener('resize', handleResize, { passive: true })
-
-    updateLayout()
-    handleScroll()
-
-    const timer = setTimeout(() => {
-      updateLayout()
-      handleScroll()
-    }, 150)
-
-    return () => {
-      window.removeEventListener('scroll', handleScroll)
-      window.removeEventListener('resize', handleResize)
-      clearTimeout(timer)
-    }
+    return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
   const handleNavClick = (href) => {
     setMobileOpen(false)
     const el = document.querySelector(href)
     if (!el) return
-    if (window.__lenis) {
-      window.__lenis.scrollTo(el, { duration: 1.6, offset: -64, easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)) })
-    } else {
-      el.scrollIntoView({ behavior: 'smooth' })
-    }
+    const top = el.getBoundingClientRect().top + window.scrollY - 64
+    window.scrollTo({ top })
   }
 
   const scrollToTop = (e) => {
-    e.preventDefault();
+    e.preventDefault()
     if (window.__lenis) {
-      window.__lenis.scrollTo(0, { duration: 1.8 })
+      window.__lenis.scrollTo(0)
     } else {
-      window.scrollTo({ top: 0, behavior: 'smooth' })
+      window.scrollTo({ top: 0 })
     }
   }
 
   return (
     <>
-      <nav
-        className="fixed top-0 left-0 right-0 z-50"
-        style={{
-          pointerEvents: scrolled ? 'auto' : 'none',
-          background: scrolled ? '#000000' : 'transparent',
-          backdropFilter: scrolled ? 'blur(24px) saturate(180%)' : 'none',
-          WebkitBackdropFilter: scrolled ? 'blur(24px) saturate(180%)' : 'none',
-          transform: `translateY(${scrolled ? '0px' : '-100px'})`,
-          opacity: scrolled ? 1 : 0,
-          transition: 'transform 0.3s cubic-bezier(0.25, 0.1, 0.25, 1.0), opacity 0.3s cubic-bezier(0.25, 0.1, 0.25, 1.0)',
-        }}
-      >
-        <div className="section-container relative flex items-center justify-between h-16 z-10">
-          <div className="flex items-center gap-3">
+      <nav className="fixed top-0 left-0 right-0 z-50 bg-black/60 backdrop-blur-xl select-none">
+        <div className="max-w-[940px] mx-auto px-5 sm:px-8 h-[64px] flex items-center justify-between">
+          
+          {/* Brand/Logo in cursive font with custom tapered hand-drawn yellow underline stroke */}
+          <div className="flex items-center">
             <a
               href="#hero"
-              onClick={(e) => { e.preventDefault(); scrollToTop(e) }}
-              className="font-mono font-bold text-xs tracking-widest uppercase transition-opacity duration-200 opacity-90 hover:opacity-100 text-white/90"
+              onClick={scrollToTop}
+              className="relative text-zinc-100 hover:text-white transition-all duration-200 py-1 flex flex-col items-center cursor-pointer"
+              style={{ 
+                fontFamily: "'Caveat', cursive",
+                fontSize: '40px',
+                fontWeight: '700',
+                textDecoration: 'none',
+                letterSpacing: '0.02em',
+                lineHeight: '0.9',
+                transform: 'rotate(-6deg)',
+                transformOrigin: 'center center',
+                transition: 'transform 200ms ease, color 200ms ease',
+              }}
             >
-              Portfolio
+              <span 
+                style={{ 
+                  display: 'inline-block', 
+                }}
+              >
+                saif
+              </span>
+              <svg 
+                className="absolute left-0 right-0 bottom-[-1px] h-[6px] w-full"
+                viewBox="0 0 100 10" 
+                preserveAspectRatio="none"
+                style={{
+                  filter: 'drop-shadow(0 1px 3px rgba(255, 221, 0, 0.2))'
+                }}
+              >
+                <path 
+                  d="M 0 4 Q 50 2, 100 6 L 100 6.8 Q 50 7.8, 0 9 Z" 
+                  fill="#ffdd00"
+                />
+              </svg>
             </a>
           </div>
 
-          <div className="absolute left-1/2 -translate-x-1/2 h-full flex items-center pointer-events-none">
+          {/* Scroll To Top compact pill */}
+          <div className="hidden sm:flex items-center pointer-events-none">
             <AnimatePresence>
               {showScrollToTop && (
                 <motion.a
-                  initial={{ y: -40, opacity: 0 }}
+                  initial={{ y: -8, opacity: 0 }}
                   animate={{ y: 0, opacity: 1 }}
-                  exit={{ y: -40, opacity: 0 }}
-                  transition={{ type: "spring", stiffness: 120, damping: 20 }}
-                  href="#hero"
+                  exit={{ y: -8, opacity: 0 }}
+                  transition={{ duration: 0.2 }}
+                  href="#"
                   onClick={scrollToTop}
-                  className="pointer-events-auto flex items-center gap-2.5 rounded-full border border-white/10 bg-white/5 px-4 py-1.5 text-[10px] font-mono tracking-widest text-white/50 hover:text-white hover:border-white/20 hover:bg-white/10 transition-all duration-300 backdrop-blur-xl group"
+                  className="pointer-events-auto flex items-center gap-1.5 rounded-full border border-zinc-800 bg-zinc-900/80 px-3 py-1 text-[10px] font-mono text-zinc-400 hover:text-[#ffdd00] hover:border-zinc-700 transition-all duration-200 backdrop-blur-md"
+                  style={{ textDecoration: 'none' }}
                 >
-                  <ArrowUp size={12} className="group-hover:-translate-y-0.5 transition-transform" />
-                  <span className="uppercase">TOP</span>
+                  <ArrowUp size={11} />
+                  <span>TOP</span>
                 </motion.a>
               )}
             </AnimatePresence>
           </div>
 
-          <div className="flex-grow flex items-center justify-end">
-            <div className="hidden md:flex items-center gap-8">
+          {/* Navigation Links & Action */}
+          <div className="flex items-center gap-6">
+            <div className="hidden md:flex items-center gap-6">
               {navLinks.map((link) => (
                 <a
                   key={link.label}
                   href={link.href}
                   onClick={(e) => { e.preventDefault(); handleNavClick(link.href) }}
-                  className="nav-link text-xs uppercase tracking-wider"
+                  className="text-[12.5px] font-mono text-zinc-400 hover:text-[#ffdd00] transition-colors duration-200 select-none"
+                  style={{ textDecoration: 'none' }}
                 >
                   {link.label}
                 </a>
               ))}
             </div>
 
+            {/* CTA Button */}
+            <a
+              href="#social"
+              onClick={(e) => { e.preventDefault(); handleNavClick('#social') }}
+              className="hidden md:inline-flex items-center justify-center px-4 py-1.5 rounded-full border border-zinc-800 bg-zinc-950/80 text-[11.5px] font-mono text-zinc-300 transition-all duration-200 hover:border-[#ffdd00]/50 hover:text-[#ffdd00] hover:-translate-y-[1px]"
+              style={{ textDecoration: 'none' }}
+            >
+              Get in touch
+            </a>
+
+            {/* Mobile Hamburger Toggle */}
             <button
-              className="md:hidden text-gray-400 hover:text-white transition-colors p-1"
+              className="md:hidden text-zinc-400 hover:text-[#ffdd00] transition-colors p-1.5"
               onClick={() => setMobileOpen(!mobileOpen)}
               aria-label="Toggle menu"
             >
@@ -160,26 +159,36 @@ export default function Navbar() {
         </div>
       </nav>
 
+      {/* Mobile Drawer */}
       <AnimatePresence>
         {mobileOpen && (
           <motion.div
             key="mobile-menu"
-            initial={{ opacity: 0, x: '100%' }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: '100%' }}
-            transition={{ duration: 0.35, ease: [0.4, 0, 0.2, 1] }}
-            className="fixed inset-0 z-40 bg-black/95 backdrop-blur-xl flex flex-col items-center justify-center gap-8"
+            initial={{ opacity: 0, y: -16 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -16 }}
+            transition={{ duration: 0.2, ease: 'easeOut' }}
+            className="fixed inset-x-0 top-[64px] z-40 bg-black/95 border-b border-zinc-900 backdrop-blur-2xl flex flex-col p-6 gap-4 select-none"
           >
             {navLinks.map((link) => (
               <a
                 key={link.label}
                 href={link.href}
                 onClick={(e) => { e.preventDefault(); handleNavClick(link.href) }}
-                className="text-2xl font-light text-gray-300 hover:text-white transition-colors duration-200"
+                className="text-[14px] font-mono text-zinc-300 hover:text-[#ffdd00] transition-colors duration-200 py-1"
+                style={{ textDecoration: 'none' }}
               >
                 {link.label}
               </a>
             ))}
+            <a
+              href="#social"
+              onClick={(e) => { e.preventDefault(); handleNavClick('#social') }}
+              className="inline-flex items-center justify-center py-2.5 rounded-full border border-zinc-800 bg-zinc-900/60 text-[12.5px] font-mono text-zinc-300 hover:text-[#ffdd00] hover:border-[#ffdd00]/50 transition-all duration-200 mt-2"
+              style={{ textDecoration: 'none' }}
+            >
+              Get in touch
+            </a>
           </motion.div>
         )}
       </AnimatePresence>

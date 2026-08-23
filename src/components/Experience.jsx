@@ -1,131 +1,168 @@
-import { useRef } from 'react'
-import { motion, useScroll, useTransform, useSpring, useMotionTemplate } from 'framer-motion'
-import AnimatedSection, { AnimatedItem } from './AnimatedSection'
+import { useState } from 'react'
+import { motion } from 'framer-motion'
 import { experiences } from '../data'
-import { Briefcase, Code2, Trophy, Users, Clock } from 'lucide-react'
-import { getTagColor } from '../utils/colors'
 
-const typeIcon = {
-  Internship: Briefcase,
-  'Open Source': Code2,
-  Hackathon: Trophy,
-  Ambassador: Users,
-  'Part-time': Clock,
+function formatPeriod(period) {
+  if (!period) return null
+  return period.replace('–', '—').replace('-', '—').toUpperCase()
 }
 
-const typeColor = {
-  Internship: 'text-blue-400 border-blue-400/20 bg-blue-400/5',
-  'Open Source': 'text-cyan-400 border-cyan-400/20 bg-cyan-400/5',
-  Hackathon: 'text-yellow-400 border-yellow-400/20 bg-yellow-400/5',
-  Ambassador: 'text-purple-400 border-purple-400/20 bg-purple-400/5',
-  'Part-time': 'text-emerald-400 border-emerald-400/20 bg-emerald-400/5',
+// Small placeholder icon — renders logo image if available, else initials
+function CompanyIcon({ company, type, logo }) {
+  const initials = (company || '?')
+    .split(/[\s.()&]+/)
+    .filter(Boolean)
+    .slice(0, 2)
+    .map((w) => w[0].toUpperCase())
+    .join('')
+
+  const tints = {
+    'Open Source': { bg: '#111a13' },
+    'Part-time':   { bg: '#111118' },
+    Internship:    { bg: '#181308' },
+    Hackathon:     { bg: '#140d18' },
+    Ambassador:    { bg: '#0a1518' },
+    'Full-time':   { bg: '#0c1710' },
+  }
+  const bg = (tints[type] ?? { bg: '#111' }).bg
+
+  if (logo) {
+    return (
+      <div
+        className="flex-shrink-0 w-8 h-8 rounded-[7px] overflow-hidden border border-white/[0.06] flex items-center justify-center"
+        style={{ background: '#111' }}
+      >
+        <img
+          src={logo}
+          alt={company}
+          className="w-full h-full object-contain"
+          onError={(e) => { e.currentTarget.style.display = 'none' }}
+        />
+      </div>
+    )
+  }
+
+  return (
+    <div
+      className="flex-shrink-0 w-8 h-8 rounded-[7px] flex items-center justify-center select-none text-[10px] font-mono font-bold border border-white/[0.05]"
+      style={{ background: bg, color: '#71717a' }}
+    >
+      {initials}
+    </div>
+  )
 }
 
-function ExperienceCard({ exp }) {
-  const cardRef = useRef(null)
-
-  // Track scroll progress of this specific card relative to the entire viewport height
-  const { scrollYProgress } = useScroll({
-    target: cardRef,
-    offset: ['start end', 'end start'],
-  })
-
-  // Use slightly lighter spring to reduce scroll-back jitter
-  const smoothProgress = useSpring(scrollYProgress, {
-    stiffness: 520,
-    damping: 45,
-    mass: 0.65,
-    restDelta: 0.001
-  })
-
-  // Map progress to smooth entrance (coming) and exit (going) transforms
-  const opacity = useTransform(smoothProgress, [0.08, 0.22, 0.78, 0.92], [0, 1, 1, 0], { clamp: true })
-  const y = useTransform(smoothProgress, [0.08, 0.22, 0.78, 0.92], [20, 0, 0, -10], { clamp: true })
-  const scale = useTransform(smoothProgress, [0.08, 0.22, 0.78, 0.92], [0.98, 1, 1, 0.98], { clamp: true })
-  const rotate = useTransform(smoothProgress, [0.08, 0.22, 0.78, 0.92], [0.5, 0, 0, -0.5], { clamp: true })
-
-  const blurVal = useTransform(smoothProgress, [0.08, 0.22, 0.78, 0.92], [4, 0, 0, 4], { clamp: true })
-  const filter = useMotionTemplate`blur(${blurVal}px)`
-
-  const Icon = typeIcon[exp.type] || Briefcase
-  const colorClass = exp.colorClass || typeColor[exp.type] || 'text-gray-400 border-gray-400/20 bg-gray-400/5'
+function ExperienceEntry({ exp, index, isLast }) {
+  const [hovered, setHovered] = useState(false)
+  const period = formatPeriod(exp.period)
+  const desc = exp.description
 
   return (
     <motion.div
-      ref={cardRef}
-      style={{ opacity, y, scale, rotate, filter }}
-      viewport={{ once: true, margin: "-10% 0px -10% 0px" }}
-      className="sm:pl-10 relative group min-h-[180px]"
+      initial={{ opacity: 0, y: 10 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{
+        duration: 0.45,
+        ease: [0.25, 1, 0.5, 1],
+        delay: 0.15 + index * 0.05,
+      }}
     >
-      {/* Timeline Milestone Dot */}
-      <div className="absolute -left-1.5 top-6 w-3 h-3 rounded-full border-2 border-yellow-500/40 bg-black group-hover:bg-yellow-500 group-hover:scale-125 transition-all duration-500 hidden sm:block z-20" />
-      <div className="absolute -left-1.5 top-6 w-3 h-3 rounded-full bg-yellow-500/20 blur-sm opacity-0 group-hover:opacity-100 transition-opacity hidden sm:block z-10" />
-
-      {/* Glass card container */}
-      <div className="relative w-full rounded-[1.25rem] overflow-hidden glass-card border-l-2 border-yellow-500/10 group-hover:border-yellow-500/40 transition-[border-color,background-color] duration-500 bg-[#0a0a0a]/50 p-7">
-
-        {/* Yellow left milestone bar */}
-        <div className="absolute top-6 -left-[3px] w-2 h-3 bg-yellow-500/30 rounded-full group-hover:h-10 group-hover:bg-yellow-500 transition-all duration-500 z-30" />
-        {/* Ambient corner glow */}
-        <div className="absolute top-0 right-0 w-32 h-32 bg-yellow-500/[0.03] blur-3xl opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none z-0" />
-
-        <div className="flex flex-wrap items-start justify-between gap-4 mb-4 relative z-10">
-          <div className="flex items-center gap-4">
-            <span className={`inline-flex items-center gap-1.5 text-xs font-mono px-2.5 py-1 rounded-full border ${colorClass}`}>
-              <Icon size={12} />
-              {exp.type}
-            </span>
-            <h3 className="text-white font-bold text-lg tracking-tight group-hover:text-yellow-500/90 transition-colors">
-              {exp.role}
-            </h3>
-          </div>
-          <span className="text-sm font-mono text-yellow-500/70 font-semibold shrink-0">{exp.period}</span>
+      <div
+        className="py-5 sm:py-6 cursor-default group flex gap-3.5 sm:gap-4"
+        onMouseEnter={() => setHovered(true)}
+        onMouseLeave={() => setHovered(false)}
+      >
+        {/* Small placeholder icon */}
+        <div className="flex-shrink-0 pt-[14px]">
+          <CompanyIcon company={exp.company} type={exp.type} logo={exp.logo} />
         </div>
 
-        <p className="text-gray-200 text-base mb-2 font-bold">
-          {exp.company}
-        </p>
-        <p className="text-gray-300 text-[15px] leading-relaxed mb-6">
-          {exp.description}
-        </p>
+        {/* Content */}
+        <div className="flex-1 min-w-0">
+          {/* Date */}
+          {period && (
+            <p className="text-[10px] font-mono text-zinc-600 tracking-[0.08em] mb-2 select-none">
+              {period}
+            </p>
+          )}
 
-        <div className="flex flex-wrap gap-2">
-          {exp.tags.map((tag) => (
-            <span
-              key={tag}
-              className={`font-mono text-[12px] px-3 py-1 rounded-full border transition-all duration-300 ${getTagColor(tag)}`}
+          {/* Company — highlighted, turns yellow on hover */}
+          <div className="flex items-start justify-between gap-4 mb-1">
+            <p
+              className="text-[15px] sm:text-[15.5px] font-semibold leading-snug tracking-tight transition-colors duration-200"
+              style={{ color: hovered ? '#ffdd00' : '#e4e4e7' }}
             >
-              {tag}
-            </span>
-          ))}
+              {exp.company}
+            </p>
+          </div>
+
+          {/* Role — muted, static */}
+          <p className="text-[12px] text-zinc-500 mb-3 leading-snug">
+            {exp.role}
+          </p>
+
+          {/* Description */}
+          <p className="text-[12.5px] sm:text-[13px] text-zinc-400 leading-[1.68] mb-3.5 max-w-[800px]">
+            {desc}
+          </p>
+
+          {/* Tags — dot separated */}
+          <div className="flex flex-wrap items-center gap-x-2 gap-y-1">
+            {exp.tags.map((tag, i) => (
+              <span key={tag} className="flex items-center gap-2">
+                <span className="text-[10.5px] font-mono text-zinc-600 group-hover:text-zinc-500 transition-colors duration-200">
+                  {tag}
+                </span>
+                {i < exp.tags.length - 1 && (
+                  <span className="text-zinc-800 text-[8px] select-none">·</span>
+                )}
+              </span>
+            ))}
+          </div>
         </div>
       </div>
+
+      {!isLast && <div className="h-px w-full bg-zinc-800/60 ml-[46px] sm:ml-[50px]" />}
     </motion.div>
   )
 }
 
 export default function Experience() {
   return (
-    <AnimatedSection id="experience" className="py-32 relative z-10">
-      <div className="section-container">
-        <AnimatedItem>
-          <p className="text-xs font-mono text-gray-500 uppercase tracking-widest mb-3">02 / experience</p>
-          <h2 className="text-3xl sm:text-4xl font-bold text-white mb-2">Experience</h2>
-          <div className="section-divider" />
-        </AnimatedItem>
+    <section id="experience" className="pt-6 pb-2 sm:pt-8 sm:pb-3 relative z-10">
+      <motion.div
+        initial={{ opacity: 0, y: 36 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: '-60px' }}
+        transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+        className="max-w-[940px] mx-auto px-5 sm:px-8"
+      >
 
-        {/* Timeline */}
-        <div className="relative">
-          {/* Vertical line */}
-          <div className="absolute left-0 top-2 bottom-0 w-px bg-gradient-to-b from-white/20 via-white/10 to-transparent hidden sm:block" />
-
-          <div className="space-y-8 mt-8">
-            {experiences.map((exp, i) => (
-              <ExperienceCard key={i} exp={exp} />
-            ))}
-          </div>
+        {/* Section heading */}
+        <div className="flex items-center gap-2.5 mb-2.5 sm:mb-3">
+          <span className="w-0.5 h-3.5 rounded-full bg-[#ffdd00]" />
+          <h2 className="text-[16px] sm:text-[18px] font-bold text-zinc-100 tracking-tight">
+            Experience so far
+          </h2>
         </div>
-      </div>
-    </AnimatedSection>
+
+        <div className="h-px w-full bg-zinc-800/60 mb-0" />
+
+        <div>
+          {experiences.map((exp, i) => (
+            <ExperienceEntry
+              key={i}
+              exp={exp}
+              index={i}
+              isLast={i === experiences.length - 1}
+            />
+          ))}
+        </div>
+
+        {/* Centered Short Section Differentiating Divider */}
+        <div className="h-px w-36 sm:w-48 mx-auto bg-zinc-800 rounded-full mt-8 sm:mt-10 mb-2 sm:mb-3" />
+
+      </motion.div>
+    </section>
   )
 }
