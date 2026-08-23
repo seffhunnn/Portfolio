@@ -1,187 +1,84 @@
-import { useRef } from 'react'
-import { motion, useScroll, useTransform, useSpring, useMotionTemplate } from 'framer-motion'
-import AnimatedSection, { AnimatedItem } from './AnimatedSection'
+import { motion } from 'framer-motion'
 import { techStack } from '../data'
-import { getTagColor } from '../utils/colors'
-import { GitBranch, Layout, Database, Code2, Terminal } from 'lucide-react'
-
-const tagVariants = {
-  hidden: { opacity: 0, y: 12, scale: 0.95 },
-  visible: (i) => ({
-    opacity: 1,
-    y: 0,
-    scale: 1,
-    transition: {
-      duration: 0.4,
-      delay: i * 0.02,
-      ease: [0.25, 0.1, 0.25, 1],
-    },
-  }),
-}
-
-const categoryIcons = {
-  'Core & Open Source': GitBranch,
-  'Frontend': Layout,
-  'Backend & Database': Database,
-  'Languages': Code2,
-  'Tools & Deployment': Terminal,
-}
-
-function SkillCard({ title, items, icon: Icon, className = '' }) {
-  const cardRef = useRef(null)
-
-  const { scrollYProgress } = useScroll({
-    target: cardRef,
-    offset: ['start end', 'end start'],
-  })
-
-  const smoothProgress = useSpring(scrollYProgress, {
-    stiffness: 520,
-    damping: 45,
-    mass: 0.65,
-    restDelta: 0.001,
-  })
-
-  const opacity = useTransform(smoothProgress, [0.08, 0.22, 0.78, 0.92], [0, 1, 1, 0], { clamp: true })
-  const y = useTransform(smoothProgress, [0.08, 0.22, 0.78, 0.92], [20, 0, 0, -10], { clamp: true })
-  const scale = useTransform(smoothProgress, [0.08, 0.22, 0.78, 0.92], [0.98, 1, 1, 0.98], { clamp: true })
-  const blurVal = useTransform(smoothProgress, [0.08, 0.22, 0.78, 0.92], [4, 0, 0, 4], { clamp: true })
-  const filter = useMotionTemplate`blur(${blurVal}px)`
-
-  return (
-    <motion.div
-      ref={cardRef}
-      style={{ opacity, y, scale, filter }}
-      className={`w-full ${className} flex flex-col relative`}
-    >
-      <div
-        className="group relative rounded-[2.25rem] p-8 sm:p-10 overflow-hidden glass-card border-l-2 border-yellow-500/10 hover:border-yellow-500/40 flex-1 flex flex-col transition-[border-color] duration-500 will-change-transform"
-        style={{
-          background: 'rgba(10, 10, 10, 0.45)',
-          backdropFilter: 'blur(16px)',
-          WebkitBackdropFilter: 'blur(16px)',
-          transition: 'background 0.4s ease, border-color 0.5s ease, transform 0.45s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.45s ease, backdrop-filter 0.4s ease',
-        }}
-        onMouseEnter={e => {
-          e.currentTarget.style.background = 'rgba(10, 10, 10, 0.25)'
-          e.currentTarget.style.backdropFilter = 'blur(32px)'
-          e.currentTarget.style.WebkitBackdropFilter = 'blur(32px)'
-        }}
-        onMouseLeave={e => {
-          e.currentTarget.style.background = 'rgba(10, 10, 10, 0.45)'
-          e.currentTarget.style.backdropFilter = 'blur(16px)'
-          e.currentTarget.style.WebkitBackdropFilter = 'blur(16px)'
-        }}
-      >
-        {/* Yellow bottom-center bar expanding outward */}
-        <div className="absolute bottom-0 left-1/2 -translate-x-1/2 h-[3px] w-8 bg-yellow-500/20 rounded-full group-hover:w-2/5 group-hover:bg-yellow-500 transition-all duration-500 z-10" />
-
-        <div
-          className="absolute -top-24 -right-24 w-64 h-64 rounded-full pointer-events-none opacity-0 group-hover:opacity-20 transition-opacity duration-700"
-          style={{
-            background: 'radial-gradient(circle, rgba(255,221,0,0.3) 0%, transparent 70%)',
-            filter: 'blur(40px)',
-          }}
-        />
-
-        <div className="relative z-10 flex flex-col h-full">
-          <div className="flex items-center gap-3 mb-6">
-            {Icon && (
-              <Icon
-                className="text-yellow-500/60 group-hover:text-yellow-500 transition-colors duration-300"
-                size={18}
-              />
-            )}
-            <h3 className="text-[11px] font-mono text-gray-400 uppercase tracking-[0.25em] group-hover:text-white transition-colors duration-300">
-              {title}
-            </h3>
-          </div>
-
-          <div className="flex flex-wrap gap-2.5">
-            {items.map((skill, i) => (
-              <motion.span
-                key={skill}
-                custom={i}
-                variants={tagVariants}
-                initial="hidden"
-                whileInView="visible"
-                whileHover={{
-                  y: -2,
-                  scale: 1.05,
-                  transition: { duration: 0.2, ease: 'easeOut' },
-                }}
-                viewport={{ once: true }}
-                className={`font-mono text-[12px] px-5 py-2.5 rounded-full border cursor-default select-none transition-all duration-300 ${getTagColor(skill)}`}
-              >
-                {skill}
-              </motion.span>
-            ))}
-          </div>
-        </div>
-      </div>
-    </motion.div>
-  )
-}
+import { getTechBadge } from '../utils/techIcons'
 
 export default function Skills() {
   return (
-    <AnimatedSection id="skills" className="py-32 relative z-10">
-      <div className="section-container">
-        {/* Heading */}
-        <AnimatedItem>
-          <p className="text-xs font-mono text-gray-500 uppercase tracking-widest mb-3">
-            03 / skills
-          </p>
-          <h2 className="text-3xl sm:text-4xl font-bold text-white mb-2">Tech Stack</h2>
-          <div className="section-divider" />
-        </AnimatedItem>
-
-        <AnimatedItem>
-          <p className="text-gray-500 text-[15px] mb-12 max-w-lg leading-relaxed">
-            The tools and technologies I enjoy working with across development, AI, and deployment workflows.
-          </p>
-        </AnimatedItem>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 items-stretch">
-          {/* Column 1: Frontend */}
-          <div className="flex flex-col h-full">
-            <SkillCard
-              title={techStack[1].category}
-              items={techStack[1].skills}
-              icon={categoryIcons[techStack[1].category]}
-              className="h-full flex-1"
-            />
-          </div>
-
-          {/* Column 2: Backend & Database + Languages */}
-          <div className="flex flex-col justify-between h-full gap-6 lg:gap-8">
-            <SkillCard
-              title={techStack[2].category}
-              items={techStack[2].skills}
-              icon={categoryIcons[techStack[2].category]}
-            />
-            <SkillCard
-              title={techStack[3].category}
-              items={techStack[3].skills}
-              icon={categoryIcons[techStack[3].category]}
-            />
-          </div>
-
-          {/* Column 3: Core & Open Source + Tools & Deployment */}
-          <div className="flex flex-col md:flex-row lg:flex-col justify-between h-full gap-6 lg:gap-8 md:col-span-2 lg:col-span-1">
-            <SkillCard
-              title={techStack[0].category}
-              items={techStack[0].skills}
-              icon={categoryIcons[techStack[0].category]}
-            />
-            <SkillCard
-              title={techStack[4].category}
-              items={techStack[4].skills}
-              icon={categoryIcons[techStack[4].category]}
-            />
-          </div>
+    <section id="skills" className="pt-6 pb-2 sm:pt-8 sm:pb-3 relative z-10">
+      <motion.div
+        initial={{ opacity: 0, y: 36 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: '-60px' }}
+        transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+        className="max-w-[940px] mx-auto px-5 sm:px-8"
+      >
+        
+        {/* Section Heading */}
+        <div className="flex items-center gap-2.5 mb-2.5 sm:mb-3">
+          <span className="w-0.5 h-3.5 rounded-full bg-[#ffdd00]" />
+          <h2 className="text-[16px] sm:text-[18px] font-bold text-zinc-100 tracking-tight">
+            Technologies I work with
+          </h2>
         </div>
-      </div>
-    </AnimatedSection>
+
+        {/* Top Divider */}
+        <div className="h-px w-full bg-zinc-800/60 mb-5 sm:mb-6" />
+
+        {/* Perfectly Symmetrical Row Layout (Sorted by Quantity: Highest to Lowest) */}
+        <div className="flex flex-col space-y-4 sm:space-y-4.5">
+          {[...(techStack || [])]
+            .sort((a, b) => {
+              const lenA = (a.skills || a.items || []).length
+              const lenB = (b.skills || b.items || []).length
+              return lenB - lenA
+            })
+            .map((group, groupIdx) => {
+              const skillsList = group.skills || group.items || []
+
+              return (
+                <div 
+                  key={groupIdx} 
+                  className="flex flex-col sm:flex-row sm:items-center gap-1.5 sm:gap-6 py-0.5"
+                >
+                  {/* Category Technical Label (Symmetrical Fixed Width) */}
+                  <p className="text-[10px] sm:text-[10.5px] font-mono text-zinc-500 uppercase tracking-widest sm:w-36 shrink-0 select-none">
+                    {group.category}
+                  </p>
+
+                  {/* Single-Line Interactive Icon Row with Hover Tooltip */}
+                  <div className="flex flex-wrap items-center gap-2 sm:gap-2.5">
+                    {skillsList.map((tech, idx) => {
+                      const badge = getTechBadge(tech)
+                      return (
+                        <div
+                          key={idx}
+                          className="relative group flex items-center justify-center select-none"
+                        >
+                          {/* Floating Tooltip Reveal on Hover */}
+                          <div className="absolute -top-9 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 translate-y-1 group-hover:translate-y-0 transition-all duration-200 pointer-events-none z-30 whitespace-nowrap">
+                            <div className="relative bg-zinc-900 text-zinc-200 text-[11px] font-mono font-medium px-2.5 py-0.5 rounded-md border border-zinc-700/80 shadow-2xl">
+                              {tech}
+                              <div className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-1.5 h-1.5 bg-zinc-900 border-r border-b border-zinc-700/80 rotate-45" />
+                            </div>
+                          </div>
+
+                          {/* Interactive Icon Badge */}
+                          <div className="w-10 h-10 sm:w-10.5 sm:h-10.5 rounded-xl bg-zinc-950/70 border border-zinc-800/80 flex items-center justify-center transition-all duration-200 group-hover:scale-105 group-hover:border-zinc-600/80 group-hover:bg-zinc-900/90 shadow-sm cursor-default">
+                            {badge.svg}
+                          </div>
+                        </div>
+                      )
+                    })}
+                  </div>
+                </div>
+              )
+            })}
+        </div>
+
+        {/* Centered Short Section Differentiating Divider */}
+        <div className="h-px w-36 sm:w-48 mx-auto bg-zinc-800 rounded-full mt-8 sm:mt-10 mb-2 sm:mb-3" />
+
+      </motion.div>
+    </section>
   )
 }
