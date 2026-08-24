@@ -57,10 +57,10 @@ export default function Social() {
   return (
     <section id="social" className="pt-8 pb-4 sm:pt-12 sm:pb-6 relative z-10">
       <motion.div
-        initial={{ opacity: 0, y: 36 }}
+        initial={{ opacity: 0, y: 24 }}
         whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: '-60px' }}
-        transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+        viewport={{ once: true, amount: 0.05 }}
+        transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
         className="max-w-[940px] mx-auto px-5 sm:px-8"
       >
         
@@ -79,8 +79,8 @@ export default function Social() {
         <motion.div
           initial={{ opacity: 0, x: -16 }}
           whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true, margin: '-40px' }}
-          transition={{ duration: 0.5, delay: 0.05, ease: [0.22, 1, 0.36, 1] }}
+          viewport={{ once: true, amount: 0.05 }}
+          transition={{ duration: 0.45, delay: 0.02, ease: [0.22, 1, 0.36, 1] }}
           className="grid grid-cols-2 sm:grid-cols-3 gap-x-6 sm:gap-x-10 gap-y-3.5 sm:gap-y-4.5 max-w-[580px] mx-auto mb-12 sm:mb-14 select-none"
         >
           {socialLinks.map((item) => {
@@ -110,8 +110,8 @@ export default function Social() {
         <motion.div
           initial={{ opacity: 0, x: -16 }}
           whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true, margin: '-40px' }}
-          transition={{ duration: 0.5, delay: 0.12, ease: [0.22, 1, 0.36, 1] }}
+          viewport={{ once: true, amount: 0.05 }}
+          transition={{ duration: 0.45, delay: 0.06, ease: [0.22, 1, 0.36, 1] }}
           className="flex flex-col items-center text-center space-y-3 sm:space-y-3.5 max-w-[680px] mx-auto mb-12 sm:mb-14"
         >
           <p className="text-[10.5px] font-mono text-zinc-500 uppercase tracking-widest select-none">
@@ -154,8 +154,8 @@ export default function Social() {
         <motion.div
           initial={{ opacity: 0, x: -16 }}
           whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true, margin: '-40px' }}
-          transition={{ duration: 0.5, delay: 0.18, ease: [0.22, 1, 0.36, 1] }}
+          viewport={{ once: true, amount: 0.05 }}
+          transition={{ duration: 0.45, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
           className="flex flex-col items-center text-center"
         >
           <a
