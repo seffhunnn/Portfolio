@@ -59,13 +59,13 @@ function ExperienceEntry({ exp, index, isLast }) {
 
   return (
     <motion.div
-      initial={{ opacity: 0, x: -16 }}
+      initial={{ opacity: 0, x: -26 }}
       whileInView={{ opacity: 1, x: 0 }}
-      viewport={{ once: true, amount: 0.05 }}
+      viewport={{ once: true, amount: 0.15 }}
       transition={{
-        duration: 0.45,
-        ease: [0.22, 1, 0.36, 1],
-        delay: 0.02 + index * 0.05,
+        duration: 0.55,
+        ease: [0.16, 1, 0.3, 1],
+        delay: index * 0.06,
       }}
     >
       <div
@@ -131,13 +131,7 @@ function ExperienceEntry({ exp, index, isLast }) {
 export default function Experience() {
   return (
     <section id="experience" className="pt-6 pb-2 sm:pt-8 sm:pb-3 relative z-10">
-      <motion.div
-        initial={{ opacity: 0, y: 24 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, amount: 0.05 }}
-        transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-        className="max-w-[940px] mx-auto px-5 sm:px-8"
-      >
+      <div className="max-w-[940px] mx-auto px-5 sm:px-8">
 
         {/* Section heading */}
         <div className="flex items-center gap-2.5 mb-2.5 sm:mb-3">
@@ -163,7 +157,7 @@ export default function Experience() {
         {/* Centered Short Section Differentiating Divider */}
         <div className="h-px w-36 sm:w-48 mx-auto bg-zinc-800 rounded-full mt-8 sm:mt-10 mb-2 sm:mb-3" />
 
-      </motion.div>
+      </div>
     </section>
   )
 }

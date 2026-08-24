@@ -7,13 +7,7 @@ export default function About() {
 
   return (
     <section id="about" className="pt-6 pb-2 sm:pt-8 sm:pb-3 relative z-10">
-      <motion.div
-        initial={{ opacity: 0, y: 24 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, amount: 0.05 }}
-        transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-        className="max-w-[940px] mx-auto px-5 sm:px-8"
-      >
+      <div className="max-w-[940px] mx-auto px-5 sm:px-8">
         
         {/* Section Heading */}
         <div className="flex items-center gap-2.5 mb-2.5 sm:mb-3">
@@ -30,10 +24,10 @@ export default function About() {
           
           {/* Block 1 — Description */}
           <motion.div
-            initial={{ opacity: 0, x: -16 }}
+            initial={{ opacity: 0, x: -26 }}
             whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, amount: 0.05 }}
-            transition={{ duration: 0.45, delay: 0.02, ease: [0.22, 1, 0.36, 1] }}
+            viewport={{ once: true, amount: 0.15 }}
+            transition={{ duration: 0.55, delay: 0.02, ease: [0.16, 1, 0.3, 1] }}
             className="py-4 sm:py-5 flex gap-3 sm:gap-3.5"
           >
             {/* Left Icon: Solid Filled Indigo User Icon */}
@@ -62,10 +56,10 @@ export default function About() {
 
           {/* Block 2 — WHAT I CARE ABOUT */}
           <motion.div
-            initial={{ opacity: 0, x: -16 }}
+            initial={{ opacity: 0, x: -26 }}
             whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, amount: 0.05 }}
-            transition={{ duration: 0.45, delay: 0.06, ease: [0.22, 1, 0.36, 1] }}
+            viewport={{ once: true, amount: 0.15 }}
+            transition={{ duration: 0.55, delay: 0.07, ease: [0.16, 1, 0.3, 1] }}
             className="py-4 sm:py-5 flex gap-3 sm:gap-3.5"
           >
             {/* Left Icon: Solid Filled Warm Amber Sparkles Icon */}
@@ -92,10 +86,10 @@ export default function About() {
 
           {/* Block 3 — BEYOND THE CODE */}
           <motion.div
-            initial={{ opacity: 0, x: -16 }}
+            initial={{ opacity: 0, x: -26 }}
             whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, amount: 0.05 }}
-            transition={{ duration: 0.45, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
+            viewport={{ once: true, amount: 0.15 }}
+            transition={{ duration: 0.55, delay: 0.12, ease: [0.16, 1, 0.3, 1] }}
             className="py-4 sm:py-5 flex gap-3 sm:gap-3.5"
           >
             {/* Left Icon: Solid Filled Soft Cyan Rocket Icon */}
@@ -122,10 +116,10 @@ export default function About() {
 
           {/* Block 4 — EDUCATION */}
           <motion.div
-            initial={{ opacity: 0, x: -16 }}
+            initial={{ opacity: 0, x: -26 }}
             whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, amount: 0.05 }}
-            transition={{ duration: 0.45, delay: 0.14, ease: [0.22, 1, 0.36, 1] }}
+            viewport={{ once: true, amount: 0.15 }}
+            transition={{ duration: 0.55, delay: 0.17, ease: [0.16, 1, 0.3, 1] }}
             className="py-4 sm:py-5 flex gap-3 sm:gap-3.5"
           >
             {/* Left Icon: Solid Filled Emerald GraduationCap Icon */}
@@ -177,7 +171,7 @@ export default function About() {
         {/* Centered Short Section Differentiating Divider */}
         <div className="h-px w-36 sm:w-48 mx-auto bg-zinc-800 rounded-full mt-8 sm:mt-10 mb-2 sm:mb-3" />
 
-      </motion.div>
+      </div>
     </section>
   )
 }

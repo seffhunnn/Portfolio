@@ -186,13 +186,7 @@ export default function Projects() {
 
   return (
     <section id="projects" className="pt-6 pb-2 sm:pt-8 sm:pb-3 relative z-10">
-      <motion.div
-        initial={{ opacity: 0, y: 24 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, amount: 0.05 }}
-        transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-        className="max-w-[940px] mx-auto px-5 sm:px-8"
-      >
+      <div className="max-w-[940px] mx-auto px-5 sm:px-8">
         
         {/* Section Heading */}
         <div className="flex items-center justify-between mb-2.5 sm:mb-3">
@@ -219,10 +213,10 @@ export default function Projects() {
 
         {/* Centered Responsive Grid with Smooth Left-to-Right Landing Entrance */}
         <motion.div 
-          initial={{ opacity: 0, x: -16 }}
+          initial={{ opacity: 0, x: -26 }}
           whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true, amount: 0.05 }}
-          transition={{ duration: 0.45, delay: 0.02, ease: [0.22, 1, 0.36, 1] }}
+          viewport={{ once: true, amount: 0.12 }}
+          transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
           className="max-w-[860px] mx-auto"
         >
           {/* Initial 2 Projects */}
@@ -272,7 +266,7 @@ export default function Projects() {
         {/* Centered Short Section Differentiating Divider */}
         <div className="h-px w-36 sm:w-48 mx-auto bg-zinc-800 rounded-full mt-8 sm:mt-10 mb-2 sm:mb-3" />
 
-      </motion.div>
+      </div>
     </section>
   )
 }

@@ -5,13 +5,7 @@ import { getTechBadge } from '../utils/techIcons'
 export default function Skills() {
   return (
     <section id="skills" className="pt-6 pb-2 sm:pt-8 sm:pb-3 relative z-10">
-      <motion.div
-        initial={{ opacity: 0, y: 24 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, amount: 0.05 }}
-        transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-        className="max-w-[940px] mx-auto px-5 sm:px-8"
-      >
+      <div className="max-w-[940px] mx-auto px-5 sm:px-8">
         
         {/* Section Heading */}
         <div className="flex items-center gap-2.5 mb-2.5 sm:mb-3">
@@ -38,10 +32,10 @@ export default function Skills() {
               return (
                 <motion.div 
                   key={groupIdx} 
-                  initial={{ opacity: 0, x: -16 }}
+                  initial={{ opacity: 0, x: -26 }}
                   whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true, amount: 0.05 }}
-                  transition={{ duration: 0.45, delay: 0.02 + groupIdx * 0.04, ease: [0.22, 1, 0.36, 1] }}
+                  viewport={{ once: true, amount: 0.15 }}
+                  transition={{ duration: 0.55, delay: groupIdx * 0.05, ease: [0.16, 1, 0.3, 1] }}
                   className="flex flex-col sm:flex-row sm:items-center gap-1.5 sm:gap-6 py-0.5"
                 >
                   {/* Category Technical Label (Symmetrical Fixed Width) */}
@@ -82,7 +76,7 @@ export default function Skills() {
         {/* Centered Short Section Differentiating Divider */}
         <div className="h-px w-36 sm:w-48 mx-auto bg-zinc-800 rounded-full mt-8 sm:mt-10 mb-2 sm:mb-3" />
 
-      </motion.div>
+      </div>
     </section>
   )
 }
