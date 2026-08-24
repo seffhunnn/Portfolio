@@ -326,11 +326,11 @@ export default function Hero() {
           <div className="w-full grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-6 mt-7 items-start">
             {/* Left Column: Dynamic Contribution Stats Wave Chart */}
             <motion.div
-              initial={{ opacity: 0, x: -26 }}
+              initial={{ opacity: 0, x: -20 }}
               whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true, amount: 0.15 }}
-              transition={{ duration: 0.55, delay: 0.04, ease: [0.16, 1, 0.3, 1] }}
-              className="flex flex-col gap-3 font-mono w-full"
+              viewport={{ once: true, amount: 0.12 }}
+              transition={{ duration: 0.45, delay: 0.02, ease: [0.25, 1, 0.5, 1] }}
+              className="flex flex-col gap-3 font-mono w-full will-change-transform transform-gpu"
             >
               <div className="flex items-center justify-between text-[11.5px] text-zinc-450">
                 <div className="flex items-center gap-1.5">
@@ -351,11 +351,11 @@ export default function Hero() {
 
             {/* Right Column: GitHub 6-Month Contributions Section */}
             <motion.div
-              initial={{ opacity: 0, x: -26 }}
+              initial={{ opacity: 0, x: -20 }}
               whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true, amount: 0.15 }}
-              transition={{ duration: 0.55, delay: 0.08, ease: [0.16, 1, 0.3, 1] }}
-              className="flex flex-col gap-3 font-mono w-full"
+              viewport={{ once: true, amount: 0.12 }}
+              transition={{ duration: 0.45, delay: 0.05, ease: [0.25, 1, 0.5, 1] }}
+              className="flex flex-col gap-3 font-mono w-full will-change-transform transform-gpu"
             >
               {/* Header info row */}
               <div className="flex items-center justify-between text-[11.5px] text-zinc-450">

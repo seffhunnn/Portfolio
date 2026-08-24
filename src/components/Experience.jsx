@@ -59,14 +59,15 @@ function ExperienceEntry({ exp, index, isLast }) {
 
   return (
     <motion.div
-      initial={{ opacity: 0, x: -26 }}
+      initial={{ opacity: 0, x: -20 }}
       whileInView={{ opacity: 1, x: 0 }}
-      viewport={{ once: true, amount: 0.15 }}
+      viewport={{ once: true, amount: 0.12 }}
       transition={{
-        duration: 0.55,
-        ease: [0.16, 1, 0.3, 1],
-        delay: index * 0.06,
+        duration: 0.45,
+        ease: [0.25, 1, 0.5, 1],
+        delay: index * 0.05,
       }}
+      className="will-change-transform transform-gpu"
     >
       <div
         className="py-5 sm:py-6 cursor-default group flex gap-3.5 sm:gap-4"
