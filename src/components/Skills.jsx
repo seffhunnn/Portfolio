@@ -6,10 +6,10 @@ export default function Skills() {
   return (
     <section id="skills" className="pt-6 pb-2 sm:pt-8 sm:pb-3 relative z-10">
       <motion.div
-        initial={{ opacity: 0, y: 36 }}
+        initial={{ opacity: 0, y: 24 }}
         whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: '-60px' }}
-        transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+        viewport={{ once: true, amount: 0.05 }}
+        transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
         className="max-w-[940px] mx-auto px-5 sm:px-8"
       >
         
@@ -40,8 +40,8 @@ export default function Skills() {
                   key={groupIdx} 
                   initial={{ opacity: 0, x: -16 }}
                   whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true, margin: '-40px' }}
-                  transition={{ duration: 0.5, delay: 0.05 + groupIdx * 0.07, ease: [0.22, 1, 0.36, 1] }}
+                  viewport={{ once: true, amount: 0.05 }}
+                  transition={{ duration: 0.45, delay: 0.02 + groupIdx * 0.04, ease: [0.22, 1, 0.36, 1] }}
                   className="flex flex-col sm:flex-row sm:items-center gap-1.5 sm:gap-6 py-0.5"
                 >
                   {/* Category Technical Label (Symmetrical Fixed Width) */}

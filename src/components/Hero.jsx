@@ -328,8 +328,8 @@ export default function Hero() {
             <motion.div
               initial={{ opacity: 0, x: -16 }}
               whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true, margin: '-40px' }}
-              transition={{ duration: 0.5, delay: 0.05, ease: [0.22, 1, 0.36, 1] }}
+              viewport={{ once: true, amount: 0.05 }}
+              transition={{ duration: 0.45, delay: 0.02, ease: [0.22, 1, 0.36, 1] }}
               className="flex flex-col gap-3 font-mono w-full"
             >
               <div className="flex items-center justify-between text-[11.5px] text-zinc-450">
@@ -353,8 +353,8 @@ export default function Hero() {
             <motion.div
               initial={{ opacity: 0, x: -16 }}
               whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true, margin: '-40px' }}
-              transition={{ duration: 0.5, delay: 0.12, ease: [0.22, 1, 0.36, 1] }}
+              viewport={{ once: true, amount: 0.05 }}
+              transition={{ duration: 0.45, delay: 0.06, ease: [0.22, 1, 0.36, 1] }}
               className="flex flex-col gap-3 font-mono w-full"
             >
               {/* Header info row */}
