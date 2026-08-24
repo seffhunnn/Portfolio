@@ -11,7 +11,6 @@ const GithubIcon = ({ size = 14 }) => (
 )
 
 function ProjectCard({ project }) {
-  // Extract real tech icon badges for this project (exclude fallback dots)
   const techBadges = (project.tags || [])
     .map(tag => getTechBadge(tag))
     .filter(badge => badge && badge.svg && !badge.isFallback)
@@ -218,8 +217,14 @@ export default function Projects() {
         {/* Top Divider */}
         <div className="h-px w-full bg-zinc-800/60 mb-5 sm:mb-6" />
 
-        {/* Centered Responsive Grid */}
-        <div className="max-w-[860px] mx-auto">
+        {/* Centered Responsive Grid with Smooth Left-to-Right Landing Entrance */}
+        <motion.div 
+          initial={{ opacity: 0, x: -20 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true, margin: '-40px' }}
+          transition={{ duration: 0.6, delay: 0.08, ease: [0.22, 1, 0.36, 1] }}
+          className="max-w-[860px] mx-auto"
+        >
           {/* Initial 2 Projects */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4.5 sm:gap-5">
             {initialProjects.map((project, index) => (
@@ -262,7 +267,7 @@ export default function Projects() {
               </button>
             </div>
           )}
-        </div>
+        </motion.div>
 
         {/* Centered Short Section Differentiating Divider */}
         <div className="h-px w-36 sm:w-48 mx-auto bg-zinc-800 rounded-full mt-8 sm:mt-10 mb-2 sm:mb-3" />

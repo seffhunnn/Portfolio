@@ -36,8 +36,12 @@ export default function Skills() {
               const skillsList = group.skills || group.items || []
 
               return (
-                <div 
+                <motion.div 
                   key={groupIdx} 
+                  initial={{ opacity: 0, x: -16 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true, margin: '-40px' }}
+                  transition={{ duration: 0.5, delay: 0.05 + groupIdx * 0.07, ease: [0.22, 1, 0.36, 1] }}
                   className="flex flex-col sm:flex-row sm:items-center gap-1.5 sm:gap-6 py-0.5"
                 >
                   {/* Category Technical Label (Symmetrical Fixed Width) */}
@@ -70,7 +74,7 @@ export default function Skills() {
                       )
                     })}
                   </div>
-                </div>
+                </motion.div>
               )
             })}
         </div>
