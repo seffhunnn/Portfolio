@@ -32,11 +32,11 @@ export default function Skills() {
               return (
                 <motion.div 
                   key={groupIdx} 
-                  initial={{ opacity: 0, x: -26 }}
+                  initial={{ opacity: 0, x: -20 }}
                   whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true, amount: 0.15 }}
-                  transition={{ duration: 0.55, delay: groupIdx * 0.05, ease: [0.16, 1, 0.3, 1] }}
-                  className="flex flex-col sm:flex-row sm:items-center gap-1.5 sm:gap-6 py-0.5"
+                  viewport={{ once: true, amount: 0.12 }}
+                  transition={{ duration: 0.45, delay: groupIdx * 0.04, ease: [0.25, 1, 0.5, 1] }}
+                  className="flex flex-col sm:flex-row sm:items-center gap-1.5 sm:gap-6 py-0.5 will-change-transform transform-gpu"
                 >
                   {/* Category Technical Label (Symmetrical Fixed Width) */}
                   <p className="text-[10px] sm:text-[10.5px] font-mono text-zinc-500 uppercase tracking-widest sm:w-36 shrink-0 select-none">

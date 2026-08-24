@@ -19,7 +19,7 @@ function ProjectCard({ project }) {
     .slice(0, 5)
 
   return (
-    <div className="relative rounded-xl bg-zinc-950/45 backdrop-blur-md border border-zinc-800/60 overflow-hidden group transition-all duration-300 hover:-translate-y-1 hover:border-zinc-700/80 flex flex-col h-full">
+    <div className="relative rounded-xl bg-zinc-950/90 border border-zinc-800/80 overflow-hidden group transition-all duration-300 hover:-translate-y-1 hover:border-zinc-700/80 flex flex-col h-full will-change-transform transform-gpu shadow-sm">
       
       {/* 1. Image Area */}
       <div className="relative w-full aspect-[16/9.5] overflow-hidden bg-zinc-950">
@@ -41,7 +41,7 @@ function ProjectCard({ project }) {
       </div>
 
       {/* 2. Default Visible Bottom Card Area */}
-      <div className="px-3.5 py-2.5 sm:py-3 flex flex-col justify-between flex-grow">
+      <div className="px-3.5 py-2.5 sm:py-3 flex flex-col justify-between flex-grow bg-zinc-950/50">
         <div className="flex items-center justify-between gap-2">
           <h3 className="text-zinc-100 font-medium text-[13.5px] sm:text-[14px] tracking-tight truncate">
             {project.title}
@@ -97,7 +97,7 @@ function ProjectCard({ project }) {
       </div>
 
       {/* 3. Full-Card Desktop Hover Overlay (covers entire card seamlessly) */}
-      <div className="hidden md:flex absolute inset-0 bg-black/85 backdrop-blur-[3px] p-4 flex-col justify-between opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none group-hover:pointer-events-auto z-20">
+      <div className="hidden md:flex absolute inset-0 bg-zinc-950/95 p-4 flex-col justify-between opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none group-hover:pointer-events-auto z-20">
         
         {/* Top: Title & Category Pills */}
         <div className="space-y-1.5">
@@ -108,7 +108,7 @@ function ProjectCard({ project }) {
             {project.tags?.slice(0, 2).map((tag, idx) => (
               <span
                 key={idx}
-                className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-white/10 backdrop-blur-md text-zinc-200 border border-white/10"
+                className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-zinc-800 text-zinc-200 border border-zinc-700/60"
               >
                 {tag}
               </span>
@@ -129,7 +129,7 @@ function ProjectCard({ project }) {
               <div
                 key={idx}
                 title={badge.name}
-                className="w-7 h-7 rounded-lg bg-zinc-900/90 border border-white/10 flex items-center justify-center shadow-sm transition-transform duration-200 hover:scale-110 hover:border-white/30"
+                className="w-7 h-7 rounded-lg bg-zinc-900 border border-zinc-700/60 flex items-center justify-center shadow-sm transition-transform duration-200 hover:scale-110 hover:border-zinc-500"
               >
                 {badge.svg}
               </div>
@@ -143,7 +143,7 @@ function ProjectCard({ project }) {
                 href={project.github}
                 target="_blank"
                 rel="noreferrer"
-                className="w-7 h-7 rounded-lg bg-zinc-900/90 border border-white/15 flex items-center justify-center text-zinc-300 hover:text-white hover:border-white/40 transition-all shadow-sm"
+                className="w-7 h-7 rounded-lg bg-zinc-900 border border-zinc-700/60 flex items-center justify-center text-zinc-300 hover:text-white hover:border-zinc-500 transition-all shadow-sm"
                 title="View GitHub Repository"
               >
                 <GithubIcon size={14} />
@@ -154,7 +154,7 @@ function ProjectCard({ project }) {
                 href={project.live}
                 target="_blank"
                 rel="noreferrer"
-                className="px-2.5 py-1 rounded-lg bg-white/15 hover:bg-white/25 border border-white/20 text-white text-[11px] font-medium flex items-center gap-1 transition-all shadow-sm hover:border-white/40"
+                className="px-2.5 py-1 rounded-lg bg-zinc-800 hover:bg-zinc-700 border border-zinc-600 text-white text-[11px] font-medium flex items-center gap-1 transition-all shadow-sm hover:border-zinc-500"
                 title="View Live Demo"
               >
                 View <ArrowUpRight size={12} />
@@ -164,7 +164,7 @@ function ProjectCard({ project }) {
                 href={project.github}
                 target="_blank"
                 rel="noreferrer"
-                className="px-2.5 py-1 rounded-lg bg-white/15 hover:bg-white/25 border border-white/20 text-white text-[11px] font-medium flex items-center gap-1 transition-all shadow-sm hover:border-white/40"
+                className="px-2.5 py-1 rounded-lg bg-zinc-800 hover:bg-zinc-700 border border-zinc-600 text-white text-[11px] font-medium flex items-center gap-1 transition-all shadow-sm hover:border-zinc-500"
                 title="View Source Code"
               >
                 View <ArrowUpRight size={12} />
@@ -211,13 +211,13 @@ export default function Projects() {
         {/* Top Divider */}
         <div className="h-px w-full bg-zinc-800/60 mb-5 sm:mb-6" />
 
-        {/* Centered Responsive Grid with Smooth Left-to-Right Landing Entrance */}
+        {/* Centered Responsive Grid with Smooth Hardware-Accelerated Landing */}
         <motion.div 
-          initial={{ opacity: 0, x: -26 }}
+          initial={{ opacity: 0, x: -16 }}
           whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true, amount: 0.12 }}
-          transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
-          className="max-w-[860px] mx-auto"
+          viewport={{ once: true, amount: 0.1 }}
+          transition={{ duration: 0.45, ease: [0.25, 1, 0.5, 1] }}
+          className="max-w-[860px] mx-auto will-change-transform transform-gpu"
         >
           {/* Initial 2 Projects */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4.5 sm:gap-5">

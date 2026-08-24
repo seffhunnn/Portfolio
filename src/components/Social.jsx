@@ -71,11 +71,11 @@ export default function Social() {
 
         {/* 1. Centered 3-Column × 2-Row Social Grid */}
         <motion.div
-          initial={{ opacity: 0, x: -26 }}
+          initial={{ opacity: 0, x: -20 }}
           whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true, amount: 0.15 }}
-          transition={{ duration: 0.55, delay: 0.02, ease: [0.16, 1, 0.3, 1] }}
-          className="grid grid-cols-2 sm:grid-cols-3 gap-x-6 sm:gap-x-10 gap-y-3.5 sm:gap-y-4.5 max-w-[580px] mx-auto mb-12 sm:mb-14 select-none"
+          viewport={{ once: true, amount: 0.12 }}
+          transition={{ duration: 0.45, delay: 0.02, ease: [0.25, 1, 0.5, 1] }}
+          className="grid grid-cols-2 sm:grid-cols-3 gap-x-6 sm:gap-x-10 gap-y-3.5 sm:gap-y-4.5 max-w-[580px] mx-auto mb-12 sm:mb-14 select-none will-change-transform transform-gpu"
         >
           {socialLinks.map((item) => {
             const IconComponent = item.Icon
@@ -102,11 +102,11 @@ export default function Social() {
 
         {/* 2. Main Contact Area — Quiet, Centered Editorial Layout */}
         <motion.div
-          initial={{ opacity: 0, x: -26 }}
+          initial={{ opacity: 0, x: -20 }}
           whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true, amount: 0.15 }}
-          transition={{ duration: 0.55, delay: 0.07, ease: [0.16, 1, 0.3, 1] }}
-          className="flex flex-col items-center text-center space-y-3 sm:space-y-3.5 max-w-[680px] mx-auto mb-12 sm:mb-14"
+          viewport={{ once: true, amount: 0.12 }}
+          transition={{ duration: 0.45, delay: 0.05, ease: [0.25, 1, 0.5, 1] }}
+          className="flex flex-col items-center text-center space-y-3 sm:space-y-3.5 max-w-[680px] mx-auto mb-12 sm:mb-14 will-change-transform transform-gpu"
         >
           <p className="text-[10.5px] font-mono text-zinc-500 uppercase tracking-widest select-none">
             GET IN TOUCH
@@ -146,11 +146,11 @@ export default function Social() {
 
         {/* 3. Subtle Sponsor Secondary Action */}
         <motion.div
-          initial={{ opacity: 0, x: -26 }}
+          initial={{ opacity: 0, x: -20 }}
           whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true, amount: 0.15 }}
-          transition={{ duration: 0.55, delay: 0.12, ease: [0.16, 1, 0.3, 1] }}
-          className="flex flex-col items-center text-center"
+          viewport={{ once: true, amount: 0.12 }}
+          transition={{ duration: 0.45, delay: 0.08, ease: [0.25, 1, 0.5, 1] }}
+          className="flex flex-col items-center text-center will-change-transform transform-gpu"
         >
           <a
             href="https://github.com/sponsors/seffhunnn"

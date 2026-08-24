@@ -24,11 +24,11 @@ export default function About() {
           
           {/* Block 1 — Description */}
           <motion.div
-            initial={{ opacity: 0, x: -26 }}
+            initial={{ opacity: 0, x: -20 }}
             whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, amount: 0.15 }}
-            transition={{ duration: 0.55, delay: 0.02, ease: [0.16, 1, 0.3, 1] }}
-            className="py-4 sm:py-5 flex gap-3 sm:gap-3.5"
+            viewport={{ once: true, amount: 0.12 }}
+            transition={{ duration: 0.45, delay: 0.02, ease: [0.25, 1, 0.5, 1] }}
+            className="py-4 sm:py-5 flex gap-3 sm:gap-3.5 will-change-transform transform-gpu"
           >
             {/* Left Icon: Solid Filled Indigo User Icon */}
             <div className="shrink-0 w-6 h-6 flex items-center justify-center pt-0.5 select-none">
@@ -56,11 +56,11 @@ export default function About() {
 
           {/* Block 2 — WHAT I CARE ABOUT */}
           <motion.div
-            initial={{ opacity: 0, x: -26 }}
+            initial={{ opacity: 0, x: -20 }}
             whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, amount: 0.15 }}
-            transition={{ duration: 0.55, delay: 0.07, ease: [0.16, 1, 0.3, 1] }}
-            className="py-4 sm:py-5 flex gap-3 sm:gap-3.5"
+            viewport={{ once: true, amount: 0.12 }}
+            transition={{ duration: 0.45, delay: 0.05, ease: [0.25, 1, 0.5, 1] }}
+            className="py-4 sm:py-5 flex gap-3 sm:gap-3.5 will-change-transform transform-gpu"
           >
             {/* Left Icon: Solid Filled Warm Amber Sparkles Icon */}
             <div className="shrink-0 w-6 h-6 flex items-center justify-center pt-0.5 select-none">
@@ -86,11 +86,11 @@ export default function About() {
 
           {/* Block 3 — BEYOND THE CODE */}
           <motion.div
-            initial={{ opacity: 0, x: -26 }}
+            initial={{ opacity: 0, x: -20 }}
             whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, amount: 0.15 }}
-            transition={{ duration: 0.55, delay: 0.12, ease: [0.16, 1, 0.3, 1] }}
-            className="py-4 sm:py-5 flex gap-3 sm:gap-3.5"
+            viewport={{ once: true, amount: 0.12 }}
+            transition={{ duration: 0.45, delay: 0.08, ease: [0.25, 1, 0.5, 1] }}
+            className="py-4 sm:py-5 flex gap-3 sm:gap-3.5 will-change-transform transform-gpu"
           >
             {/* Left Icon: Solid Filled Soft Cyan Rocket Icon */}
             <div className="shrink-0 w-6 h-6 flex items-center justify-center pt-0.5 select-none">
@@ -116,11 +116,11 @@ export default function About() {
 
           {/* Block 4 — EDUCATION */}
           <motion.div
-            initial={{ opacity: 0, x: -26 }}
+            initial={{ opacity: 0, x: -20 }}
             whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, amount: 0.15 }}
-            transition={{ duration: 0.55, delay: 0.17, ease: [0.16, 1, 0.3, 1] }}
-            className="py-4 sm:py-5 flex gap-3 sm:gap-3.5"
+            viewport={{ once: true, amount: 0.12 }}
+            transition={{ duration: 0.45, delay: 0.11, ease: [0.25, 1, 0.5, 1] }}
+            className="py-4 sm:py-5 flex gap-3 sm:gap-3.5 will-change-transform transform-gpu"
           >
             {/* Left Icon: Solid Filled Emerald GraduationCap Icon */}
             <div className="shrink-0 w-6 h-6 flex items-center justify-center pt-0.5 select-none">
