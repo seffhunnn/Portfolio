@@ -45,6 +45,12 @@ export default function Hero() {
   // Fallback placeholder grid (26 weeks = 6 months)
   const placeholderGrid = Array.from({ length: 26 }, () => Array(7).fill(0))
   const placeholderDays = Array.from({ length: 26 }, () => Array(7).fill(null))
+  const placeholderDaily = Array.from({ length: 28 }, (_, i) => ({
+    dayNumber: i + 1,
+    count: 0,
+    date: `2026-08-${String(i + 1).padStart(2, '0')}`,
+    weekday: i % 7,
+  }))
   const fallbackMonthLabels = [
     { name: 'Mar', colIndex: 0 },
     { name: 'Apr', colIndex: 4 },
@@ -56,6 +62,7 @@ export default function Hero() {
   const grid = liveGrid ?? placeholderGrid
   const days = liveDays ?? placeholderDays
   const monthLabels = liveMonthLabels ?? fallbackMonthLabels
+  const recentDaily = liveRecentDaily ?? placeholderDaily
   const totalContributions = liveTotal ?? null
 
   useEffect(() => {
@@ -316,12 +323,15 @@ export default function Hero() {
           />
 
           {/* Two-Column Telemetry Dashboard: Left = Dynamic Activity Curve, Right = 6-Month Contribution Grid */}
-          <motion.div 
-            variants={itemVariants}
-            className="w-full grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-6 mt-7 items-start"
-          >
+          <div className="w-full grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-6 mt-7 items-start">
             {/* Left Column: Dynamic Contribution Stats Wave Chart */}
-            <div className="flex flex-col gap-3 font-mono w-full">
+            <motion.div
+              initial={{ opacity: 0, x: -16 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true, margin: '-40px' }}
+              transition={{ duration: 0.5, delay: 0.05, ease: [0.22, 1, 0.36, 1] }}
+              className="flex flex-col gap-3 font-mono w-full"
+            >
               <div className="flex items-center justify-between text-[11.5px] text-zinc-450">
                 <div className="flex items-center gap-1.5">
                   <span className="w-0.5 h-3 rounded-full bg-[#ffdd00]" />
@@ -331,16 +341,22 @@ export default function Hero() {
               </div>
 
               <div className="w-full h-[175px] p-2.5 sm:p-3 rounded-xl bg-black/40 border border-zinc-900/80 backdrop-blur-sm flex items-center">
-                <ContributionStatsChart dailyData={liveRecentDaily} loading={!isDataReady} />
+                <ContributionStatsChart dailyData={recentDaily} loading={!isDataReady} />
               </div>
 
               <div className="flex items-center justify-between text-[10px] text-zinc-500 mt-0.5 select-none">
                 <span>Telemetry Curve</span>
               </div>
-            </div>
+            </motion.div>
 
             {/* Right Column: GitHub 6-Month Contributions Section */}
-            <div className="flex flex-col gap-3 font-mono w-full">
+            <motion.div
+              initial={{ opacity: 0, x: -16 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true, margin: '-40px' }}
+              transition={{ duration: 0.5, delay: 0.12, ease: [0.22, 1, 0.36, 1] }}
+              className="flex flex-col gap-3 font-mono w-full"
+            >
               {/* Header info row */}
               <div className="flex items-center justify-between text-[11.5px] text-zinc-450">
                 {/* Contributions with Left Accent Bar */}
@@ -489,8 +505,8 @@ export default function Hero() {
                   <span>More</span>
                 </div>
               </div>
-            </div>
-          </motion.div>
+            </motion.div>
+          </div>
 
         </motion.div>
 

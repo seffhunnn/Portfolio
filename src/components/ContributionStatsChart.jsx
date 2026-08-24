@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
 
 export default function ContributionStatsChart({ dailyData = [], loading = false }) {
   const [hoveredPoint, setHoveredPoint] = useState(null)
@@ -75,273 +74,147 @@ export default function ContributionStatsChart({ dailyData = [], loading = false
   }
 
   return (
-    <AnimatePresence mode="wait">
-      {isLoading ? (
-        <motion.div
-          key="loading"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 0.45, ease: 'easeOut' }}
-          className="flex flex-col w-full font-mono select-none relative h-full justify-center"
+    <div className="flex flex-col w-full font-mono select-none relative">
+      {/* Chart Canvas */}
+      <div className="relative w-full" style={{ minHeight: 105 }}>
+        <svg 
+          viewBox={`0 0 ${width} ${height + 12}`} 
+          className="w-full h-full overflow-visible"
         >
-          <div className="relative w-full aspect-[360/105] flex items-center justify-center">
-            <svg viewBox="0 0 360 117" className="w-full h-full overflow-visible">
-              <defs>
-                <linearGradient id="shimmerGradient" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="0%" stopColor="#c28000" stopOpacity="0.14" />
-                  <stop offset="100%" stopColor="#c28000" stopOpacity="0.0" />
-                </linearGradient>
-              </defs>
+          <defs>
+            <linearGradient id="amberCurveGradient" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stopColor="#c28000" stopOpacity="0.18" />
+              <stop offset="100%" stopColor="#c28000" stopOpacity="0.0" />
+            </linearGradient>
+            <filter id="amberGlowEffect" x="-20%" y="-20%" width="140%" height="140%">
+              <feDropShadow dx="0" dy="0" stdDeviation="1" floodColor="#c28000" floodOpacity="0.25" />
+            </filter>
+          </defs>
 
-              {/* Y-Axis Skeleton Ticks & Dotted Grid Lines */}
-              {[12, 8, 4, 0].map((val, idx) => {
-                const y = 12 + (idx / 3) * 73
-                return (
-                  <g key={val}>
-                    <text
-                      x={18}
-                      y={y + 3}
-                      textAnchor="end"
-                      fill="#3f3f46"
-                      fontSize="8"
-                      style={fontStyle}
-                    >
-                      {val}
-                    </text>
-                    <line
-                      x1="24"
-                      y1={y}
-                      x2="350"
-                      y2={y}
-                      stroke="#27272a"
-                      strokeWidth="0.8"
-                      strokeDasharray="2 2"
-                    />
-                  </g>
-                )
-              })}
-
-              {/* Vertical dotted grid lines */}
-              {[24, 70, 116, 162, 208, 254, 300, 350].map((xVal, i) => (
+          {/* Y-Axis Clean Numeric Ticks & Dotted Grid Lines */}
+          {yTicks.map((val) => {
+            const y = padTop + plotH - (val / maxVal) * plotH
+            return (
+              <g key={val}>
+                <text
+                  x={padLeft - 6}
+                  y={y + 3}
+                  textAnchor="end"
+                  fill="#71717a"
+                  fontSize="8"
+                  style={fontStyle}
+                >
+                  {val}
+                </text>
+                {/* Horizontal dotted grid line */}
                 <line
-                  key={i}
-                  x1={xVal}
-                  y1="12"
-                  x2={xVal}
-                  y2="85"
-                  stroke="#27272a"
-                  strokeWidth="0.7"
+                  x1={padLeft}
+                  y1={y}
+                  x2={width - padRight}
+                  y2={y}
+                  stroke="#3f3f46"
+                  strokeWidth="0.8"
                   strokeDasharray="2 2"
+                  strokeOpacity="0.85"
                 />
-              ))}
-
-              {/* Smooth Skeleton Area & Wave Line */}
-              <g className="animate-pulse">
-                <path
-                  d="M 24 75 C 65 30, 95 75, 130 40 C 170 15, 200 60, 240 32 C 280 18, 315 50, 350 25 L 350 85 L 24 85 Z"
-                  fill="url(#shimmerGradient)"
-                />
-                <path
-                  d="M 24 75 C 65 30, 95 75, 130 40 C 170 15, 200 60, 240 32 C 280 18, 315 50, 350 25"
-                  fill="none"
-                  stroke="#c28000"
-                  strokeWidth="1.6"
-                  strokeLinecap="round"
-                  strokeOpacity="0.7"
-                />
-
-                {/* Subtle Nodes */}
-                {[
-                  { x: 24, y: 75 },
-                  { x: 70, y: 35 },
-                  { x: 116, y: 65 },
-                  { x: 162, y: 25 },
-                  { x: 208, y: 55 },
-                  { x: 254, y: 32 },
-                  { x: 300, y: 42 },
-                  { x: 350, y: 25 },
-                ].map((pt, i) => (
-                  <circle
-                    key={i}
-                    cx={pt.x}
-                    cy={pt.y}
-                    r="2.2"
-                    fill="#3d2800"
-                    stroke="#c28000"
-                    strokeWidth="1"
-                  />
-                ))}
               </g>
+            )
+          })}
 
-              {/* X-Axis Skeleton Day Numbers */}
-              {[27, 31, 4, 8, 12, 16, 20, 23].map((day, idx) => {
-                const x = 24 + (idx / 7) * 326
-                return (
+          {/* Vertical dotted lines for all day columns */}
+          {points.map((pt, idx) => (
+            <line
+              key={idx}
+              x1={pt.x}
+              y1={padTop}
+              x2={pt.x}
+              y2={padTop + plotH}
+              stroke="#3f3f46"
+              strokeWidth="0.7"
+              strokeDasharray="2 2"
+              strokeOpacity="0.75"
+            />
+          ))}
+
+          {/* Smooth Warm Amber Filled Area */}
+          {areaPath && (
+            <path
+              d={areaPath}
+              fill="url(#amberCurveGradient)"
+              className={isLoading ? "animate-pulse" : ""}
+            />
+          )}
+
+          {/* Smooth Warm Golden Amber Wave Line */}
+          {linePath && (
+            <path
+              d={linePath}
+              fill="none"
+              stroke="#c28000"
+              strokeWidth="1.6"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              filter="url(#amberGlowEffect)"
+              className={isLoading ? "animate-pulse" : ""}
+            />
+          )}
+
+          {/* Data Points (Dots) & X-Axis Labels */}
+          {points.map((pt, idx) => {
+            const isHovered = hoveredPoint?.index === idx
+            const showXLabel = idx % xTickInterval === 0 || idx === points.length - 1
+
+            return (
+              <g key={idx} className="cursor-pointer">
+                {/* X-axis day numbers */}
+                {showXLabel && (
                   <text
-                    key={idx}
-                    x={x}
-                    y={94.5}
+                    x={pt.x}
+                    y={padTop + plotH + 9.5}
                     textAnchor="middle"
-                    fill="#3f3f46"
+                    fill="#71717a"
                     fontSize="7.5"
                     style={fontStyle}
                   >
-                    {day}
+                    {pt.dayNumber}
                   </text>
-                )
-              })}
-            </svg>
+                )}
+
+                {/* Visible Data Dot */}
+                <circle
+                  cx={pt.x}
+                  cy={pt.y}
+                  r={isHovered ? 3.6 : 2.2}
+                  fill={isHovered ? '#ffdd00' : '#3d2800'}
+                  stroke={isHovered ? '#ffdd00' : '#c28000'}
+                  strokeWidth={isHovered ? 1.5 : 1}
+                  style={{ transition: 'all 150ms ease' }}
+                  onMouseEnter={() => setHoveredPoint(pt)}
+                  onMouseLeave={() => setHoveredPoint(null)}
+                />
+              </g>
+            )
+          })}
+        </svg>
+
+        {/* Dynamic Tooltip on Dot Hover */}
+        {hoveredPoint && (
+          <div
+            className="pointer-events-none absolute z-30 px-2.5 py-1.5 rounded-[5px] bg-[#0a0a0a] border border-zinc-800 text-[10px] shadow-lg whitespace-nowrap"
+            style={{
+              left: `${(hoveredPoint.x / width) * 100}%`,
+              top: `${(hoveredPoint.y / height) * 100}%`,
+              transform: 'translate(-50%, -130%)',
+            }}
+          >
+            <div className="text-zinc-400 text-[9px] leading-none mb-1">{hoveredPoint.date}</div>
+            <div className="font-bold text-white leading-none">
+              <span className="text-[#ffdd00]">{hoveredPoint.count}</span>
+              <span className="text-zinc-400 font-normal"> contribution{hoveredPoint.count !== 1 ? 's' : ''}</span>
+            </div>
           </div>
-        </motion.div>
-      ) : (
-        <motion.div
-          key="loaded"
-          initial={{ opacity: 0, scale: 0.98 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.55, ease: [0.25, 1, 0.5, 1] }}
-          className="flex flex-col w-full font-mono select-none relative"
-        >
-          {/* Chart Canvas */}
-          <div className="relative w-full" style={{ minHeight: 105 }}>
-            <svg 
-              viewBox={`0 0 ${width} ${height + 12}`} 
-              className="w-full h-full overflow-visible"
-            >
-              <defs>
-                <linearGradient id="amberCurveGradient" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="0%" stopColor="#c28000" stopOpacity="0.18" />
-                  <stop offset="100%" stopColor="#c28000" stopOpacity="0.0" />
-                </linearGradient>
-                <filter id="amberGlowEffect" x="-20%" y="-20%" width="140%" height="140%">
-                  <feDropShadow dx="0" dy="0" stdDeviation="1" floodColor="#c28000" floodOpacity="0.25" />
-                </filter>
-              </defs>
-
-              {/* Y-Axis Clean Numeric Ticks & Dotted Grid Lines */}
-              {yTicks.map((val) => {
-                const y = padTop + plotH - (val / maxVal) * plotH
-                return (
-                  <g key={val}>
-                    <text
-                      x={padLeft - 6}
-                      y={y + 3}
-                      textAnchor="end"
-                      fill="#71717a"
-                      fontSize="8"
-                      style={fontStyle}
-                    >
-                      {val}
-                    </text>
-                    {/* Horizontal dotted grid line */}
-                    <line
-                      x1={padLeft}
-                      y1={y}
-                      x2={width - padRight}
-                      y2={y}
-                      stroke="#3f3f46"
-                      strokeWidth="0.8"
-                      strokeDasharray="2 2"
-                      strokeOpacity="0.85"
-                    />
-                  </g>
-                )
-              })}
-
-              {/* Vertical dotted lines for all day columns */}
-              {points.map((pt, idx) => (
-                <line
-                  key={idx}
-                  x1={pt.x}
-                  y1={padTop}
-                  x2={pt.x}
-                  y2={padTop + plotH}
-                  stroke="#3f3f46"
-                  strokeWidth="0.7"
-                  strokeDasharray="2 2"
-                  strokeOpacity="0.75"
-                />
-              ))}
-
-              {/* Smooth Warm Amber Filled Area */}
-              {areaPath && (
-                <path
-                  d={areaPath}
-                  fill="url(#amberCurveGradient)"
-                />
-              )}
-
-              {/* Smooth Warm Golden Amber Wave Line */}
-              {linePath && (
-                <path
-                  d={linePath}
-                  fill="none"
-                  stroke="#c28000"
-                  strokeWidth="1.6"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  filter="url(#amberGlowEffect)"
-                />
-              )}
-
-              {/* Data Points (Dots) & X-Axis Labels */}
-              {points.map((pt, idx) => {
-                const isHovered = hoveredPoint?.index === idx
-                const showXLabel = idx % xTickInterval === 0 || idx === points.length - 1
-
-                return (
-                  <g key={idx} className="cursor-pointer">
-                    {/* X-axis day numbers */}
-                    {showXLabel && (
-                      <text
-                        x={pt.x}
-                        y={padTop + plotH + 9.5}
-                        textAnchor="middle"
-                        fill="#71717a"
-                        fontSize="7.5"
-                        style={fontStyle}
-                      >
-                        {pt.dayNumber}
-                      </text>
-                    )}
-
-                    {/* Visible Data Dot */}
-                    <circle
-                      cx={pt.x}
-                      cy={pt.y}
-                      r={isHovered ? 3.6 : 2.2}
-                      fill={isHovered ? '#ffdd00' : '#3d2800'}
-                      stroke={isHovered ? '#ffdd00' : '#c28000'}
-                      strokeWidth={isHovered ? 1.5 : 1}
-                      style={{ transition: 'all 150ms ease' }}
-                      onMouseEnter={() => setHoveredPoint(pt)}
-                      onMouseLeave={() => setHoveredPoint(null)}
-                    />
-                  </g>
-                )
-              })}
-            </svg>
-
-            {/* Dynamic Tooltip on Dot Hover */}
-            {hoveredPoint && (
-              <div
-                className="pointer-events-none absolute z-30 px-2.5 py-1.5 rounded-[5px] bg-[#0a0a0a] border border-zinc-800 text-[10px] shadow-lg whitespace-nowrap"
-                style={{
-                  left: `${(hoveredPoint.x / width) * 100}%`,
-                  top: `${(hoveredPoint.y / height) * 100}%`,
-                  transform: 'translate(-50%, -130%)',
-                }}
-              >
-                <div className="text-zinc-400 text-[9px] leading-none mb-1">{hoveredPoint.date}</div>
-                <div className="font-bold text-white leading-none">
-                  <span className="text-[#ffdd00]">{hoveredPoint.count}</span>
-                  <span className="text-zinc-400 font-normal"> contribution{hoveredPoint.count !== 1 ? 's' : ''}</span>
-                </div>
-              </div>
-            )}
-          </div>
-        </motion.div>
-      )}
-    </AnimatePresence>
+        )}
+      </div>
+    </div>
   )
 }

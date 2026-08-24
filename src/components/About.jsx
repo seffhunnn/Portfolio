@@ -29,7 +29,13 @@ export default function About() {
         <div className="flex flex-col">
           
           {/* Block 1 — Description */}
-          <div className="py-4 sm:py-5 flex gap-3 sm:gap-3.5">
+          <motion.div
+            initial={{ opacity: 0, x: -16 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, margin: '-40px' }}
+            transition={{ duration: 0.5, delay: 0.05, ease: [0.22, 1, 0.36, 1] }}
+            className="py-4 sm:py-5 flex gap-3 sm:gap-3.5"
+          >
             {/* Left Icon: Solid Filled Indigo User Icon */}
             <div className="shrink-0 w-6 h-6 flex items-center justify-center pt-0.5 select-none">
               <User size={19} className="text-indigo-400 fill-indigo-400/90" />
@@ -52,10 +58,16 @@ export default function About() {
                 ))}
               </div>
             </div>
-          </div>
+          </motion.div>
 
           {/* Block 2 — WHAT I CARE ABOUT */}
-          <div className="py-4 sm:py-5 flex gap-3 sm:gap-3.5">
+          <motion.div
+            initial={{ opacity: 0, x: -16 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, margin: '-40px' }}
+            transition={{ duration: 0.5, delay: 0.12, ease: [0.22, 1, 0.36, 1] }}
+            className="py-4 sm:py-5 flex gap-3 sm:gap-3.5"
+          >
             {/* Left Icon: Solid Filled Warm Amber Sparkles Icon */}
             <div className="shrink-0 w-6 h-6 flex items-center justify-center pt-0.5 select-none">
               <Sparkles size={19} className="text-amber-400 fill-amber-400/90" />
@@ -76,10 +88,16 @@ export default function About() {
                 Simplicity, good design, and natural usability are what I am passionate about. Performance, accessibility, and attention to detail are the principles I follow to achieve them.
               </p>
             </div>
-          </div>
+          </motion.div>
 
           {/* Block 3 — BEYOND THE CODE */}
-          <div className="py-4 sm:py-5 flex gap-3 sm:gap-3.5">
+          <motion.div
+            initial={{ opacity: 0, x: -16 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, margin: '-40px' }}
+            transition={{ duration: 0.5, delay: 0.18, ease: [0.22, 1, 0.36, 1] }}
+            className="py-4 sm:py-5 flex gap-3 sm:gap-3.5"
+          >
             {/* Left Icon: Solid Filled Soft Cyan Rocket Icon */}
             <div className="shrink-0 w-6 h-6 flex items-center justify-center pt-0.5 select-none">
               <Rocket size={19} className="text-cyan-400 fill-cyan-400/90" />
@@ -100,10 +118,16 @@ export default function About() {
                 Outside of software, I enjoy maintaining a balance between creating, learning, and stepping away. I appreciate moments that offer a new perspective and keep me from settling into my comfort zone.
               </p>
             </div>
-          </div>
+          </motion.div>
 
           {/* Block 4 — EDUCATION */}
-          <div className="py-4 sm:py-5 flex gap-3 sm:gap-3.5">
+          <motion.div
+            initial={{ opacity: 0, x: -16 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, margin: '-40px' }}
+            transition={{ duration: 0.5, delay: 0.24, ease: [0.22, 1, 0.36, 1] }}
+            className="py-4 sm:py-5 flex gap-3 sm:gap-3.5"
+          >
             {/* Left Icon: Solid Filled Emerald GraduationCap Icon */}
             <div className="shrink-0 w-6 h-6 flex items-center justify-center pt-0.5 select-none">
               <GraduationCap size={19} className="text-emerald-400 fill-emerald-400/90" />
@@ -146,7 +170,7 @@ export default function About() {
                 ))}
               </div>
             </div>
-          </div>
+          </motion.div>
 
         </div>
 
