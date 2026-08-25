@@ -61,7 +61,7 @@ export const experiences = [
     type: 'Open Source',
     role: 'Contributor',
     company: 'GirlScript Summer of Code 2026',
-    period: 'May 2026 – August',
+    period: 'May 2026 – August 2026',
     logo: 'https://gssoc.girlscript.org/logo.png',
     description: "Contributed to real-world open-source projects by fixing bugs, improving UI/UX, and implementing features to make applications more reliable, accessible, and user-friendly.",
     tags: ['GSSoC', 'Open Source', 'GitHub', 'Community', 'Bug Fixes', 'UI/UX', 'Collaboration'],
