@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { createPortal } from 'react-dom'
 import { motion } from 'framer-motion'
 import { Mail, Heart, FileDown, ArrowDown } from 'lucide-react'
 import { personal } from '../data'
@@ -35,16 +36,37 @@ const itemVariants = {
   },
 }
 
+// Fallback 26 weeks of contribution days with calculated actual dates
+function getFallbackDays() {
+  const weeksCount = 26
+  const now = new Date()
+  const currentDayOfWeek = now.getDay()
+  
+  return Array.from({ length: weeksCount }, (_, w) => {
+    return Array.from({ length: 7 }, (_, d) => {
+      const daysAgo = (weeksCount - 1 - w) * 7 + (currentDayOfWeek - d)
+      const cellDate = new Date(now)
+      cellDate.setDate(now.getDate() - daysAgo)
+      const dateStr = cellDate.toISOString().split('T')[0]
+      return {
+        date: dateStr,
+        count: 0,
+        level: 0,
+      }
+    })
+  })
+}
+
 export default function Hero() {
   const { grid: liveGrid, days: liveDays, monthLabels: liveMonthLabels, recentDaily: liveRecentDaily, total: liveTotal, loading: contribLoading } = useGithubContributions()
   const [currentTime, setCurrentTime] = useState('')
-  const [tooltip, setTooltip] = useState({ visible: false, date: '', count: 0, x: 0, y: 0 })
+  const [tooltip, setTooltip] = useState({ visible: false, date: '', count: 0, vx: 0, vy: 0 })
   // Single shared ready flag — both panels flip to live state at exactly the same time
   const isDataReady = !contribLoading && Boolean(liveGrid && liveRecentDaily)
 
   // Fallback placeholder grid (26 weeks = 6 months)
   const placeholderGrid = Array.from({ length: 26 }, () => Array(7).fill(0))
-  const placeholderDays = Array.from({ length: 26 }, () => Array(7).fill(null))
+  const placeholderDays = getFallbackDays()
   const placeholderDaily = Array.from({ length: 28 }, (_, i) => ({
     dayNumber: i + 1,
     count: 0,
@@ -410,22 +432,20 @@ export default function Hero() {
                           return (
                             <div
                               key={rIdx}
-                              className={`w-full aspect-square rounded-[3.5px] ${isGridLoading ? 'bg-[#3d2800]/70 animate-pulse' : squareColors[level]} ${dayData ? 'cursor-pointer' : ''}`}
+                              className={`w-full aspect-square rounded-[3.5px] ${isGridLoading ? 'bg-[#3d2800]/70 animate-pulse' : squareColors[level]} cursor-pointer`}
                               style={{ 
                                 transition: 'transform 130ms ease', 
                                 position: 'relative',
                                 ...(isGridLoading ? { animationDelay: `${((cIdx % 6) * 0.12 + (rIdx % 4) * 0.08).toFixed(2)}s` } : {})
                               }}
                               onMouseEnter={e => {
-                                if (!dayData) return
-                                e.currentTarget.style.transform = 'scale(1.3)'
+                                e.currentTarget.style.transform = 'scale(1.28)'
                                 e.currentTarget.style.zIndex = '20'
                                 const rect = e.currentTarget.getBoundingClientRect()
                                 setTooltip({
                                   visible: true,
-                                  date: dayData.date,
-                                  count: dayData.count,
-                                  // store raw viewport coords — tooltip will be fixed
+                                  date: dayData?.date || '',
+                                  count: dayData?.count || 0,
                                   vx: rect.left + rect.width / 2,
                                   vy: rect.top,
                                 })
@@ -444,47 +464,54 @@ export default function Hero() {
                 </div>
               </div>
 
-              {/* Tooltip — rendered fixed so it's never clipped by any container */}
-              {tooltip.visible && (() => {
-                const TOOLTIP_W = 148
-                const formatted = (() => {
-                  try {
-                    return new Date(tooltip.date + 'T00:00:00').toLocaleDateString('en-US', {
-                      month: 'short', day: 'numeric', year: 'numeric'
-                    })
-                  } catch { return tooltip.date }
-                })()
-                // Clamp left so tooltip stays within viewport
-                const rawLeft = (tooltip.vx ?? 0) - TOOLTIP_W / 2
-                const clampedLeft = Math.max(8, Math.min(rawLeft, (typeof window !== 'undefined' ? window.innerWidth : 800) - TOOLTIP_W - 8))
-                // Show above block; if too close to top flip below
-                const above = (tooltip.vy ?? 60) > 60
-                return (
-                  <div
-                    className="pointer-events-none fixed z-[9999] select-none"
-                    style={{
-                      left: clampedLeft,
-                      top: above ? (tooltip.vy - 8) : (tooltip.vy + 22),
-                      transform: above ? 'translateY(-100%)' : 'translateY(0)',
-                      width: TOOLTIP_W,
-                    }}
-                  >
-                    <div className="bg-[#0a0a0a] border border-zinc-800/70 rounded-[6px] px-[10px] py-[7px] text-left shadow-lg">
-                      <div className="text-[10px] text-zinc-300 font-medium whitespace-nowrap leading-none mb-[5px]">{formatted}</div>
-                      <div className="text-[11px] font-bold whitespace-nowrap leading-none">
-                        <span className="text-[#ffdd00]">{tooltip.count}</span>
-                        <span className="text-zinc-500"> contribution{tooltip.count !== 1 ? 's' : ''}</span>
+              {/* Tooltip — rendered through portal directly to document.body so transformed parents never displace or clip it */}
+              {typeof document !== 'undefined' && tooltip.visible && tooltip.date && createPortal(
+                (() => {
+                  const TOOLTIP_W = 150
+                  const formatted = (() => {
+                    try {
+                      return new Date(tooltip.date + 'T00:00:00').toLocaleDateString('en-US', {
+                        month: 'short', day: 'numeric', year: 'numeric'
+                      })
+                    } catch { return tooltip.date }
+                  })()
+                  // Clamp left so tooltip stays within viewport
+                  const rawLeft = (tooltip.vx ?? 0) - TOOLTIP_W / 2
+                  const clampedLeft = Math.max(8, Math.min(rawLeft, (typeof window !== 'undefined' ? window.innerWidth : 800) - TOOLTIP_W - 8))
+                  // Show above block; if too close to top flip below
+                  const above = (tooltip.vy ?? 60) > 60
+                  return (
+                    <div
+                      className="pointer-events-none fixed z-[99999] select-none"
+                      style={{
+                        left: clampedLeft,
+                        top: above ? (tooltip.vy - 8) : (tooltip.vy + 22),
+                        transform: above ? 'translateY(-100%)' : 'translateY(0)',
+                        width: TOOLTIP_W,
+                      }}
+                    >
+                      <div className="bg-[#0c0c0e] border border-zinc-700/90 rounded-lg px-2.5 py-1.5 text-left shadow-2xl backdrop-blur-md">
+                        <div className="text-[10px] text-zinc-400 font-mono leading-none mb-1">{formatted}</div>
+                        <div className="text-[11.5px] font-bold font-mono whitespace-nowrap leading-none flex items-center gap-1">
+                          <span className={tooltip.count > 0 ? "text-[#ffdd00]" : "text-zinc-300"}>
+                            {tooltip.count > 0 ? tooltip.count : 'No'}
+                          </span>
+                          <span className="text-zinc-400 font-normal">
+                            contribution{tooltip.count === 1 ? '' : 's'}
+                          </span>
+                        </div>
                       </div>
+                      {/* Arrow caret */}
+                      {above && (
+                        <div className="flex justify-center">
+                          <div className="w-[6px] h-[6px] bg-[#0c0c0e] border-r border-b border-zinc-700/90 rotate-45 -mt-[3px]" />
+                        </div>
+                      )}
                     </div>
-                    {/* Arrow caret */}
-                    {above && (
-                      <div className="flex justify-center">
-                        <div className="w-[6px] h-[6px] bg-[#0a0a0a] border-r border-b border-zinc-800/70 rotate-45 -mt-[3px]" />
-                      </div>
-                    )}
-                  </div>
-                )
-              })()}
+                  )
+                })(),
+                document.body
+              )}
 
               {/* Legend & Stats footer */}
               <div className="flex items-center justify-between text-[10px] text-zinc-500 mt-0.5 select-none">
