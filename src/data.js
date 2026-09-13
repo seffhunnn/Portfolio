@@ -129,6 +129,15 @@ export const projects = [
     featured: true,
   },
   {
+    title: 'My Prompt Sucks',
+    description: 'A minimal Chrome extension that optimizes poorly structured AI prompts inline using the Gemini API and a keyboard shortcut.',
+    tags: ['Chrome Extension', 'Gemini API', 'JavaScript', 'Manifest V3'],
+    github: 'https://github.com/seffhunnn/my-prompt-sucks',
+    live: 'https://github.com/seffhunnn/my-prompt-sucks/releases/latest',
+    image: '/projects/myPromptSucks.jpeg',
+    featured: true,
+  },
+  {
     title: 'AI Crop Disease Detection',
     description: 'An AI-powered web app for detecting rice and pulse crop diseases through image analysis.',
     tags: ['PyTorch', 'Python', 'Streamlit', 'CNN', 'Machine Learning'],
