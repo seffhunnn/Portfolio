@@ -338,6 +338,48 @@ export const techIconMap = {
       </svg>
     ),
   },
+  // Google Gemini / Gemini API
+  'gemini': {
+    name: 'Gemini API',
+    color: '#4E87F8',
+    svg: (
+      <svg viewBox="0 0 24 24" className="w-6 h-6 shrink-0">
+        <path
+          fill="#4E87F8"
+          d="M12 2C12 7.52 7.52 12 2 12c5.48 0 9.92 4.48 10 10V2z"
+        />
+        <path
+          fill="#9B72CB"
+          d="M12 22c.08-5.52 4.52-10 10-10-5.48 0-10-4.48-10-10v20z"
+        />
+      </svg>
+    ),
+  },
+  // Chrome / Chrome Extension
+  'chrome': {
+    name: 'Chrome Extension',
+    color: '#4285F4',
+    svg: (
+      <svg viewBox="0 0 24 24" className="w-6 h-6 shrink-0">
+        <circle cx="12" cy="12" r="10" fill="#4285F4" />
+        <circle cx="12" cy="12" r="8" fill="#FFFFFF" />
+        <path fill="#EA4335" d="M12 4a8 8 0 0 0-6.93 4l3.46 6A4 4 0 0 1 12 8h7.46A8 8 0 0 0 12 4z" />
+        <path fill="#FBBC05" d="M19.46 8H12a4 4 0 0 0-3.46 2L5.07 4a8 8 0 0 0-1.07 4 8 8 0 0 0 .54 2.87l3.46 6A4 4 0 0 0 12 16a4 4 0 0 0 2-.54l3.46 6A8 8 0 0 0 20 12a8 8 0 0 0-.54-4z" />
+        <path fill="#34A853" d="M12 20a8 8 0 0 0 6.93-4l-3.46-6A4 4 0 0 1 12 16H4.54A8 8 0 0 0 12 20z" />
+        <circle cx="12" cy="12" r="3.5" fill="#4285F4" />
+      </svg>
+    ),
+  },
+  // Manifest V3 / Extension Standard
+  'manifest': {
+    name: 'Manifest V3',
+    color: '#FFCA28',
+    svg: (
+      <svg viewBox="0 0 24 24" className="w-6 h-6 shrink-0" fill="#FFCA28">
+        <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z" />
+      </svg>
+    ),
+  },
 }
 
 export function getTechBadge(tag) {
