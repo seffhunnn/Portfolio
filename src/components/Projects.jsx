@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
+import { motion } from 'framer-motion'
 import { ArrowUpRight, ExternalLink, ChevronDown } from 'lucide-react'
 import { projects, personal } from '../data'
 import { getTechBadge } from '../utils/techIcons'
@@ -19,7 +19,7 @@ function ProjectCard({ project }) {
     .slice(0, 5)
 
   return (
-    <div className="relative rounded-xl bg-zinc-950/90 border border-zinc-800/80 overflow-hidden group transition-all duration-300 hover:-translate-y-1 hover:border-zinc-700/80 flex flex-col h-full will-change-transform transform-gpu shadow-sm">
+    <div className="relative rounded-xl bg-zinc-950/90 border border-zinc-800/80 overflow-hidden group transition-all duration-300 hover:-translate-y-1 hover:border-zinc-700/80 flex flex-col h-full shadow-sm">
       
       {/* 1. Image Area */}
       <div className="relative w-full aspect-[16/9.5] overflow-hidden bg-zinc-950">
@@ -184,6 +184,28 @@ export default function Projects() {
   const initialProjects = (projects || []).slice(0, 2)
   const extraProjects = (projects || []).slice(2)
 
+  const handleToggleShow = () => {
+    if (showAll) {
+      // 1. Immediately initiate smooth collapse
+      setShowAll(false)
+
+      // 2. Simultaneously glide camera up to #projects with synchronized cubic easing
+      const el = document.getElementById('projects')
+      if (window.__lenis) {
+        window.__lenis.scrollTo(el || '#projects', {
+          offset: -70,
+          duration: 0.6,
+          easing: (t) => 1 - Math.pow(1 - t, 3),
+        })
+      } else {
+        const top = el ? el.getBoundingClientRect().top + window.scrollY - 70 : 0
+        window.scrollTo({ top, behavior: 'smooth' })
+      }
+    } else {
+      setShowAll(true)
+    }
+  }
+
   return (
     <section id="projects" className="pt-6 pb-2 sm:pt-8 sm:pb-3 relative z-10">
       <div className="max-w-[940px] mx-auto px-5 sm:px-8">
@@ -211,11 +233,11 @@ export default function Projects() {
         {/* Top Divider */}
         <div className="h-px w-full bg-zinc-800/60 mb-5 sm:mb-6" />
 
-        {/* Centered Responsive Grid with Smooth Hardware-Accelerated Landing */}
+        {/* Centered Responsive Grid with Smooth Left-to-Right Landing */}
         <motion.div 
-          initial={{ opacity: 0, x: -16 }}
+          initial={{ opacity: 0, x: -20 }}
           whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true, amount: 0.1 }}
+          viewport={{ once: true, amount: 0.12 }}
           transition={{ duration: 0.45, ease: [0.25, 1, 0.5, 1] }}
           className="max-w-[860px] mx-auto will-change-transform transform-gpu"
         >
@@ -226,31 +248,32 @@ export default function Projects() {
             ))}
           </div>
 
-          {/* Additional Projects with Smooth Slide Down & Up Animation */}
-          <AnimatePresence initial={false}>
-            {showAll && (
-              <motion.div
-                initial={{ opacity: 0, height: 0 }}
-                animate={{ opacity: 1, height: 'auto' }}
-                exit={{ opacity: 0, height: 0 }}
-                transition={{ duration: 0.45, ease: [0.25, 1, 0.5, 1] }}
-                className="overflow-hidden"
-              >
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4.5 sm:gap-5 pt-4.5 sm:pt-5">
-                  {extraProjects.map((project, index) => (
-                    <ProjectCard key={index + 2} project={project} />
-                  ))}
-                </div>
-              </motion.div>
-            )}
-          </AnimatePresence>
+          {/* Additional Projects with Smooth Hardware-Accelerated CSS Grid Transition */}
+          <div
+            className="grid"
+            style={{
+              gridTemplateRows: showAll ? '1fr' : '0fr',
+              opacity: showAll ? 1 : 0,
+              transition: showAll
+                ? 'grid-template-rows 500ms cubic-bezier(0.16, 1, 0.3, 1), opacity 400ms cubic-bezier(0.16, 1, 0.3, 1)'
+                : 'grid-template-rows 600ms cubic-bezier(0.16, 1, 0.3, 1), opacity 300ms ease-out',
+            }}
+          >
+            <div className="overflow-hidden">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4.5 sm:gap-5 pt-4.5 sm:pt-5">
+                {extraProjects.map((project, index) => (
+                  <ProjectCard key={index + 2} project={project} />
+                ))}
+              </div>
+            </div>
+          </div>
 
           {/* Show More / Show Less Toggle Button */}
           {projects && projects.length > 2 && (
             <div className="flex justify-center mt-5 sm:mt-6">
               <button
                 type="button"
-                onClick={() => setShowAll(prev => !prev)}
+                onClick={handleToggleShow}
                 className="px-4 py-1.5 rounded-xl bg-zinc-900/80 hover:bg-zinc-800 border border-zinc-800 hover:border-zinc-700 text-zinc-300 hover:text-zinc-100 font-mono text-[11.5px] flex items-center gap-1.5 transition-all duration-200 shadow-sm cursor-pointer select-none"
               >
                 <span>{showAll ? 'Show less' : `Show more (+${extraProjects.length})`}</span>
