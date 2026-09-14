@@ -120,6 +120,15 @@ export const techStack = [
 
 export const projects = [
   {
+    title: 'My Prompt Sucks',
+    description: 'A minimal Chrome extension that optimizes poorly structured AI prompts inline using the Gemini API and a keyboard shortcut.',
+    tags: ['Chrome Extension', 'Gemini API', 'JavaScript', 'Manifest V3'],
+    github: 'https://github.com/seffhunnn/my-prompt-sucks',
+    live: 'https://mypromptsucks.vercel.app/',
+    image: '/projects/myPromptSucks.jpeg',
+    featured: true,
+  },
+  {
     title: 'FragVerse Wallpaper App',
     description: 'A wallpaper platform to discover vibe based collections, curated drops, and exclusive FragVerse uploads.',
     tags: ['React', 'Vite', 'Tailwind CSS', 'Supabase', 'Cloudinary', 'Firebase'],
@@ -127,16 +136,7 @@ export const projects = [
     live: 'https://fragverse.vercel.app/',
     image: '/projects/fragverse.png',
     featured: true,
-  },
-  {
-    title: 'My Prompt Sucks',
-    description: 'A minimal Chrome extension that optimizes poorly structured AI prompts inline using the Gemini API and a keyboard shortcut.',
-    tags: ['Chrome Extension', 'Gemini API', 'JavaScript', 'Manifest V3'],
-    github: 'https://github.com/seffhunnn/my-prompt-sucks',
-    live: 'https://github.com/seffhunnn/my-prompt-sucks/releases/latest',
-    image: '/projects/myPromptSucks.jpeg',
-    featured: true,
-  },
+  },  
   {
     title: 'AI Crop Disease Detection',
     description: 'An AI-powered web app for detecting rice and pulse crop diseases through image analysis.',
