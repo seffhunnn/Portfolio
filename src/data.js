@@ -53,7 +53,7 @@ export const experiences = [
     role: 'Software Tester',
     company: 'Nothing Technology Limited',
     period: 'October 2024 – Present',
-    logo: 'https://img.logo.dev/nothing.tech?token=live_6a1a28fd-6420-4492-aeb0-b297461d9de2&size=128&retina=true&format=png',
+    logo: 'https://zonalogo.com/assets/nothing-logo-png-svg.webp?asset=3314',
     description: 'Conducted User Acceptance Testing (UAT) on consumer devices and software, identifying and documenting bugs while providing actionable feedback to improve product stability, usability, and overall software quality.',
     tags: ['User Acceptance Testing (UAT)', 'Bug Reporting', 'Quality Assurance', 'Performance Testing', 'Usability Testing', 'Collaboration', 'Product Quality'],
   },
@@ -92,6 +92,33 @@ export const experiences = [
     logo: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRNZccH9m1-lzQxBhQ9tPml81hrxDGX8kRUvwylWanc0Q&s=10',
     description: 'Worked with a team to build and pitch a project through IBM SkillsBuild, focusing on frontend development and creating a simple, user-friendly interface.',
     tags: ['Web Development', 'Teamwork', 'Creative Thinking','Front-end Development', 'User-Friendly Interfaces'],
+  },
+]
+
+export const certifications = [
+  {
+    id: 'gssoc-2026',
+    title: 'Certificate of Participation',
+    issuer: 'GirlScript Foundation',
+    period: 'May 2026 – Aug 2026',
+    pdf: '/certificates/certificate-1.pdf',
+    previewImage: '/certificates/certificate-1.png',
+  },
+  {
+    id: 'infosys-springboard-6.0',
+    title: 'Certificate of Completion',
+    issuer: 'Infosys Springboard',
+    period: 'Nov 2025 – Jan 2026',
+    pdf: '/certificates/certificate-2.pdf',
+    previewImage: '/certificates/certificate-2.png',
+  },
+  {
+    id: 'ibm-skillsbuild-pbl',
+    title: 'Certificate of Project Based Learning',
+    issuer: 'IBM SkillsBuild',
+    period: 'Jul 2025 – Aug 2025',
+    pdf: '/certificates/certificate-3.pdf',
+    previewImage: '/certificates/certificate-3.png?v=2',
   },
 ]
 

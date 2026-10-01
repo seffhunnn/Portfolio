@@ -19,7 +19,7 @@ function ProjectCard({ project }) {
     .slice(0, 5)
 
   return (
-    <div className="relative rounded-xl bg-zinc-950/90 border border-zinc-800/80 overflow-hidden group transition-all duration-300 hover:-translate-y-1 hover:border-zinc-700/80 flex flex-col h-full shadow-sm">
+    <div className="relative rounded-xl bg-zinc-950/90 border border-zinc-800/80 overflow-hidden group transition-all duration-300 hover:-translate-y-1 hover:border-zinc-700/80 flex flex-col h-full shadow-sm transform-gpu">
       
       {/* 1. Image Area */}
       <div className="relative w-full aspect-[16/9.5] overflow-hidden bg-zinc-950">
@@ -27,8 +27,8 @@ function ProjectCard({ project }) {
           <img
             src={project.image}
             alt={project.title}
-            loading="lazy"
-            className="w-full h-full object-cover brightness-[0.92] transition-all duration-500 ease-out group-hover:scale-[1.02] group-hover:brightness-[0.25]"
+            decoding="async"
+            className="w-full h-full object-cover brightness-[0.92] transition-transform duration-500 ease-out group-hover:scale-[1.02] transform-gpu"
           />
         ) : (
           <div className="w-full h-full flex items-center justify-center bg-zinc-900 text-zinc-600 font-mono text-[10px]">
@@ -237,8 +237,8 @@ export default function Projects() {
         <motion.div 
           initial={{ opacity: 0, x: -20 }}
           whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true, amount: 0.12 }}
-          transition={{ duration: 0.45, ease: [0.25, 1, 0.5, 1] }}
+          viewport={{ once: true, amount: 0.05 }}
+          transition={{ duration: 0.4, ease: [0.25, 1, 0.5, 1] }}
           className="max-w-[860px] mx-auto will-change-transform transform-gpu"
         >
           {/* Initial 2 Projects */}
