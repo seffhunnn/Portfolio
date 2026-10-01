@@ -1,8 +1,9 @@
 import { useState, useEffect, useRef } from 'react'
 
 export default function DynamicBackground() {
-  const [offset, setOffset] = useState({ x: 0, y: 0 })
   const targetOffset = useRef({ x: 0, y: 0 })
+  const layer1Ref = useRef(null)
+  const layer2Ref = useRef(null)
   const rafId = useRef(null)
 
   useEffect(() => {
@@ -34,7 +35,13 @@ export default function DynamicBackground() {
       currentX += (targetOffset.current.x - currentX) * 0.04
       currentY += (targetOffset.current.y - currentY) * 0.04
 
-      setOffset({ x: currentX, y: currentY })
+      if (layer1Ref.current) {
+        layer1Ref.current.style.transform = `translate3d(${currentX}px, ${currentY}px, 0)`
+      }
+      if (layer2Ref.current) {
+        layer2Ref.current.style.transform = `translate3d(${currentX * 0.6}px, ${currentY * 0.6}px, 0)`
+      }
+
       rafId.current = window.requestAnimationFrame(loop)
     }
 
@@ -134,10 +141,9 @@ export default function DynamicBackground() {
 
       {/* Layer 1: Flanked Organic Abstract Curves (Sides Only) */}
       <div
-        className="absolute -inset-8"
+        ref={layer1Ref}
+        className="absolute -inset-8 will-change-transform transform-gpu"
         style={{
-          transform: `translate3d(${offset.x}px, ${offset.y}px, 0)`,
-          transition: 'transform 0.1s ease-out',
           maskImage:
             'linear-gradient(to right, black 0%, black 15%, rgba(0,0,0,0.5) 25%, transparent 35%, transparent 65%, rgba(0,0,0,0.5) 75%, black 85%, black 100%)',
           WebkitMaskImage:
@@ -254,10 +260,8 @@ export default function DynamicBackground() {
       {/* Layer 2: Subtle Motion Elements Located in Center Column Only */}
       <div className="absolute inset-0 flex justify-center pointer-events-none overflow-hidden">
         <div
-          className="w-full max-w-[1020px] h-full relative"
-          style={{
-            transform: `translate3d(${offset.x * 0.6}px, ${offset.y * 0.6}px, 0)`,
-          }}
+          ref={layer2Ref}
+          className="w-full max-w-[1020px] h-full relative will-change-transform transform-gpu"
         >
           {/* Subtle center floating curves */}
           <svg
@@ -302,7 +306,7 @@ export default function DynamicBackground() {
 
       {/* Layer 3: Translucent Diffused Center Backdrop (Gives the "noticed, not properly seen" ghostly diffusion) */}
       <div className="absolute inset-0 flex justify-center pointer-events-none">
-        <div className="w-full max-w-[1020px] h-full bg-[#0a0a0d]/10 backdrop-blur-[14px] relative" />
+        <div className="w-full max-w-[1020px] h-full bg-[#000000]/65 relative" />
       </div>
     </div>
   )

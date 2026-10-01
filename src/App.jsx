@@ -3,8 +3,9 @@ import Navbar from './components/Navbar'
 import Hero from './components/Hero'
 import About from './components/About'
 import Experience from './components/Experience'
-import Projects from './components/Projects'
+import Certifications from './components/Certifications'
 import Skills from './components/Skills'
+import Projects from './components/Projects'
 import Social from './components/Social'
 import Footer from './components/Footer'
 import DynamicBackground from './components/DynamicBackground'
@@ -28,8 +29,9 @@ export default function App() {
 
         <About />
         <Experience />
-        <Skills />
+        <Certifications />
         <Projects />
+        <Skills />
         <Social />
       </main>
       <Footer />
